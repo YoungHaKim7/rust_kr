@@ -1,6 +1,6 @@
 # struct
 
-```rs
+```rs,playground
 #[derive(Debug)]
 struct StoreData {
     name: String,

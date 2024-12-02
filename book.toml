@@ -8,3 +8,8 @@ title = "rust_kr"
 [output.html]
 git-repository-url = "https://github.com/YoungHaKim7/rust_kr"
 git-repository-icon = "fa-github"
+
+
+[output.html.playground]
+runnable = true
+editable = true
