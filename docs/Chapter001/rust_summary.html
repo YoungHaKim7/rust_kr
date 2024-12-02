@@ -159,10 +159,16 @@
 <h1 id="link"><a class="header" href="#link">link</a></h1>
 <ul>
 <li>
+<p><a href="#rust-string-vs-%EB%8B%A4%EB%A5%B8-%EC%96%B8%EC%96%B4%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90">Rust String VS 다른 언어의 String의 차이점</a></p>
+</li>
+<li>
 <p><a href="">오너쉽 이해하기 &amp;  Borrowing</a></p>
 </li>
 <li>
 <p><a href="">Stack &amp; Heap 메모리 이해하기_ Stack과 Heap은 개발자가 옛날에 정한  약속 같은거라 왼쪽은 stack / 오른쪽은 heap하자 느낌으로 기억하자</a></p>
+<ul>
+<li><a href="#stack-vs-heap%EC%9D%98-%EC%9E%A5%EC%A0%90">Stack vs Heap의 장점</a></li>
+</ul>
 </li>
 <li>
 <p>struct &amp; enum &amp; trait를 쓰는 경우</p>
@@ -175,7 +181,7 @@
 <li>
 <p>Memory 기초지식</p>
 <ul>
-<li>[Memory Basic]</li>
+<li><a href="http://www.egr.unlv.edu/~ed/assembly64.pdf">Memory Basic_assembly64.pdf</a></li>
 </ul>
 </li>
 </ul>
@@ -190,17 +196,9 @@
 <p>그림으로 이해해보자 RAM모양을 내 맘대로 정했다. 이게 외우기 젤 좋다.</p>
 </li>
 </ul>
-<img src="./../../assets/imgs/ram_image.png" />
-<img src="./../../assets/imgs/ram_free_imgs.png" />
-<h1 id="memory-basic"><a class="header" href="#memory-basic">Memory Basic<a href="#link">[🔝]</a></a></h1>
-<ul>
-<li>148p참고
-<ul>
-<li>http://www.egr.unlv.edu/~ed/assembly64.pdf</li>
-</ul>
-</li>
-</ul>
-<br/>
+<img src="https://github.com/user-attachments/assets/8f35a1e5-db8c-4f77-8ad0-99cf01ebf434" />
+<img src="https://github.com/user-attachments/assets/87213ad9-8b8b-43ef-8ab8-35c4eebe623a" />
+<br />
 <ul>
 <li>stack vs heap</li>
 </ul>
@@ -248,11 +246,7 @@
 <ul>
 <li>Text, data and bus: Code and Data Size Explained
 <ul>
-<li>(내가공부하려고 정리)Stack &amp; Heap 메모리개념잡기_clang-g-fsanitize=address_test01.c__LLDB_Debug디버그
-<ul>
-<li>https://youtu.be/OwQxo4sGVWo?si=0cj8CnTp6JWlII9q</li>
-</ul>
-</li>
+<li><a href="https://youtu.be/OwQxo4sGVWo?si=0cj8CnTp6JWlII9q">(내가공부하려고 정리)Stack &amp; Heap 메모리개념잡기_clang-g-fsanitize=address_test01.c__LLDB_Debug디버그</a></li>
 </ul>
 </li>
 </ul>
@@ -261,7 +255,7 @@
 <hr>
 <h1 id="stack-buffer-overflow"><a class="header" href="#stack-buffer-overflow">Stack buffer overflow<a href="#link">[🔝]</a></a></h1>
 <ul>
-<li>https://en.wikipedia.org/wiki/Stack_buffer_overflow</li>
+<li><a href="https://en.wikipedia.org/wiki/Stack_buffer_overflow">https://en.wikipedia.org/wiki/Stack_buffer_overflow</a></li>
 </ul>
 <h1 id="stackoverflowerror란"><a class="header" href="#stackoverflowerror란">stackOverFlowError란?<a href="#link">[🔝]</a></a></h1>
 <ul>
@@ -283,7 +277,9 @@
 </li>
 </ul>
 <h1 id="heap-overflow"><a class="header" href="#heap-overflow">Heap Overflow<a href="#link">[🔝]</a></a></h1>
-<p>https://en.wikipedia.org/wiki/Heap_overflow</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Heap_overflow">https://en.wikipedia.org/wiki/Heap_overflow</a></li>
+</ul>
 <h1 id="stack-vs-heap의-장점"><a class="header" href="#stack-vs-heap의-장점">Stack vs Heap의 장점<a href="#link">[🔝]</a></a></h1>
 <ul>
 <li>Stack
@@ -310,37 +306,36 @@
 </ul>
 </li>
 </ul>
-<hr>
+<hr />
 <ul>
 <li>
-<p>block starting symbol(BSS)
-https://en.wikipedia.org/wiki/.bss</p>
+<p><a href="https://en.wikipedia.org/wiki/.bss">block starting symbol(BSS)</a></p>
 </li>
 <li>
-<p>Memory Management Strategies-Let's Get Rusty
-https://www.youtube.com/watch?v=GUZ_2gGWuPo</p>
+<p><a href="https://www.youtube.com/watch?v=GUZ_2gGWuPo">Memory Management Strategies-Let's Get Rusty</a></p>
 </li>
 <li>
-<p>Is the stack memory allocated at runtime or compile time?
-https://stackoverflow.com/questions/10822176/is-the-stack-memory-allocated-at-runtime-or-compile-time#:~:text=Stack%20is%20allocated%20at%20runtime,except%20for%20variable%2Dsize%20arrays.&amp;text=In%20addition%20to%20the%20layout,decided%20before%20the%20program%20runs.</p>
+<p><a href="https://stackoverflow.com/questions/10822176/is-the-stack-memory-allocated-at-runtime-or-compile-time#:~:text=Stack%20is%20allocated%20at%20runtime,except%20for%20variable%2Dsize%20arrays.&amp;text=In%20addition%20to%20the%20layout,decided%20before%20the%20program%20runs.">Is the stack memory allocated at runtime or compile time?</a></p>
 </li>
 <li>
-<p>Stack vs Heap Memory Allocation
-https://www.geeksforgeeks.org/stack-vs-heap-memory-allocation/</p>
+<p><a href="https://www.geeksforgeeks.org/stack-vs-heap-memory-allocation/">Stack vs Heap Memory Allocation</a></p>
 </li>
 <li>
-<p>What and where are the stack and heap?
-https://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap#:~:text=A%20heap%20is%20a%20general,functions%20to%20do%20this%20allocation.</p>
+<p><a href="https://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap#:~:text=A%20heap%20is%20a%20general,functions%20to%20do%20this%20allocation.">What and where are the stack and heap?</a></p>
 </li>
 <li>
-<p>Text, data and bus: Code and Data Size Explained
-https://mcuoneclipse.com/2013/04/14/text-data-and-bss-code-and-data-size-explained/</p>
+<p><a href="https://mcuoneclipse.com/2013/04/14/text-data-and-bss-code-and-data-size-explained/">Text, data and bus: Code and Data Size Explained</a></p>
 </li>
 <li>
-<p>Heap overflow: Vulnerability and heap internals explained
-https://resources.infosecinstitute.com/topic/heap-overflow-vulnerability-and-heap-internals-explained/</p>
+<p><a href="https://resources.infosecinstitute.com/topic/heap-overflow-vulnerability-and-heap-internals-explained/">Heap overflow: Vulnerability and heap internals explained</a></p>
 </li>
 </ul>
+<br />
+<hr />
+<h1 id="rust-string-vs-다른-언어의-string의-차이점"><a class="header" href="#rust-string-vs-다른-언어의-string의-차이점">Rust String VS 다른 언어의 String의 차이점<a href="#link">|🔝|</a></a></h1>
+<p><img src="https://github.com/user-attachments/assets/3e9a790e-52ec-4980-b465-81c4f6b52576" alt="111111" /></p>
+<p><img src="https://github.com/user-attachments/assets/597fc72a-0adc-4054-a812-64434c1ca8bd" alt="2222222" />
+<img src="https://github.com/user-attachments/assets/d0cf3663-ee6b-432b-9ca3-ceeb1bbd4cdb" alt="3333" /></p>
 
                     </main>
 
@@ -365,6 +360,22 @@ https://resources.infosecinstitute.com/topic/heap-overflow-vulnerability-and-hea
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 
