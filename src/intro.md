@@ -4,11 +4,12 @@
     -  비전공자로 최선을 다해 정리했으니 부족한 부분이 있으면 기여해 주시면 수정하도록하겠습니다
     -  C/C++/zig코드와 비교하면서 easy rust다음 단계의 책을 만들 예정입니다.
 
-<script src="https://utteranc.es/client.js"
-        repo="https://github.com/YoungHaKim7/rust_book_comment_blog/"
-        issue-term="url"
-        label="question"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
+    - 다음 장 부터는 편하게 말을 놓도록 하겠습니다.  
+      -  부디 끝까지 살아남아서 보도록 합시다.  화이팅!!
+
+    <h1 id="comment">물어보고 싶거나 하고 싶은말 써 주세요comment</h1>
+
+    <script src="https://utteranc.es/client.js" repo="YoungHaKim7/blog_comments_bot" issue-term="url"
+        theme="github-light" crossorigin="anonymous" async>
+    </script>
+

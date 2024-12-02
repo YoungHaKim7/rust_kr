@@ -162,7 +162,7 @@
 <ul>
 <li>Reserved Word(예약어)
 <ul>
-<li>어떤 언어를 시작하든 처음에 할일은 예약을 우선 찾는다.  aka. 예약어로 변수 선언을 할 수 없다.</li>
+<li>어떤 언어를 시작하든 처음에 할일은 예약어를 우선 찾는다.  aka. 예약어로 변수를 선언을 할 수 없다.</li>
 </ul>
 </li>
 </ul>
@@ -221,22 +221,6 @@ int bis(int x, int m) {
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
 
