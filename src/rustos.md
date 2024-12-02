@@ -10,6 +10,6 @@
 
 # Mastro ( Unix-like kernel written in Rust) blog.lenot.re 
 - [https://github.com/maestro-os/maestro](https://github.com/maestro-os/maestro)
-
+  - [https://blog.lenot.re/](https://blog.lenot.re/)
 
 <hr />
