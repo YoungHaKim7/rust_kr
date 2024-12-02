@@ -6,7 +6,7 @@
 
 <script src="https://utteranc.es/client.js"
         repo="https://github.com/YoungHaKim7/rust_book_comment_blog"
-        issue-term="url"
+        issue-term="pathname"
         theme="github-light"
         crossorigin="anonymous"
         async>
