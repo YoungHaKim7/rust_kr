@@ -158,8 +158,7 @@
                     <main>
                         <h1 id="welcome소개"><a class="header" href="#welcome소개">welcome소개</a></h1>
 <ul>
-<li>
-<p>안녕하세요.  저는 러스트를 2021년 12월 <a href="https://youtube.com/playlist?list=PLfllocyHVgsSJf1zO6k6o3SX2mbZjAqYE&amp;si=9FDPCNOctQZy9qXU">easy rust</a>를 만나 러스트를 시작하여 지금까지의 여정을 책으로 정리했습니다</p>
+<li>안녕하세요.  저는 러스트를 2021년 12월 <a href="https://youtube.com/playlist?list=PLfllocyHVgsSJf1zO6k6o3SX2mbZjAqYE&amp;si=9FDPCNOctQZy9qXU">easy rust</a>를 만나 러스트를 시작하여 지금까지의 여정을 책으로 정리했습니다
 <ul>
 <li>
 <p>비전공자로 최선을 다해 정리했으니 부족한 부분이 있거나 &amp; 댓글에 알려주시거나 기여해 주시면 수정하도록 하겠습니다</p>
@@ -175,12 +174,13 @@
 </ul>
 </li>
 </ul>
-  <h1 id="comment"><a class="header" href="#comment">물어보고 싶거나 하고 싶은말 써 주세요comment</a></h1>
-  <script src="https://utteranc.es/client.js" repo="YoungHaKim7/blog_comments_bot" issue-term="url"
-      theme="github-light" crossorigin="anonymous" async>
-  </script>
 </li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="qa--질문하기---기여하기"><a class="header" href="#qa--질문하기---기여하기">Q&amp;A &amp; 질문하기 &amp;  기여하기</a></h1>
+<h1 id="comment"><a class="header" href="#comment">물어보고 싶거나 하고 싶은말 써 주세요comment</a></h1>
+<script src="https://utteranc.es/client.js" repo="YoungHaKim7/blog_comments_bot" issue-term="url"
+    theme="github-light" crossorigin="anonymous" async>
+</script>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-os-프로젝트"><a class="header" href="#rust-os-프로젝트">Rust OS 프로젝트</a></h1>
 <ul>
 <li><a href="https://github.com/redox-os">Redux</a></li>
@@ -561,22 +561,6 @@ int bis(int x, int m) {
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
 
