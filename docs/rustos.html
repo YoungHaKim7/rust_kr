@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>rust_kr</title>
-        <meta name="robots" content="noindex">
+        <title>Rust OS 프로젝트 - rust_kr</title>
 
 
         <!-- Custom HTML head -->
@@ -156,32 +155,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="welcome소개"><a class="header" href="#welcome소개">welcome소개</a></h1>
-<ul>
-<li>
-<p>안녕하세요.  저는 러스트를 2021년 12월 <a href="https://youtube.com/playlist?list=PLfllocyHVgsSJf1zO6k6o3SX2mbZjAqYE&amp;si=9FDPCNOctQZy9qXU">easy rust</a>를 만나 러스트를 시작하여 지금까지의 여정을 책으로 정리했습니다</p>
-<ul>
-<li>
-<p>비전공자로 최선을 다해 정리했으니 부족한 부분이 있으면 기여해 주시면 수정하도록하겠습니다</p>
-</li>
-<li>
-<p>C/C++/zig코드와 비교하면서 easy rust다음 단계의 책을 만들 예정입니다.</p>
-</li>
-<li>
-<p>다음 장 부터는 편하게 말을 놓도록 하겠습니다.</p>
-<ul>
-<li>부디 끝까지 살아남아서 천상계에서 보도록 합시다.  화이팅!!</li>
-<li>한국에서도 러스트OS 개발자가 나오는 그날을 향해</li>
-</ul>
-</li>
-</ul>
-  <h1 id="comment"><a class="header" href="#comment">물어보고 싶거나 하고 싶은말 써 주세요comment</a></h1>
-  <script src="https://utteranc.es/client.js" repo="YoungHaKim7/blog_comments_bot" issue-term="url"
-      theme="github-light" crossorigin="anonymous" async>
-  </script>
-</li>
-</ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="rust-os-프로젝트"><a class="header" href="#rust-os-프로젝트">Rust OS 프로젝트</a></h1>
+                        <h1 id="rust-os-프로젝트"><a class="header" href="#rust-os-프로젝트">Rust OS 프로젝트</a></h1>
 <ul>
 <li>Redux</li>
 <li>Mastro</li>
@@ -197,57 +171,18 @@
 <li>https://www.redox-os.org/</li>
 </ul>
 <hr />
-<div style="break-before: page; page-break-before: always;"></div><h1 id="chapter-1코딩의-기본-원리"><a class="header" href="#chapter-1코딩의-기본-원리">Chapter 1(코딩의 기본 원리)</a></h1>
-<ul>
-<li>
-<p>코드는 바이트 덩어리 이다.  요즘 컴퓨터는 64bits로 처리하기 때문에 64bits를 한덩어리로 봐야한다</p>
-</li>
-<li>
-<p>모든언어는 비슷한 패턴이 있다.</p>
-<ul>
-<li>Reserved Word(예약어)
-<ul>
-<li>어떤 언어를 시작하든 처음에 할일은 예약어를 우선 찾는다.  aka. 예약어로 변수를 선언을 할 수 없다.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>러스트는 statement와 expression차이를 잘 알아야 한다.</p>
-<ul>
-<li>expression 마지막에 세미콜론(;)이 없다.</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-rs">// Rust
-
-fn bis(x: i32, y: i32) {
-  // expression
-  x | m
-}
-
-</code></pre>
-<ul>
-<li>C언어 스타일
-<ul>
-<li>마지막에 (;) 로 끝이 났다면 문장이 끝나서 statement라고 부른다.</li>
-<li>한글로 잘 몰라서 영어로 썼다.  구글로 검색할때도 영어로 쳐야 더 풍부한 정보가 나오니 이해 바란다.</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-c">// C
-
-int bis(int x, int m) {
-    // statement
-    return x | m;
-}
-</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
+                            <a rel="next prefetch" href="chapter_1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -255,7 +190,13 @@ int bis(int x, int m) {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
+                    <a rel="next prefetch" href="chapter_1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
@@ -278,11 +219,6 @@ int bis(int x, int m) {
 
         <!-- Custom JS scripts -->
 
-        <script>
-        window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
-        });
-        </script>
 
     </div>
     </body>
