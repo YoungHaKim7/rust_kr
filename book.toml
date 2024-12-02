@@ -1,0 +1,6 @@
+[book]
+authors = ["GYoung"]
+language = "en"
+multilingual = false
+src = "src"
+title = "rust_kr"
