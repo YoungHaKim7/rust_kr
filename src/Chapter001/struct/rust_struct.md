@@ -1,12 +1,13 @@
 # struct
 
-```rs,playground
+```rs
 #[derive(Debug)]
 struct StoreData {
     name: String,
     age: u8,
     address: String,
 }
+
 fn main() {
     let my_student01 = StoreData {
         name: "Gyoung".to_string(),
