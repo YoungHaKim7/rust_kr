@@ -5,10 +5,10 @@
     -  C/C++/zig코드와 비교하면서 easy rust다음 단계의 책을 만들 예정입니다.
 
 <script src="https://utteranc.es/client.js"
-        repo="https://github.com/YoungHaKim7/rust_book_comment_blog"
-        issue-term="pathname"
+        repo="https://github.com/YoungHaKim7/rust_book_comment_blog/"
+        issue-term="url"
+        label="question"
         theme="github-light"
         crossorigin="anonymous"
         async>
 </script>
-
