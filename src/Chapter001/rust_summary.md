@@ -17,6 +17,9 @@
 - Memory 기초지식
     - [Memory Basic_assembly64.pdf](http://www.egr.unlv.edu/~ed/assembly64.pdf)
 
+- [물어보고 싶거나 하고 싶은말 써 주세요comment <댓글로 이동>](#comment)
+
+
 <hr />
 
 # 오너쉽 이해하기 &  Borrowing[|🔝|](#link)
@@ -156,3 +159,9 @@
 ![2222222](https://github.com/user-attachments/assets/597fc72a-0adc-4054-a812-64434c1ca8bd)
 ![3333](https://github.com/user-attachments/assets/d0cf3663-ee6b-432b-9ca3-ceeb1bbd4cdb)
 
+
+<h1 id="comment">물어보고 싶거나 하고 싶은말 써 주세요comment</h1>
+
+<script src="https://utteranc.es/client.js" repo="YoungHaKim7/blog_comments_bot" issue-term="url"
+    theme="github-light" crossorigin="anonymous" async>
+</script>

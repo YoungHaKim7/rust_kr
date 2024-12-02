@@ -2,6 +2,8 @@
 
 - [러스트는 statement와 expression차이를 잘 알아야 한다.](#러스트는-statement와-expression차이를-잘-알아야-한다)
 
+- [물어보고 싶거나 하고 싶은말 써 주세요comment <댓글로 이동>](#comment)
+
 <hr />
 
 # Rust 러스트 언어와 다른 언어의 차이점
@@ -32,3 +34,10 @@ int bis(int x, int m) {
     return x | m;
 }
 ```
+
+
+<h1 id="comment">물어보고 싶거나 하고 싶은말 써 주세요comment</h1>
+
+<script src="https://utteranc.es/client.js" repo="YoungHaKim7/blog_comments_bot" issue-term="url"
+    theme="github-light" crossorigin="anonymous" async>
+</script>
