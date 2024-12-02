@@ -8,7 +8,7 @@ class MDBookSidebarScrollbox extends HTMLElement {
         super();
     }
     connectedCallback() {
-        this.innerHTML = '<ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> welcome소개(Q&amp;A &amp; 기여하기)</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rustos.html"><strong aria-hidden="true">1.1.</strong> Rust OS 프로젝트</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">2.</strong> Chapter 1(코딩의 원리)</a></li></ol>';
+        this.innerHTML = '<ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Welcome소개(Q&amp;A &amp; 기여하기)</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rustos.html"><strong aria-hidden="true">1.1.</strong> Rust OS 프로젝트</a></li><li class="chapter-item expanded "><a href="rustlinux.html"><strong aria-hidden="true">1.2.</strong> Rust Linux 프로젝트</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">2.</strong> Chapter 1(코딩의 원리)</a></li></ol>';
         // Set the current, active page, and reveal it if it's hidden
         let current_page = document.location.href.toString();
         if (current_page.endsWith("/")) {
