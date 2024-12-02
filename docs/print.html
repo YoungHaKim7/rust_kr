@@ -367,7 +367,7 @@ int bis(int x, int m) {
     return x | m;
 }
 </code></pre>
-<h1 id="comment"><a class="header" href="#comment">물어보고 싶거나 하고 싶은말 써 주세요comment</a></h1>
+<h1 id="comment"><a class="header" href="#comment">물어보고 싶거나 하고 싶은말 써 주세요comment<a href="Chapter001/rust_etc_difference.html#link">|🔝|</a></a></h1>
 <script src="https://utteranc.es/client.js" repo="YoungHaKim7/blog_comments_bot" issue-term="url"
     theme="github-light" crossorigin="anonymous" async>
 </script>
@@ -555,10 +555,27 @@ int bis(int x, int m) {
 <p><img src="https://github.com/user-attachments/assets/3e9a790e-52ec-4980-b465-81c4f6b52576" alt="111111" /></p>
 <p><img src="https://github.com/user-attachments/assets/597fc72a-0adc-4054-a812-64434c1ca8bd" alt="2222222" />
 <img src="https://github.com/user-attachments/assets/d0cf3663-ee6b-432b-9ca3-ceeb1bbd4cdb" alt="3333" /></p>
-<h1 id="comment"><a class="header" href="#comment">물어보고 싶거나 하고 싶은말 써 주세요comment</a></h1>
+<h1 id="comment"><a class="header" href="#comment">물어보고 싶거나 하고 싶은말 써 주세요comment<a href="Chapter001/rust_summary.html#link">|🔝|</a></a></h1>
 <script src="https://utteranc.es/client.js" repo="YoungHaKim7/blog_comments_bot" issue-term="url"
     theme="github-light" crossorigin="anonymous" async>
 </script>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="struct"><a class="header" href="#struct">struct</a></h1>
+<pre><code class="language-rs">#[derive(Debug)]
+struct StoreData {
+    name: String,
+    age: u8,
+    address: String,
+}
+fn main() {
+    let my_student01 = StoreData {
+        name: "Gyoung".to_string(),
+        age: 40,
+        address: "서울".to_string(),
+    };
+
+    println!("저장된 데이터 출력 :  {my_student01:?}");
+}
+</code></pre>
 
                     </main>
 
