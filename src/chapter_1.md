@@ -10,6 +10,7 @@
 
   - expression 마지막에 세미콜론(;)이 없다.
 ```rs
+// Rust
 
 fn bis(x: i32, y: i32) {
   // expression
@@ -23,6 +24,7 @@ fn bis(x: i32, y: i32) {
   - 한글로 잘 몰라서 영어로 썼다.  구글로 검색할때도 영어로 쳐야 더 풍부한 정보가 나오니 이해 바란다.
 
 ```c
+// C
 
 int bis(int x, int m) {
     // statement

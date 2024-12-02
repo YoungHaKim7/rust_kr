@@ -162,14 +162,59 @@
 </ul>
 </li>
 </ul>
- <script src="https://utteranc.es/client.js"
-        repo="https://github.com/YoungHaKim7/blog_comments_bot/issues/2"
+<script src="https://utteranc.es/client.js"
+        repo="https://github.com/YoungHaKim7/rust_book_comment_blog/"
         issue-term="url"
+        label="question"
         theme="github-light"
         crossorigin="anonymous"
         async>
-</script> 
-<div style="break-before: page; page-break-before: always;"></div><h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
+</script>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="chapter-1코딩의-기본-원리"><a class="header" href="#chapter-1코딩의-기본-원리">Chapter 1(코딩의 기본 원리)</a></h1>
+<ul>
+<li>
+<p>코드는 바이트 덩어리 이다.  요즘 컴퓨터는 64bits로 처리하기 때문에 64bits를 한덩어리로 봐야한다</p>
+</li>
+<li>
+<p>모든언어는 비슷한 패턴이 있다.</p>
+<ul>
+<li>Reserved Word(예약어)
+<ul>
+<li>어떤 언어를 시작하든 처음에 할일은 예약을 우선 찾는다.  aka. 예약어로 변수 선언을 할 수 없다.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>러스트는 statement와 expression차이를 잘 알아야 한다.</p>
+<ul>
+<li>expression 마지막에 세미콜론(;)이 없다.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-rs">// Rust
+
+fn bis(x: i32, y: i32) {
+  // expression
+  x | m
+}
+
+</code></pre>
+<ul>
+<li>C언어 스타일
+<ul>
+<li>마지막에 (;) 로 끝이 났다면 문장이 끝나서 statement라고 부른다.</li>
+<li>한글로 잘 몰라서 영어로 썼다.  구글로 검색할때도 영어로 쳐야 더 풍부한 정보가 나오니 이해 바란다.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-c">// C
+
+int bis(int x, int m) {
+    // statement
+    return x | m;
+}
+</code></pre>
 
                     </main>
 
@@ -188,6 +233,22 @@
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

@@ -161,13 +161,14 @@
 </ul>
 </li>
 </ul>
- <script src="https://utteranc.es/client.js"
-        repo="https://github.com/YoungHaKim7/blog_comments_bot/issues/2"
+<script src="https://utteranc.es/client.js"
+        repo="https://github.com/YoungHaKim7/rust_book_comment_blog/"
         issue-term="url"
+        label="question"
         theme="github-light"
         crossorigin="anonymous"
         async>
-</script> 
+</script>
 
                     </main>
 
@@ -192,6 +193,22 @@
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 
