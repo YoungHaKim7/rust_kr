@@ -1,6 +1,7 @@
 # Summary
 
-- [Welcome소개(Q&A & 기여하기)](./intro.md)
+- [Rust_kr_Welcome소개](./intro.md)
+  - [Q&A & 질문하기 &  기여하기](./qanda.md)
   - [Rust OS 프로젝트](./rustos.md)
   - [Rust Linux 프로젝트](./rustlinux.md)
   - [Appendix](./Appendix.md)

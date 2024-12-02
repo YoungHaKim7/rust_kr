@@ -8,9 +8,5 @@
       - 부디 끝까지 살아남아 천상계에서 보도록 합시다.  화이팅!!
       - 한국에서도 러스트OS 개발자가 나오는 그날을 향해
 
-    <h1 id="comment">물어보고 싶거나 하고 싶은말 써 주세요comment</h1>
 
-    <script src="https://utteranc.es/client.js" repo="YoungHaKim7/blog_comments_bot" issue-term="url"
-        theme="github-light" crossorigin="anonymous" async>
-    </script>
 
