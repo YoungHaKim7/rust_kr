@@ -156,6 +156,65 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="kotlin언어"><a class="header" href="#kotlin언어">Kotlin언어</a></h1>
+<h1 id="link"><a class="header" href="#link">link</a></h1>
+<ul>
+<li><a href="#arrayc--rust">array(Kotlin vs Rust)</a></li>
+</ul>
+<hr />
+<h1 id="arraykotlin--rust"><a class="header" href="#arraykotlin--rust">array(Kotlin &amp; Rust)<a href="#link">|🔝|</a></a></h1>
+<pre><code class="language-kt">fun main() {
+    // Declare a 2D array of integers
+    val matrix = arrayOf(
+        intArrayOf(1, 2, 3),
+        intArrayOf(4, 5, 6),
+        intArrayOf(7, 8, 9)
+    )
+
+    // Print the matrix elements
+    for (row in matrix) {
+        println(row.joinToString(" "))
+    }
+}
+</code></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">
+kotlinc ./src/Main.kt -include-runtime -d ./out/Main.jar
+java -jar ./out/Main.jar
+
+1 2 3
+4 5 6
+7 8 9
+</code></pre>
+<ul>
+<li>Rust</li>
+</ul>
+<pre><code class="language-rs">// Rust
+
+fn main() {
+    // Declare a 2D array of integers
+    let matrix: [[i32; 3]; 3] = [
+        //
+        [1, 2, 3], //
+        [4, 5, 6], //
+        [7, 8, 9], //
+    ];
+
+    // Print the matrix elements
+    for row in matrix {
+        println!("{:?}", row)
+    }
+}
+</code></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">[1, 2, 3]
+[4, 5, 6]
+[7, 8, 9]
+</code></pre>
+<hr />
 
                     </main>
 

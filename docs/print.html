@@ -772,8 +772,67 @@ fn main() {
 </code></pre>
 <hr />
 <div style="break-before: page; page-break-before: always;"></div><h1 id="kotlin언어"><a class="header" href="#kotlin언어">Kotlin언어</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="rust의-전체적인-그림-잡기"><a class="header" href="#rust의-전체적인-그림-잡기">Rust의 전체적인 그림 잡기</a></h1>
 <h1 id="link-5"><a class="header" href="#link-5">link</a></h1>
+<ul>
+<li><a href="Chapter001/lang/kotlin.html#arrayc--rust">array(Kotlin vs Rust)</a></li>
+</ul>
+<hr />
+<h1 id="arraykotlin--rust"><a class="header" href="#arraykotlin--rust">array(Kotlin &amp; Rust)<a href="Chapter001/lang/kotlin.html#link">|🔝|</a></a></h1>
+<pre><code class="language-kt">fun main() {
+    // Declare a 2D array of integers
+    val matrix = arrayOf(
+        intArrayOf(1, 2, 3),
+        intArrayOf(4, 5, 6),
+        intArrayOf(7, 8, 9)
+    )
+
+    // Print the matrix elements
+    for (row in matrix) {
+        println(row.joinToString(" "))
+    }
+}
+</code></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">
+kotlinc ./src/Main.kt -include-runtime -d ./out/Main.jar
+java -jar ./out/Main.jar
+
+1 2 3
+4 5 6
+7 8 9
+</code></pre>
+<ul>
+<li>Rust</li>
+</ul>
+<pre><code class="language-rs">// Rust
+
+fn main() {
+    // Declare a 2D array of integers
+    let matrix: [[i32; 3]; 3] = [
+        //
+        [1, 2, 3], //
+        [4, 5, 6], //
+        [7, 8, 9], //
+    ];
+
+    // Print the matrix elements
+    for row in matrix {
+        println!("{:?}", row)
+    }
+}
+</code></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">[1, 2, 3]
+[4, 5, 6]
+[7, 8, 9]
+</code></pre>
+<hr />
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rust의-전체적인-그림-잡기"><a class="header" href="#rust의-전체적인-그림-잡기">Rust의 전체적인 그림 잡기</a></h1>
+<h1 id="link-6"><a class="header" href="#link-6">link</a></h1>
 <ul>
 <li>
 <p><a href="Chapter001/rust_summary.html#rust-string-vs-%EB%8B%A4%EB%A5%B8-%EC%96%B8%EC%96%B4%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90">Rust String VS 다른 언어의 String의 차이점</a></p>
@@ -984,7 +1043,7 @@ fn main() {
 }
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust_syntax러스트문법"><a class="header" href="#rust_syntax러스트문법">Rust_Syntax러스트문법</a></h1>
-<h1 id="link-6"><a class="header" href="#link-6">link</a></h1>
+<h1 id="link-7"><a class="header" href="#link-7">link</a></h1>
 <hr />
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust_getting_started"><a class="header" href="#rust_getting_started">Rust_Getting_Started</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="programming_fake_install"><a class="header" href="#programming_fake_install">Programming_fake_install</a></h1>
@@ -993,7 +1052,7 @@ fn main() {
 <div style="break-before: page; page-break-before: always;"></div><h1 id="data_types데이터-타입"><a class="header" href="#data_types데이터-타입">Data_Types데이터 타입</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-고급-기술"><a class="header" href="#rust-고급-기술">Rust 고급 기술</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="traits"><a class="header" href="#traits">traits</a></h1>
-<h1 id="link-7"><a class="header" href="#link-7">link</a></h1>
+<h1 id="link-8"><a class="header" href="#link-8">link</a></h1>
 <ul>
 <li><a href="Advanced/">todo</a></li>
 </ul>
@@ -1132,7 +1191,7 @@ fn main() {
 [src\main.rs:102] my_half_orc.speak_elvish() = "yes"
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="algorithm알고리즘"><a class="header" href="#algorithm알고리즘">Algorithm알고리즘</a></h1>
-<h1 id="link-8"><a class="header" href="#link-8">link</a></h1>
+<h1 id="link-9"><a class="header" href="#link-9">link</a></h1>
 <ul>
 <li>
 <p><a href="Advanced/Algorithm/summary_algo.html#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%EC%9D%98-4%EB%8B%A8%EA%B3%84">알고리즘의 4단계</a></p>
