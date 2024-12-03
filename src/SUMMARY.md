@@ -14,5 +14,5 @@
 
 <hr />
 
-- Rust 고급 기술
+- [Rust 고급 기술]()
   - [Traits](./Advanced/traits.md)

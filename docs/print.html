@@ -173,6 +173,21 @@
 <li>한국에서도 러스트OS 개발자가 나오는 그날을 향해</li>
 </ul>
 </li>
+<li>
+<p>어려운 코드와 개발하기 힘들수록 러스트는 2가지만 기억하면 됩니다.(러스트를 하나로 관통하는 개념입니다.)</p>
+<ul>
+<li><code>오너쉽OwnerShip</code> + <code>ZeroCostAbstraction</code></li>
+</ul>
+</li>
+<li>
+<p>저같이 혼자 개발하는 분들을 위한 좋은글</p>
+<ul>
+<li><a href="https://news.hada.io/topic?id=18068&amp;utm_source=discord&amp;utm_medium=bot&amp;utm_campaign=1480">GN⁺: Ask HN: 배울 수 있는 훌륭한 시니어 없이, 엔지니어로 어떻게 성장할 수 있을까요?
+석유 및 시추 산업의 작은 회사에서 일하는 신입 데이터 엔지니어
+6개월 전 프리랜서 데이터 엔지니어로 고용되었으며, 작업 품질을 통해 인정받아 현재는 프로젝트의 설계, 구현 및 채용을 책임지는 기술 리드 역할을 하고 있음
+회사는 기술 회사가 아니기 때문에 기술 지향적인 동료가 몇 명 없으며, ...</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -381,8 +396,13 @@ int bis(int x, int m) {
 <p><a href="Chapter001/">오너쉽 이해하기 &amp;  Borrowing</a></p>
 </li>
 <li>
-<p><a href="Chapter001/">Stack &amp; Heap 메모리 이해하기_ Stack과 Heap은 개발자가 옛날에 정한  약속 같은거라 왼쪽은 stack / 오른쪽은 heap하자 느낌으로 기억하자</a></p>
+<p><a href="Chapter001/">Stack &amp; Heap 메모리 이해하기_ Stack과 Heap은 개발자가 옛날에 정한  약속 같은거라 메모리 윗쪽은 stack / 아래쪽은 heap하자 느낌으로 기억하자</a></p>
 <ul>
+<li>Stack은 고드름처럼 쌓여서 내려가고 Heap은 낮은 메모리 주소에 쌓여 들어간다.생각하면 됩니다. 낮은 메모리 주소에는 부팅에 필요한 코드 같은게 들어가니 충분히 공부한 후에 할당하세요.
+<ul>
+<li>Stack은 테트리스처럼 틈이 없이 쌓는 개념입니다.(embedded code에 사용되죠)</li>
+</ul>
+</li>
 <li><a href="Chapter001/rust_summary.html#stack-vs-heap%EC%9D%98-%EC%9E%A5%EC%A0%90">Stack vs Heap의 장점</a></li>
 </ul>
 </li>
@@ -576,6 +596,24 @@ fn main() {
 
     println!("저장된 데이터 출력 :  {my_student01:?}");
 }
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="traits"><a class="header" href="#traits">traits</a></h1>
+<h1 id="link-2"><a class="header" href="#link-2">link</a></h1>
+<ul>
+<li><a href="Advanced/">todo</a></li>
+</ul>
+<hr />
+<h1 id="가장-어려운-traits다"><a class="header" href="#가장-어려운-traits다">가장 어려운 traits다.</a></h1>
+<ul>
+<li>
+<p>traits는 누구나 어렵다. 유일한 방법은 수많이 예시를 해보면서 맞으면서 늘어나는게 유일한 방법이다. 무식하지만 확실하다.</p>
+</li>
+<li>
+<p>지금까지 상단에 아무 생각없이 쓰던 derive의 정체는 trait다. 기본적인 트레이트는 암기하도록하자.</p>
+</li>
+</ul>
+<pre><code class="language-rs">#[derive(Debug)]
+
 </code></pre>
 
                     </main>
