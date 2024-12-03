@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Traits - rust_kr</title>
+        <title>D&amp;D던전앤드래곤 만들어보기 - rust_kr</title>
 
 
         <!-- Custom HTML head -->
@@ -155,46 +155,126 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="traits"><a class="header" href="#traits">traits</a></h1>
-<h1 id="link"><a class="header" href="#link">link</a></h1>
+                        <h1 id="던전앤드래곤-예시trait"><a class="header" href="#던전앤드래곤-예시trait">던전앤드래곤 예시(Trait)</a></h1>
 <ul>
-<li><a href="">todo</a></li>
+<li>trait는 doing 행동만 만들어준다.</li>
 </ul>
-<hr />
-<h1 id="가장-어려운-traits다"><a class="header" href="#가장-어려운-traits다">가장 어려운 traits다.</a></h1>
-<ul>
-<li>
-<p>traits는 누구나 어렵다. 유일한 방법은 수많은 예시를 해보고, 울면서 cargo에 거부 당하면서, 고통 받다보면, 알아서 실력이 향상되는 유일한 방법이다. 무식하지만 확실하다.</p>
-</li>
-<li>
-<p>지금까지 상단에 아무 생각없이 쓰던 derive의 정체는 trait다. 기본적인 트레이트는 암기하도록하자.</p>
-<ul>
-<li>Debug, Default, PartialEq, Eq 등등</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-rs">#[derive(Debug)]
+<pre><code class="language-rs">struct Dwarf {
+    name: String,
+}
+
+struct Elf {
+    name: String,
+}
+
+struct HalfOrc {
+    name: String,
+}
+
+struct HalfElf {
+    name: String,
+}
+
+struct Human {
+    name: String,
+}
+
+impl Constitution for Dwarf {
+    fn constitution_bonus(&amp;self) -&gt; u8 {
+        2
+    }
+}
+
+impl Constitution for HalfOrc {
+    fn constitution_bonus(&amp;self) -&gt; u8 {
+        1
+    }
+}
+
+impl Constitution for Elf {}
+
+impl Constitution for Human {}
+
+pub trait Constitution {
+    fn constitution_bonus(&amp;self) -&gt; u8 {
+        0
+    }
+}
+
+pub trait Elvish {
+    fn speak_elvish(&amp;self) -&gt; String {
+        String::from("yes")
+    }
+
+    fn no_speak_elvish&lt;T&gt;(&amp;self) -&gt; String {
+        String::from("no")
+    }
+}
+
+impl Elvish for Elf {}
+impl Elvish for HalfElf {}
+impl Elvish for HalfOrc {}
+
+fn main() {
+    let my_dwaft = Dwarf {
+        name: String::from("NellDwaft"),
+    };
+
+    let my_elf = Elf {
+        name: String::from("NellElf"),
+    };
+
+    let my_half_elf = HalfElf {
+        name: String::from("NellElf"),
+    };
+
+    let my_half_orc = HalfOrc {
+        name: String::from("NellHalfOrc"),
+    };
+
+    let my_human = Human {
+        name: String::from("NellHuman"),
+    };
+
+    // Return 2
+    dbg!(my_dwaft.constitution_bonus());
+
+    // Return 1
+    dbg!(my_half_orc.constitution_bonus());
+
+    // Return 0
+    dbg!(my_elf.constitution_bonus());
+    dbg!(my_human.constitution_bonus());
+
+    // Return "yes"
+    dbg!(my_elf.speak_elvish());
+    dbg!(my_half_elf.speak_elvish());
+
+    // Return "no"
+    dbg!(my_half_orc.speak_elvish());
+}
 
 </code></pre>
 <ul>
-<li>다음 장은 D&amp;D던전앤 드래곤을 예시를 하면서 감각을 익히도록하겠다.
-<ul>
-<li>game만드는 기분으로 코딩하는게 개인적으로 빨리 실력이 느는것 같다. 재밌고. ㅋ</li>
+<li>Result</li>
 </ul>
-</li>
-</ul>
+<pre><code class="language-bash">[src\main.rs:88] my_dwaft.constitution_bonus() = 2
+[src\main.rs:91] my_half_orc.constitution_bonus() = 1
+[src\main.rs:94] my_elf.constitution_bonus() = 0
+[src\main.rs:95] my_human.constitution_bonus() = 0
+[src\main.rs:98] my_elf.speak_elvish() = "yes"
+[src\main.rs:99] my_half_elf.speak_elvish() = "yes"
+[src\main.rs:102] my_half_orc.speak_elvish() = "yes"
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../Advanced/advanced.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../Advanced/traits.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../Advanced/dandd.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -202,13 +282,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../Advanced/advanced.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../Advanced/traits.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../Advanced/dandd.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>
