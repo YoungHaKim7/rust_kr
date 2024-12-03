@@ -13,6 +13,7 @@
 
 ```zig
 const std = @import("std");
+const print = std.debug.print;
 
 pub fn main() !void {
     // Declare a 2D array of integers
@@ -25,9 +26,52 @@ pub fn main() !void {
     // Print the matrix elements
     for (matrix) |row| {
         for (row) |element| {
-            std.debug.print("{} ", .{element});
+            print("{} ", .{element});
         }
-        std.debug.print("\n", .{});
+        print("\n", .{});
     }
 }
 ```
+
+- Result
+
+```bash
+$ zig build run
+
+1 2 3
+4 5 6
+7 8 9
+
+```
+
+- Rust
+
+```rs
+// Rust
+
+fn main() {
+    // Declare a 2D array of integers
+    let matrix: [[i32; 3]; 3] = [
+        //
+        [1, 2, 3], //
+        [4, 5, 6], //
+        [7, 8, 9], //
+    ];
+
+    // Print the matrix elements
+    for row in matrix {
+        println!("{:?}", row)
+    }
+}
+```
+
+- Result
+
+```bash
+[1, 2, 3]
+[4, 5, 6]
+[7, 8, 9]
+```
+
+
+<hr />

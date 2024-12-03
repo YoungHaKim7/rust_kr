@@ -166,6 +166,7 @@
 <hr />
 <h1 id="arrayzig--rust"><a class="header" href="#arrayzig--rust">array(Zig &amp; Rust)<a href="#link">|🔝|</a></a></h1>
 <pre><code class="language-zig">const std = @import("std");
+const print = std.debug.print;
 
 pub fn main() !void {
     // Declare a 2D array of integers
@@ -178,12 +179,50 @@ pub fn main() !void {
     // Print the matrix elements
     for (matrix) |row| {
         for (row) |element| {
-            std.debug.print("{} ", .{element});
+            print("{} ", .{element});
         }
-        std.debug.print("\n", .{});
+        print("\n", .{});
     }
 }
 </code></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">$ zig build run
+
+1 2 3
+4 5 6
+7 8 9
+
+</code></pre>
+<ul>
+<li>Rust</li>
+</ul>
+<pre><code class="language-rs">// Rust
+
+fn main() {
+    // Declare a 2D array of integers
+    let matrix: [[i32; 3]; 3] = [
+        //
+        [1, 2, 3], //
+        [4, 5, 6], //
+        [7, 8, 9], //
+    ];
+
+    // Print the matrix elements
+    for row in matrix {
+        println!("{:?}", row)
+    }
+}
+</code></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">[1, 2, 3]
+[4, 5, 6]
+[7, 8, 9]
+</code></pre>
+<hr />
 
                     </main>
 
