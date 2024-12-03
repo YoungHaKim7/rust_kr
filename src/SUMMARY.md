@@ -19,4 +19,4 @@
 - [Rust 고급 기술](./Advanced/advanced.md)
   - [Traits](./Advanced/traits.md)
     - [D&D던전앤드래곤 만들어보기](./Advanced/dandd.md)
-  - [Algorithm알고리즘]((./Advanced/Algorithm/summary_algo.md))
+  - [Algorithm알고리즘](./Advanced/Algorithm/summary_algo.md)

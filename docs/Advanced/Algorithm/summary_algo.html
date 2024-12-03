@@ -1,0 +1,490 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Algorithm알고리즘 - rust_kr</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">rust_kr</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/YoungHaKim7/rust_kr" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="algorithm알고리즘"><a class="header" href="#algorithm알고리즘">Algorithm알고리즘</a></h1>
+<h1 id="link"><a class="header" href="#link">link</a></h1>
+<ul>
+<li>
+<p><a href="">알고리즘의 4단계</a></p>
+</li>
+<li>
+<p><a href="">Data를 저장하는 패턴</a></p>
+</li>
+<li>
+<p><a href="#%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EB%9E%80--%EB%B0%B0%EC%97%B4array--%EB%A6%AC%EC%8A%A4%ED%8A%B8list--%EC%8A%A4%ED%83%9D-stack--%ED%81%90queue--%EB%8D%B0%ED%81%90deque--%ED%8A%B8%EB%A6%ACtree--%EA%B7%B8%EB%9E%98%ED%94%84graph--%ED%98%80%EB%8B%88c%EC%BD%94%EB%94%A9">표로 정리__자료구조란? | 배열(array) | 리스트(list) | 스택( stack) | 큐(queue) | 데큐(deque) | 트리(tree) | 그래프(graph)</a></p>
+<ul>
+<li>
+<p><a href="https://youtu.be/gxdQiBkidWk?si=y1yb_GQLcNsiyf6R">개념잡기 좋다.파이썬 코드 8 Data Structures Every Programmer Should Know | ForrestKnight</a></p>
+</li>
+<li>
+<ol>
+<li>선형구조</li>
+</ol>
+<ul>
+<li><a href="#array-%EB%B0%B0%EC%97%B4">배열(array)</a></li>
+<li><a href="#list%EB%A6%AC%EC%8A%A4%ED%8A%B8head%EA%B0%80-%ED%95%84%EC%9A%94--%EC%B2%AB%EB%B2%88%EC%A7%B8-%EC%9B%90%EC%86%8C%EC%9D%98-%EC%A3%BC%EC%86%8C%EA%B0%80-%EC%A0%80%EC%9E%A5%EB%90%A8">리스트(list)</a></li>
+<li><a href="#stack%EC%8A%A4%ED%83%9D">스택(stack)</a>
+<ul>
+<li><a href="#stack%EC%8A%A4%ED%83%9D">stack</a></li>
+<li><a href="#pop%EC%9E%90%EB%A3%8C-%EB%BA%84%EB%95%8C--">pop</a></li>
+</ul>
+</li>
+<li><a href="#%ED%81%90queue%EB%A7%88%ED%8A%B8%EC%97%90%EC%84%9C-%EC%A4%84%EC%84%9C%EB%8A%94%EA%B1%B0-%EC%83%9D%EA%B0%81%ED%95%98%EB%A9%B4%EB%90%A8">큐(queue)</a></li>
+<li><a href="%EB%8D%B0%ED%81%ACdeque%EC%8A%A4%ED%83%9D%EA%B3%BC-%ED%81%90%EA%B0%80-%ED%95%A9%EC%B3%90%EC%A7%84-%ED%98%95%ED%83%9C">데큐(deque)</a></li>
+</ul>
+</li>
+<li>
+<ol start="2">
+<li>비선형구조</li>
+</ol>
+<ul>
+<li><a href="#tree%ED%8A%B8%EB%A6%AC">트리tree</a></li>
+<li><a href="#graph%EA%B7%B8%EB%9E%98%ED%94%84%EC%83%81%EC%9C%84root%EA%B0%80-%EC%97%86%EB%8B%A4">그래프(graph)</a></li>
+</ul>
+</li>
+<li>
+<p><a href="https://youtube.com/playlist?list=PLrj92cHmwIMfxmffI2RSuSmWfmHvLksoB&amp;si=EWhHSz4eQjDmO_yJ">(모아보기)자료구조&amp;알고리즘 혀니C코딩</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>C언어로 코드 구현하기
+<ul>
+<li><a href="#stack-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0--c%EC%96%B8%EC%96%B4-%EC%BD%94%EB%93%9C-%EC%99%84%EB%B2%BD-%EA%B5%AC%ED%98%84--%EB%B0%B0%EC%97%B4%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%8A%A4%ED%83%9D--%EC%82%BD%EC%9E%85push-%EC%82%AD%EC%A0%9Cpop-%EC%B6%9C%EB%A0%A5print-%EC%B4%88%EA%B8%B0%ED%99%94clear-%ED%98%80%EB%8B%88c%EC%BD%94%EB%94%A9">Stack 자료구조(C언어) 배열을 이용한 스택 | 삽입(push), 삭제(pop), 출력(print), 초기화(clear)</a></li>
+<li><a href="https://youtu.be/RQnbWEdj_NY?si=5UXZsuogI6Ms63b2">원형 큐(Circular Queue) | 배열을 이용한 C언어(C++) 코드 구현 | FIFO(First In First Out) | enqueue | dequeue |clear | 혀니C코딩</a></li>
+<li><a href="https://youtu.be/so9K8g_zkyE?si=qU7Mn1QuIt5Rg2QJ">큐(Queue) C언어 | C++ 코드 구현 | 연결리스트(Linked List)를 이용한 코드 완벽 구현 | enqueue | dequeue | clear | FIFO | 혀니C코딩</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="알고리즘의-4단계"><a class="header" href="#알고리즘의-4단계">알고리즘의 4단계<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li>알고리즘은 4단계를 기억해야한다.
+<ul>
+<li>
+<ol>
+<li>정렬(Sort)</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>검색(Search)</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>문자열 패턴 매칭(SPM: String Pattern Matching)</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>계산(Calculation)</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="data를-저장하는-패턴"><a class="header" href="#data를-저장하는-패턴">Data를 저장하는 패턴<a href="#link">|🔝|</a></a></h1>
+<h1 id="자료-구조"><a class="header" href="#자료-구조">자료 구조<a href="#link">[🔝]</a></a></h1>
+<p>https://github.com/YoungHaKim7/c_project/tree/main/exercise/002stack</p>
+<ul>
+<li>영어 출처
+https://en.wikipedia.org/wiki/Association_list</li>
+</ul>
+<table border="1">
+    <tr>
+    <td colspan="2" align="center">자료 구조(Well-known data structures)</td>
+    </tr>
+    <tr align="center">
+        <td>유형(Type) </td>
+        <td> 컬렉션(Collection) , 컨테이너(Container)</td>
+    </tr>
+    <tr align="center">
+        <td> 추상ADT<br>Abstract Data Type </td>
+        <td> 연관 배열(Associative array), 우선 순위 덱(Priority Deque), 덱(Deque), 리스트(List),<br> 멀티맵, 우선순위 큐(Priority Queue), 큐(Queue), <br>집합 (멀티셋, 분리 집합),<br> 스택(stack) <br>
+Associative array(Multimap, Retrieval Data Structure), List, StackQueue(Double-ended queue), Priority queue(Double-ended priority queue), Set(Multiset, Disjoint-set)
+    </td>
+    </tr>
+    <tr align="center">
+        <td>배열(Array) </td>
+        <td> 
+비트 배열(Bit Array), 환형 배열(Circular array), 동적 배열(Dynamic Array),<br> 해시 테이블(Hash Table), 해시드 어레이 트리(Hashed Array Tree), 희소 배열(Sparse array)
+        </td>
+    </tr>
+    <tr align="center">
+        <td>연결형(Linked) </td>
+        <td> 연관 리스트(Association list), 
+        <br>
+        <br>연결 리스트(Linked List) - 단일연결(Singly Linked List), 이중연결(Doubly Linked List), 원형 연결(Circular Linked List)<br><br>Association list,<br> Linked list, Skip list, Unrolled linked list, XOR linked list</td>
+    </tr>
+    <tr align="center">
+        <td>트리(Trees) </td>
+        <td>B 트리,<br> 이진 탐색 트리(AA, AVL, 레드-블랙, 자가 균형, splay) <br> 힙(이진 힙, 피보나치) ,<br> R 트리( R*, R+, 힐버트),<br> 트리(해시 트리)<br><br>B-tree, Binary search tree(AA tree, AVL tree, Red–black tree, Self-balancing tree, Splay tree),<br> Heap(Binary heap, Binomial heap, Fibonacci heap),<br> R-tree(R* tree, R+ tree, Hilbert R-tree), Trie Hash tree
+    </td>
+    </tr>
+    <tr align="center">
+        <td>그래프(Graphs) </td>
+        <td>이진 결정 다이어그램<br>Binary decision diagram, Directed acyclic graph, Directed acyclic word graph </td>
+    </tr>
+</table>
+<br>
+<hr />
+<h1 id="자료구조란--배열array--리스트list--스택-stack--큐queue--데큐deque--트리tree--그래프graph--혀니c코딩"><a class="header" href="#자료구조란--배열array--리스트list--스택-stack--큐queue--데큐deque--트리tree--그래프graph--혀니c코딩">자료구조란? | 배열(array) | 리스트(list) | 스택( stack) | 큐(queue) | 데큐(deque) | 트리(tree) | 그래프(graph) | 혀니C코딩<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li>https://youtu.be/RZHYuAhUrwE?si=_1XPXvbxiE9p3RLG</li>
+</ul>
+<table border="1">
+    <tr>
+        <td>큰 분류</td>
+        <td></td>
+        <td>장점</td>
+        <td>단점</td>
+        <td>쓰기 적합한 곳</td>
+    </tr>
+    <tr align="left" >
+        <td rowspan="5">1. 선형구조</td>
+        <td>- 배열(array)</td>
+        <td>Random Access<br>읽기전용이구만 ㅋㅋ<br>접속이 아주 많은 경우는<br>Array가 적합하다.<br>데이터에 접근할 일이 많은 경우</td>
+        <td>배열 중간에 있는거 꺼낼때<br> 전체 copy와 move가 <br>일어나서 성능 저하 ㅠㅠ<br>Overhead발생 ㅠㅠ <br>Overhead가 커질수록 성능 저하</td>
+        <td>읽기 전용이 무지 많은 곳<br>시작점 index[0]</td>
+    </tr>
+    <tr align="left">
+        <td>- 리스트(list)<br> (단일, 이중, 원형)</td>
+        <td> Array단점 보완<br>중간삭제 추가시 Overhead가 X<br>오버헤드 없음(x)<br>중간 index번호100번같이 데이터 삭제 추가가 <br>편하다.head하고 tail값만 수정해주면 됨. 대박 편함.<br>원소 하나하나가 따로 따로</td>
+        <td>Memory를 많이 사용함 ㅠㅠ<br>Random Access가 불가능<br>무조건 head부터 <br>추적해서 들어가야한다. ㅠㅠ</td>
+        <td>데이터 추가 /삭제가 <br>아주 많이 빈번한곳 <br>시작점 head</td>
+    </tr>
+    <tr align="left">
+        <td>- 스택<br>(stack)</td>
+        <td>메모장 복사하기 되돌리기 생각하면 됨</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr align="left">
+        <td>- 큐<br>(queue)</td>
+        <td></td>
+        <td></td>
+        <td>Printer출력<br>연결리스트가 성능이 좋다.</td>
+    </tr>
+    <tr align="left">
+        <td>- 데크<br>(Deque)</td>
+        <td>stack+queue형태<br>앞뒤양쪽방향에서<br>추가,삭제가 가능</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr align="left">
+        <td rowspan="2">2. 비선형구조</td>
+        <td>- 트리</td>
+        <td>부모와 자식관계<br>방향이 존재하는<br>방향 그래프</td>
+        <td></td>
+        <td>시작점root</td>
+    </tr>
+    <tr align="left">
+        <td>- 그래프</td>
+        <td >시작점x<br>정해진 방향은x</td>
+        <td ></td>
+        <td >네비게이션 생각하면 됨</td>
+    </tr>
+</table>
+<hr>
+<h1 id="array-배열"><a class="header" href="#array-배열">array 배열<a href="#link">|🔝|</a></a></h1>
+<pre><code>[1,  2,  3,  4,  5,  6]
+[0] [1] [2] [3] [4] [5]
+// index
+
+Random Access가 가능
+</code></pre>
+<hr>
+<h1 id="list리스트head가-필요--첫번째-원소의-주소가-저장됨"><a class="header" href="#list리스트head가-필요--첫번째-원소의-주소가-저장됨">list리스트(head가 필요- 첫번째 원소의 주소가 저장됨)<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li>원형리스트는 null이 없다.(꼬리와 머리가 이어져 있기 때문에 ^^)</li>
+<li>다음 주소를 저장할 Pointer가 필요함
+<ul>
+<li>마지막에 저장값이 없다면 tail에 null를 저장함</li>
+</ul>
+</li>
+</ul>
+<pre><code>head에 시작 주소
+       ┌-----┓       ┌-----┓
+       | head|       | head|
+       └┭----┘    ┌&gt; └┭----┘
+        ┌--┓      |   ┌--┓
+node -&gt; |1 |      |   |2 |
+        └--┘      |   └--┘
+       ┌--┴--┓    |  ┌--┴--┓   반복
+       | tail| ---┘  | tail| ---┘
+       └-----┘       └-----┘
+       tail에는 다음 주소
+       8 bytes
+
+</code></pre>
+<ul>
+<li>[자료구조] 단일 연결 리스트 2시간 라이브 스트리밍[첫 번째 특강] | 2023년 10월 15일 오후 12시
+<ul>
+<li>https://www.youtube.com/live/2-7vBNP4YFI?si=G0Qsjwp1Niv_bYvX</li>
+</ul>
+</li>
+</ul>
+<h1 id="stack스택"><a class="header" href="#stack스택">Stack스택(+)<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li>접시를 쌓는다 생각하면 됨 한쪽 방향으로만 데이터가 쌓임
+<ul>
+<li>LIFO(Last In First Out)</li>
+</ul>
+</li>
+</ul>
+<h1 id="pop자료-뺄때--"><a class="header" href="#pop자료-뺄때--">Pop(자료 뺄때, -)<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li>접시에서 상단부터 빼는거 생각하면 됨.stack과 pop
+<ul>
+<li>LIFO(Last In First Out)</li>
+</ul>
+</li>
+</ul>
+<h1 id="큐queue마트에서-줄서는거-생각하면됨"><a class="header" href="#큐queue마트에서-줄서는거-생각하면됨">큐queue(마트에서 줄서는거 생각하면됨)<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li>Print종이 나오는거 생각하면됨. First처음 들어오면 처음 나가는거 굿</li>
+<li>FIFO(First In First Out)</li>
+<li>큐queue구현은 연결list가 오버헤드없이 구현해야 최적화 잘됨.
+<ul>
+<li>삽입(enqueue)</li>
+<li>삭제(dequeue)
+<ul>
+<li>Difference between "enqueue" and "dequeue"
+<ul>
+<li>https://stackoverflow.com/questions/16433397/difference-between-enqueue-and-dequeue</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="데크deque스택과-큐가-합쳐진-형태"><a class="header" href="#데크deque스택과-큐가-합쳐진-형태">데크(Deque)(스택과 큐가 합쳐진 형태)<a href="#link">|🔝|</a></a></h1>
+<h1 id="tree트리"><a class="header" href="#tree트리">Tree트리<a href="#link">|🔝|</a></a></h1>
+<pre><code>           root
+           1
+        
+        2     3
+
+   4   5     6   7
+</code></pre>
+<h1 id="graph그래프상위root가-없다"><a class="header" href="#graph그래프상위root가-없다">Graph그래프(상위root가 없다.)<a href="#link">|🔝|</a></a></h1>
+<pre><code>   자유로운 영혼들
+   1     2     5
+
+     3     4
+</code></pre>
+<hr>
+<h1 id="stack-자료구조--c언어-코드-완벽-구현--배열을-이용한-스택--삽입push-삭제pop-출력print-초기화clear-혀니c코딩"><a class="header" href="#stack-자료구조--c언어-코드-완벽-구현--배열을-이용한-스택--삽입push-삭제pop-출력print-초기화clear-혀니c코딩">Stack 자료구조 | C언어 코드 완벽 구현 | 배열을 이용한 스택 | 삽입(push), 삭제(pop), 출력(print), 초기화(clear) 혀니C코딩<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li>https://youtu.be/1PFFgRcZLAk?si=6Da6I9xvcgkzo0sS</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../Advanced/dandd.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../Advanced/dandd.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../../ace.js"></script>
+        <script src="../../editor.js"></script>
+        <script src="../../mode-rust.js"></script>
+        <script src="../../theme-dawn.js"></script>
+        <script src="../../theme-tomorrow_night.js"></script>
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
