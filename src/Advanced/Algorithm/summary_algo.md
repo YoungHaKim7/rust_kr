@@ -1,4 +1,4 @@
-# Algorithm알고리즘 기초원리
+# Algorithm알고리즘
 
 # link
 
