@@ -156,6 +156,66 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="c언어"><a class="header" href="#c언어">C언어</a></h1>
+<h1 id="link"><a class="header" href="#link">link</a></h1>
+<ul>
+<li><a href="#arrayc--rust">array(C vs Rust)</a></li>
+</ul>
+<hr />
+<h1 id="arrayc--rust"><a class="header" href="#arrayc--rust">array(C &amp; Rust)<a href="#link">|🔝|</a></a></h1>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    // Declare a 2D array of integers
+    int matrix[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+
+    // Print the matrix elements
+    for (int i = 0; i &lt; 3; i++) {
+        for (int j = 0; j &lt; 3; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+</code></pre>
+<pre><code class="language-bash">clang -pedantic -pthread -pedantic-errors -lm -Wall -Wextra -ggdb -o ./target/main ./src/main.c
+./target/main
+
+1 2 3
+4 5 6
+7 8 9
+
+</code></pre>
+<ul>
+<li>Rust</li>
+</ul>
+<pre><code class="language-rs">// Rust
+
+fn main() {
+    // Declare a 2D array of integers
+    let matrix: [[i32; 3]; 3] = [
+        //
+        [1, 2, 3], //
+        [4, 5, 6], //
+        [7, 8, 9], //
+    ];
+
+    // Print the matrix elements
+    for row in matrix {
+        println!("{:?}", row)
+    }
+}
+</code></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">[1, 2, 3]
+[4, 5, 6]
+[7, 8, 9]
+</code></pre>
+<hr />
 
                     </main>
 

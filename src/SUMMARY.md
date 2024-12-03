@@ -15,6 +15,12 @@
     - [Kotlin언어](./Chapter001/lang/kotlin.md)
   - [Rust의 전체적인 그림 잡기](./Chapter001/rust_summary.md)
     - [struct](./Chapter001/struct/rust_struct.md)
+- [Rust_Syntax러스트문법](./Rust_syntax/intro.md)
+  - [Rust_Getting_Started설치및 시작](./Rust_syntax/getting_stared/hello_world.md)
+  - [Programming_fake_install가짜인스톨프로그램 만들기](./Rust_syntax/programming/fake_install.md)
+  - [Common Programming Concepts프로그래밍컨셉](./Rust_syntax/Common_Programming/concepts.md)
+    - [Variables&Mutability변수불편](./Rust_syntax/Common_Programming/Val_Mut/val_mutable.md)
+    - [Data_Types데이터 타입](./Rust_syntax/Common_Programming/Data_Types/data_types.md)
 
 - [Rust 고급 기술](./Advanced/advanced.md)
   - [Traits](./Advanced/traits.md)

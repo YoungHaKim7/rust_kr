@@ -2,9 +2,9 @@
 
 # link
 
-- [알고리즘의 4단계]()
+- [알고리즘의 4단계](#알고리즘의-4단계)
 
-- [Data를 저장하는 패턴]()
+- [Data를 저장하는 패턴](#data를-저장하는-패턴)
 
 - [표로 정리__자료구조란? | 배열(array) | 리스트(list) | 스택( stack) | 큐(queue) | 데큐(deque) | 트리(tree) | 그래프(graph)](#자료구조란--배열array--리스트list--스택-stack--큐queue--데큐deque--트리tree--그래프graph--혀니c코딩)
   - [개념잡기 좋다.파이썬 코드 8 Data Structures Every Programmer Should Know | ForrestKnight](https://youtu.be/gxdQiBkidWk?si=y1yb_GQLcNsiyf6R) 
