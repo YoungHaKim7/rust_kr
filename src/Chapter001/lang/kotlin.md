@@ -1,6 +1,9 @@
 # Kotlin언어
 
+
 # link
+
+- [sdkman으로 kotlin& java version관리하기](https://sdkman.io/)
 
 - [array(Kotlin vs Rust)](#arrayc--rust)
 
