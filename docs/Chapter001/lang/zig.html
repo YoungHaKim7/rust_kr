@@ -156,6 +156,34 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="zig언어"><a class="header" href="#zig언어">zig언어</a></h1>
+<ul>
+<li>zig는 C언어와 거의 비슷하다.  단순하고 쉽다.</li>
+</ul>
+<h1 id="link"><a class="header" href="#link">link</a></h1>
+<ul>
+<li><a href="#arrayzig--rust">array(zig vs Rust)</a></li>
+</ul>
+<hr />
+<h1 id="arrayzig--rust"><a class="header" href="#arrayzig--rust">array(Zig &amp; Rust)<a href="#link">|🔝|</a></a></h1>
+<pre><code class="language-zig">const std = @import("std");
+
+pub fn main() !void {
+    // Declare a 2D array of integers
+    const matrix: [3][3]i32 = [_][3]i32{
+        [_]i32{ 1, 2, 3 },
+        [_]i32{ 4, 5, 6 },
+        [_]i32{ 7, 8, 9 },
+    };
+
+    // Print the matrix elements
+    for (matrix) |row| {
+        for (row) |element| {
+            std.debug.print("{} ", .{element});
+        }
+        std.debug.print("\n", .{});
+    }
+}
+</code></pre>
 
                     </main>
 

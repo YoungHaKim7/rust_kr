@@ -17,7 +17,7 @@
 
 fn bis(x: i32, y: i32) {
   // expression
-  x | m
+  x | y
 }
 
 ```
