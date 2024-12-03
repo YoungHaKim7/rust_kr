@@ -16,3 +16,7 @@ editable = true
 
 [output.html.search]
 limit-results = 10
+
+[output.html.fold]
+enable = true
+level = 0

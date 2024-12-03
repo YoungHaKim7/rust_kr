@@ -15,3 +15,6 @@ mdbook serve --open
   - https://dhghomon.github.io/easy_rust/
     - https://github.com/Dhghomon/easy_rust
 - https://rust-lang.github.io/mdBook/
+
+- https://github.com/sunface/rust-course
+  - https://course.rs/about-book.html

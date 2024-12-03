@@ -9,3 +9,10 @@
   - [러스트 언어와 다른언어의 차이점](./Chapter001/rust_etc_difference.md)
   - [Rust의 전체적인 그림 잡기](./Chapter001/rust_summary.md)
     - [struct](./Chapter001/struct/rust_struct.md)
+
+<br />
+
+<hr />
+
+- Rust 고급 기술
+  - [Traits](./Advanced/traits.md)

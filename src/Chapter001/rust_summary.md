@@ -5,7 +5,9 @@
 - [Rust String VS 다른 언어의 String의 차이점](#rust-string-vs-다른-언어의-차이점)
 
 - [오너쉽 이해하기 &  Borrowing]()
-- [Stack & Heap 메모리 이해하기_ Stack과 Heap은 개발자가 옛날에 정한  약속 같은거라 왼쪽은 stack / 오른쪽은 heap하자 느낌으로 기억하자]()
+- [Stack & Heap 메모리 이해하기_ Stack과 Heap은 개발자가 옛날에 정한  약속 같은거라 메모리 윗쪽은 stack / 아래쪽은 heap하자 느낌으로 기억하자]()
+  - Stack은 고드름처럼 쌓여서 내려가고 Heap은 낮은 메모리 주소에 쌓여 들어간다.생각하면 됩니다. 낮은 메모리 주소에는 부팅에 필요한 코드 같은게 들어가니 충분히 공부한 후에 할당하세요.
+    - Stack은 테트리스처럼 틈이 없이 쌓는 개념입니다.(embedded code에 사용되죠)
   - [Stack vs Heap의 장점](#stack-vs-heap의-장점)
 
 - struct & enum & trait를 쓰는 경우
