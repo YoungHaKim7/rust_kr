@@ -19,7 +19,7 @@ fn main() {
     println!("x | y : {}", x | y);
     println!("x ^ y : {}", x ^ y);
     println!("x01 << y02 : {}  // left shift", x_01 << y_02);
-    println!("x01 >> y02 : {}   // right shift", x_01 & y_02);
+    println!("x01 >> y02 : {}   // right shift", x_01 >> y_02);
 }
 ```
 
