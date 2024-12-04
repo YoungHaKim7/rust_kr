@@ -31,3 +31,7 @@
     - [Logical_Operators](./Advanced/Operator/logical_operators.md)
     - [Bitwise_Operators](./Advanced/Operator/bitwise_operators.md)
   - [Algorithm알고리즘](./Advanced/Algorithm/summary_algo.md)
+  - [rust_release](./Advanced/rust_release/rust_release.md)
+    - [rust_1_85_Rust Edition 2024](./Advanced/rust_release/rust_1_85.md)
+    - [rust_1_83](./Advanced/rust_release/rust_1_83.md)
+  - [rust_rfcs_nightly](./Advanced/rust_release/rust_rfcs.md)
