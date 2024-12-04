@@ -35,3 +35,4 @@
     - [rust_1_85_Rust Edition 2024](./Advanced/rust_release/rust_1_85.md)
     - [rust_1_83](./Advanced/rust_release/rust_1_83.md)
   - [rust_rfcs_nightly](./Advanced/rust_release/rust_rfcs.md)
+  - [C++오너쉽개념 기초 C++11에서 가져옴(move_semantics)](./Advanced/cpp/move_semantics.md)
