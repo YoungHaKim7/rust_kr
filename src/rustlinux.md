@@ -2,6 +2,7 @@
 
 - [Rust_Kernel문서](https://docs.kernel.org/rust/index.html)
   - [Github_Rust-for-Linux](https://github.com/Rust-for-Linux/linux)
+  - [Linux 유튜브 채널(LinuxFoundationOrg)](https://www.youtube.com/@LinuxfoundationOrg)
 
 <hr />
 
