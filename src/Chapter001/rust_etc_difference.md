@@ -10,6 +10,8 @@
 
 # 러스트는 statement와 expression차이를 잘 알아야 한다.[|🔝|](#link)
 
+- [https://doc.rust-lang.org/reference/statements-and-expressions.html](https://doc.rust-lang.org/reference/statements-and-expressions.html)
+
 - expression 마지막에 세미콜론(;)이 없다.
 
 ```rs

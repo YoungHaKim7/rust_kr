@@ -8,14 +8,17 @@ title = "rust_kr"
 [output.html]
 git-repository-url = "https://github.com/YoungHaKim7/rust_kr"
 git-repository-icon = "fa-github"
-
+# smart-punctuation = true
+# mathjax-support = true
 
 [output.html.playground]
-runnable = true
-editable = true
+# line-numbers = true
+# runnable = true
+# editable = false
+# copyable = true 
 
 [output.html.search]
-limit-results = 10
+limit-results = 30
 
 [output.html.fold]
 enable = true
