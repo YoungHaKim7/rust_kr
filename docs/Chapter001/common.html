@@ -156,24 +156,52 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="대부분의-코딩의-공통적인것들"><a class="header" href="#대부분의-코딩의-공통적인것들">대부분의 코딩의 공통적인것들</a></h1>
+<h1 id="link"><a class="header" href="#link">link</a></h1>
+<ul>
+<li><a href="#reserved-word%EC%98%88%EC%95%BD%EC%96%B4">예약어reserved-word</a></li>
+<li><a href="#array%EC%9D%B8%EB%8D%B1%EC%8B%B1%EC%97%90-%EC%B5%9C%EA%B3%A0">array</a></li>
+<li><a href="#vector-%EC%9D%B4%EA%B1%B4-array%EC%9D%B8%EB%8D%B0-%ED%99%95%EC%9E%A5-%EA%B0%80%EB%8A%A5%ED%95%9C-array%EC%9D%B4%EB%8B%A4">vector</a></li>
+<li><a href="#tuple-%EB%B9%A0%EB%A5%B4%EB%8B%A4">tuple</a></li>
+<li><a href="#fn-rust%EC%97%90%EC%84%9C%EB%8A%94-function%EC%9D%84-%EC%84%A0%EC%96%B8%ED%95%A0%EB%95%8C-%EC%9D%B4%EB%A0%87%EA%B2%8C-%EB%B6%99%ED%9E%8C%EB%8B%A4">Rust에서 function선언하기 </a></li>
+</ul>
+<hr />
 <h1 id="모든언어는-비슷한-패턴이-있다"><a class="header" href="#모든언어는-비슷한-패턴이-있다">모든언어는 비슷한 패턴이 있다.</a></h1>
-<h1 id="reserved-word예약어"><a class="header" href="#reserved-word예약어">Reserved Word(예약어)</a></h1>
+<h1 id="reserved-word예약어"><a class="header" href="#reserved-word예약어">Reserved Word(예약어)<a href="#link">|🔝|</a></a></h1>
 <ul>
 <li>어떤 언어를 시작하든 처음에 할일은 예약어를 우선 찾는다.  aka. 예약어로 변수를 선언을 할 수 없다.</li>
 </ul>
-<h1 id="array인덱싱에-최고"><a class="header" href="#array인덱싱에-최고">array(인덱싱에 최고)</a></h1>
+<h1 id="array인덱싱에-최고"><a class="header" href="#array인덱싱에-최고">array(인덱싱에 최고)<a href="#link">|🔝|</a></a></h1>
 <ul>
 <li>2d, 3d matrix만들때 쓰는 아주 아주 재주가 많은 친구</li>
 </ul>
-<h1 id="vector-이건-array인데-확장-가능한-array이다"><a class="header" href="#vector-이건-array인데-확장-가능한-array이다">vector 이건 array인데 확장 가능한 array이다.</a></h1>
+<pre><code class="language-rs">let my_2d_array = [
+    [1, 2]
+    [3, 4]
+];
+
+my_2d_array[0][1] = 2;
+
+let my_array [0,1,2,3,4];
+
+my_array[1] = 1;
+</code></pre>
+<h1 id="vector-이건-array인데-확장-가능한-array이다"><a class="header" href="#vector-이건-array인데-확장-가능한-array이다">vector 이건 array인데 확장 가능한 array이다.<a href="#link">|🔝|</a></a></h1>
 <ul>
 <li>모든 알고리즘에 99프로는 쓰는 vector 제일 많이 공부해야한다.</li>
 </ul>
-<h1 id="tuple-빠르다"><a class="header" href="#tuple-빠르다">tuple 빠르다.</a></h1>
+<pre><code class="language-rs">let my_array = [0; 3];
+
+let my_vector = vec![0, 0, 0];
+</code></pre>
+<h1 id="tuple-빠르다"><a class="header" href="#tuple-빠르다">tuple 빠르다.<a href="#link">|🔝|</a></a></h1>
 <ul>
 <li>API 실행하거나 명령어 불러올때 쓰는 버튼 같은 기능<code>()</code> 이런거 많이 보셨죠?? 결국 튜블임.</li>
 </ul>
-<h1 id="fn-rust에서는-function을-선언할때-이렇게-붙힌다"><a class="header" href="#fn-rust에서는-function을-선언할때-이렇게-붙힌다"><code>fn</code> rust에서는 function을 선언할때 이렇게 붙힌다.</a></h1>
+<pre><code class="language-rs">let my_tuple = (1, "test");
+</code></pre>
+<h1 id="fn-rust에서는-function을-선언할때-이렇게-붙힌다"><a class="header" href="#fn-rust에서는-function을-선언할때-이렇게-붙힌다"><code>fn</code> rust에서는 function을 선언할때 이렇게 붙힌다.<a href="#link">|🔝|</a></a></h1>
+<pre><code class="language-rs">fn main () {}
+</code></pre>
 
                     </main>
 

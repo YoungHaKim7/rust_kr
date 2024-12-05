@@ -2,16 +2,14 @@
 
 # link
 
-- [Rust String VS 다른 언어의 String의 차이점](#rust-string-vs-다른-언어의-차이점)
+- [Rust String VS 다른 언어의 String의 차이점](#rust-string-vs-다른-언어의-string의-차이점)
 
-- [오너쉽 이해하기 &  Borrowing]()
-- [Stack & Heap 메모리 이해하기_ Stack과 Heap은 개발자가 옛날에 정한  약속 같은거라 메모리 윗쪽은 stack / 아래쪽은 heap하자 느낌으로 기억하자]()
-  - Stack은 고드름처럼 쌓여서 내려가고 Heap은 낮은 메모리 주소에 쌓여 들어간다.생각하면 됩니다. 낮은 메모리 주소에는 부팅에 필요한 코드 같은게 들어가니 충분히 공부한 후에 할당하세요.
-    - Stack은 테트리스처럼 틈이 없이 쌓는 개념입니다.(embedded code에 사용되죠)
+- [오너쉽 이해하기 &  Borrowing](../Rust_syntax/Ownership_borrowing/Ownership_borrowing.html)
+- [Stack & Heap 메모리 이해하기](#stack--heap-메모리-이해하기)
   - [Stack vs Heap의 장점](#stack-vs-heap의-장점)
 
 - struct & enum & trait를 쓰는 경우
-  - [struct(보통 데이터 저장하는 개념으로 이해하자)]()
+  - [struct(보통 데이터 저장하는 개념으로 이해하자)](./struct/rust_struct.html)
   - [enum(키보드의 화살표 같은거 저장할때 게임에서 방향키  웹에선 200같은 접속 성공같은거_딱딱한 러스트의 타입 시스템을 유연하게 만들어준다.)]()
   - [trait러스트의 딱딱한 타입시스템을 유연하게 만들 매직_Rust의 꽃Traits 젤 어렵지만 젤 재능이 많다.]()
 
@@ -24,11 +22,10 @@
 
 <hr />
 
-# 오너쉽 이해하기 &  Borrowing[|🔝|](#link)
-
-
-
 # Stack & Heap 메모리 이해하기[|🔝|](#link)
+
+- Stack은 고드름처럼 쌓여서 내려가고 Heap은 낮은 메모리 주소에 쌓여 들어간다.생각하면 됩니다. 낮은 메모리 주소에는 부팅에 필요한 코드 같은게 들어가니 충분히 공부한 후에 할당하세요.
+  - Stack은 테트리스처럼 틈이 없이 쌓는 개념입니다.(embedded code에 사용되죠)
 
 - Stack과 Heap은 개발자가 옛날에 정한  약속 같은거라 왼쪽은 stack / 오른쪽은 heap하자 느낌으로 기억하자]()
 
@@ -100,7 +97,7 @@
       - ② 상호 참조
       - ③ 본인 참조
       - https://velog.io/@devnoong/JAVA-Stack-%EA%B3%BC-Heap%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C#outofmemoryerror--java-heap-space-%EB%9E%80
-        
+
 # Heap Overflow[[🔝]](#link)
 
 - [https://en.wikipedia.org/wiki/Heap_overflow](https://en.wikipedia.org/wiki/Heap_overflow)

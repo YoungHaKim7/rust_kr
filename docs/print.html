@@ -558,29 +558,57 @@ int bis(int x, int m) {
     theme="github-light" crossorigin="anonymous" async>
 </script>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="대부분의-코딩의-공통적인것들"><a class="header" href="#대부분의-코딩의-공통적인것들">대부분의 코딩의 공통적인것들</a></h1>
+<h1 id="link-2"><a class="header" href="#link-2">link</a></h1>
+<ul>
+<li><a href="Chapter001/common.html#reserved-word%EC%98%88%EC%95%BD%EC%96%B4">예약어reserved-word</a></li>
+<li><a href="Chapter001/common.html#array%EC%9D%B8%EB%8D%B1%EC%8B%B1%EC%97%90-%EC%B5%9C%EA%B3%A0">array</a></li>
+<li><a href="Chapter001/common.html#vector-%EC%9D%B4%EA%B1%B4-array%EC%9D%B8%EB%8D%B0-%ED%99%95%EC%9E%A5-%EA%B0%80%EB%8A%A5%ED%95%9C-array%EC%9D%B4%EB%8B%A4">vector</a></li>
+<li><a href="Chapter001/common.html#tuple-%EB%B9%A0%EB%A5%B4%EB%8B%A4">tuple</a></li>
+<li><a href="Chapter001/common.html#fn-rust%EC%97%90%EC%84%9C%EB%8A%94-function%EC%9D%84-%EC%84%A0%EC%96%B8%ED%95%A0%EB%95%8C-%EC%9D%B4%EB%A0%87%EA%B2%8C-%EB%B6%99%ED%9E%8C%EB%8B%A4">Rust에서 function선언하기 </a></li>
+</ul>
+<hr />
 <h1 id="모든언어는-비슷한-패턴이-있다"><a class="header" href="#모든언어는-비슷한-패턴이-있다">모든언어는 비슷한 패턴이 있다.</a></h1>
-<h1 id="reserved-word예약어"><a class="header" href="#reserved-word예약어">Reserved Word(예약어)</a></h1>
+<h1 id="reserved-word예약어"><a class="header" href="#reserved-word예약어">Reserved Word(예약어)<a href="Chapter001/common.html#link">|🔝|</a></a></h1>
 <ul>
 <li>어떤 언어를 시작하든 처음에 할일은 예약어를 우선 찾는다.  aka. 예약어로 변수를 선언을 할 수 없다.</li>
 </ul>
-<h1 id="array인덱싱에-최고"><a class="header" href="#array인덱싱에-최고">array(인덱싱에 최고)</a></h1>
+<h1 id="array인덱싱에-최고"><a class="header" href="#array인덱싱에-최고">array(인덱싱에 최고)<a href="Chapter001/common.html#link">|🔝|</a></a></h1>
 <ul>
 <li>2d, 3d matrix만들때 쓰는 아주 아주 재주가 많은 친구</li>
 </ul>
-<h1 id="vector-이건-array인데-확장-가능한-array이다"><a class="header" href="#vector-이건-array인데-확장-가능한-array이다">vector 이건 array인데 확장 가능한 array이다.</a></h1>
+<pre><code class="language-rs">let my_2d_array = [
+    [1, 2]
+    [3, 4]
+];
+
+my_2d_array[0][1] = 2;
+
+let my_array [0,1,2,3,4];
+
+my_array[1] = 1;
+</code></pre>
+<h1 id="vector-이건-array인데-확장-가능한-array이다"><a class="header" href="#vector-이건-array인데-확장-가능한-array이다">vector 이건 array인데 확장 가능한 array이다.<a href="Chapter001/common.html#link">|🔝|</a></a></h1>
 <ul>
 <li>모든 알고리즘에 99프로는 쓰는 vector 제일 많이 공부해야한다.</li>
 </ul>
-<h1 id="tuple-빠르다"><a class="header" href="#tuple-빠르다">tuple 빠르다.</a></h1>
+<pre><code class="language-rs">let my_array = [0; 3];
+
+let my_vector = vec![0, 0, 0];
+</code></pre>
+<h1 id="tuple-빠르다"><a class="header" href="#tuple-빠르다">tuple 빠르다.<a href="Chapter001/common.html#link">|🔝|</a></a></h1>
 <ul>
 <li>API 실행하거나 명령어 불러올때 쓰는 버튼 같은 기능<code>()</code> 이런거 많이 보셨죠?? 결국 튜블임.</li>
 </ul>
-<h1 id="fn-rust에서는-function을-선언할때-이렇게-붙힌다"><a class="header" href="#fn-rust에서는-function을-선언할때-이렇게-붙힌다"><code>fn</code> rust에서는 function을 선언할때 이렇게 붙힌다.</a></h1>
+<pre><code class="language-rs">let my_tuple = (1, "test");
+</code></pre>
+<h1 id="fn-rust에서는-function을-선언할때-이렇게-붙힌다"><a class="header" href="#fn-rust에서는-function을-선언할때-이렇게-붙힌다"><code>fn</code> rust에서는 function을 선언할때 이렇게 붙힌다.<a href="Chapter001/common.html#link">|🔝|</a></a></h1>
+<pre><code class="language-rs">fn main () {}
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="zig언어"><a class="header" href="#zig언어">zig언어</a></h1>
 <ul>
 <li>zig는 C언어와 거의 비슷하다.  단순하고 쉽다.</li>
 </ul>
-<h1 id="link-2"><a class="header" href="#link-2">link</a></h1>
+<h1 id="link-3"><a class="header" href="#link-3">link</a></h1>
 <ul>
 <li><a href="Chapter001/lang/zig.html#arrayzig--rust">array(zig vs Rust)</a></li>
 </ul>
@@ -645,7 +673,7 @@ fn main() {
 </code></pre>
 <hr />
 <div style="break-before: page; page-break-before: always;"></div><h1 id="c언어"><a class="header" href="#c언어">C++언어</a></h1>
-<h1 id="link-3"><a class="header" href="#link-3">link</a></h1>
+<h1 id="link-4"><a class="header" href="#link-4">link</a></h1>
 <ul>
 <li><a href="Chapter001/lang/cpp.html#arrayc--rust">array(C++ vs Rust)</a></li>
 </ul>
@@ -720,7 +748,7 @@ fn main() {
 </code></pre>
 <hr />
 <div style="break-before: page; page-break-before: always;"></div><h1 id="c언어-1"><a class="header" href="#c언어-1">C언어</a></h1>
-<h1 id="link-4"><a class="header" href="#link-4">link</a></h1>
+<h1 id="link-5"><a class="header" href="#link-5">link</a></h1>
 <ul>
 <li><a href="Chapter001/lang/c.html#arrayc--rust">array(C vs Rust)</a></li>
 </ul>
@@ -781,7 +809,7 @@ fn main() {
 </code></pre>
 <hr />
 <div style="break-before: page; page-break-before: always;"></div><h1 id="kotlin언어"><a class="header" href="#kotlin언어">Kotlin언어</a></h1>
-<h1 id="link-5"><a class="header" href="#link-5">link</a></h1>
+<h1 id="link-6"><a class="header" href="#link-6">link</a></h1>
 <ul>
 <li>
 <p><a href="https://sdkman.io/">sdkman으로 kotlin&amp; java version관리하기</a></p>
@@ -846,7 +874,7 @@ fn main() {
 </code></pre>
 <hr />
 <div style="break-before: page; page-break-before: always;"></div><h1 id="swift언어"><a class="header" href="#swift언어">Swift언어</a></h1>
-<h1 id="link-6"><a class="header" href="#link-6">link</a></h1>
+<h1 id="link-7"><a class="header" href="#link-7">link</a></h1>
 <ul>
 <li><a href="Chapter001/lang/swift.html#arrayswift--rust">array(swift vs Rust)</a></li>
 </ul>
@@ -922,29 +950,24 @@ fn main() {
 </code></pre>
 <hr />
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust의-전체적인-그림-잡기"><a class="header" href="#rust의-전체적인-그림-잡기">Rust의 전체적인 그림 잡기</a></h1>
-<h1 id="link-7"><a class="header" href="#link-7">link</a></h1>
+<h1 id="link-8"><a class="header" href="#link-8">link</a></h1>
 <ul>
 <li>
-<p><a href="Chapter001/rust_summary.html#rust-string-vs-%EB%8B%A4%EB%A5%B8-%EC%96%B8%EC%96%B4%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90">Rust String VS 다른 언어의 String의 차이점</a></p>
+<p><a href="Chapter001/rust_summary.html#rust-string-vs-%EB%8B%A4%EB%A5%B8-%EC%96%B8%EC%96%B4%EC%9D%98-string%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90">Rust String VS 다른 언어의 String의 차이점</a></p>
 </li>
 <li>
-<p><a href="Chapter001/">오너쉽 이해하기 &amp;  Borrowing</a></p>
+<p><a href="Chapter001/../Rust_syntax/Ownership_borrowing/Ownership_borrowing.html">오너쉽 이해하기 &amp;  Borrowing</a></p>
 </li>
 <li>
-<p><a href="Chapter001/">Stack &amp; Heap 메모리 이해하기_ Stack과 Heap은 개발자가 옛날에 정한  약속 같은거라 메모리 윗쪽은 stack / 아래쪽은 heap하자 느낌으로 기억하자</a></p>
+<p><a href="Chapter001/rust_summary.html#stack--heap-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0">Stack &amp; Heap 메모리 이해하기</a></p>
 <ul>
-<li>Stack은 고드름처럼 쌓여서 내려가고 Heap은 낮은 메모리 주소에 쌓여 들어간다.생각하면 됩니다. 낮은 메모리 주소에는 부팅에 필요한 코드 같은게 들어가니 충분히 공부한 후에 할당하세요.
-<ul>
-<li>Stack은 테트리스처럼 틈이 없이 쌓는 개념입니다.(embedded code에 사용되죠)</li>
-</ul>
-</li>
 <li><a href="Chapter001/rust_summary.html#stack-vs-heap%EC%9D%98-%EC%9E%A5%EC%A0%90">Stack vs Heap의 장점</a></li>
 </ul>
 </li>
 <li>
 <p>struct &amp; enum &amp; trait를 쓰는 경우</p>
 <ul>
-<li><a href="Chapter001/">struct(보통 데이터 저장하는 개념으로 이해하자)</a></li>
+<li><a href="Chapter001/./struct/rust_struct.html">struct(보통 데이터 저장하는 개념으로 이해하자)</a></li>
 <li><a href="Chapter001/">enum(키보드의 화살표 같은거 저장할때 게임에서 방향키  웹에선 200같은 접속 성공같은거_딱딱한 러스트의 타입 시스템을 유연하게 만들어준다.)</a></li>
 <li><a href="Chapter001/">trait러스트의 딱딱한 타입시스템을 유연하게 만들 매직_Rust의 꽃Traits 젤 어렵지만 젤 재능이 많다.</a></li>
 </ul>
@@ -960,9 +983,14 @@ fn main() {
 </li>
 </ul>
 <hr />
-<h1 id="오너쉽-이해하기---borrowing"><a class="header" href="#오너쉽-이해하기---borrowing">오너쉽 이해하기 &amp;  Borrowing<a href="Chapter001/rust_summary.html#link">|🔝|</a></a></h1>
 <h1 id="stack--heap-메모리-이해하기"><a class="header" href="#stack--heap-메모리-이해하기">Stack &amp; Heap 메모리 이해하기<a href="Chapter001/rust_summary.html#link">|🔝|</a></a></h1>
 <ul>
+<li>
+<p>Stack은 고드름처럼 쌓여서 내려가고 Heap은 낮은 메모리 주소에 쌓여 들어간다.생각하면 됩니다. 낮은 메모리 주소에는 부팅에 필요한 코드 같은게 들어가니 충분히 공부한 후에 할당하세요.</p>
+<ul>
+<li>Stack은 테트리스처럼 틈이 없이 쌓는 개념입니다.(embedded code에 사용되죠)</li>
+</ul>
+</li>
 <li>
 <p>Stack과 Heap은 개발자가 옛날에 정한  약속 같은거라 왼쪽은 stack / 오른쪽은 heap하자 느낌으로 기억하자]()</p>
 </li>
@@ -1133,16 +1161,132 @@ fn main() {
 }
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust_syntax러스트문법"><a class="header" href="#rust_syntax러스트문법">Rust_Syntax러스트문법</a></h1>
-<h1 id="link-8"><a class="header" href="#link-8">link</a></h1>
+<h1 id="link-9"><a class="header" href="#link-9">link</a></h1>
 <hr />
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust_getting_started"><a class="header" href="#rust_getting_started">Rust_Getting_Started</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="programming_fake_install"><a class="header" href="#programming_fake_install">Programming_fake_install</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="common-programming-concepts"><a class="header" href="#common-programming-concepts">Common Programming Concepts</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="variablesmutability"><a class="header" href="#variablesmutability">Variables&amp;Mutability</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="data_types데이터-타입"><a class="header" href="#data_types데이터-타입">Data_Types데이터 타입</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ownership오너쉽_borrowing"><a class="header" href="#ownership오너쉽_borrowing">OwnerShip오너쉽_borrowing</a></h1>
+<h1 id="link-10"><a class="header" href="#link-10">link</a></h1>
+<ul>
+<li><a href="Rust_syntax/Ownership_borrowing/Ownership_borrowing.html#%EB%9F%AC%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98value%EC%9D%98-3%EA%B0%80%EC%A7%80-%EC%83%81%ED%83%9C">러스트 변수value의 3가지 상태</a></li>
+<li><a href="Rust_syntax/Ownership_borrowing/Ownership_borrowing.html#ownership-rules">Ownership Rules</a></li>
+<li><a href="Rust_syntax/Ownership_borrowing/Ownership_borrowing.html#borrowing-rules">Borrowing rules</a></li>
+</ul>
+<hr />
+<h1 id="러스트-변수value의-3가지-상태"><a class="header" href="#러스트-변수value의-3가지-상태">러스트 변수value의 3가지 상태<a href="Rust_syntax/Ownership_borrowing/Ownership_borrowing.html#link">|🔝|</a></a></h1>
+<ul>
+<li>
+<p>① . consume상태(오너쉽을 가지고 있다.)</p>
+<ul>
+<li>읽기,  쓰기 ,  오너쉽을 넘겨주는 상태(사장님이다.  다 가능)</li>
+</ul>
+</li>
+<li>
+<p>② . borrowing(<code>&amp;</code> Reference)(빌린 상태라 빚쟁이 같은거다.  사장님이 죽으면 그때 라이프 타임이 끝나다.)</p>
+<ul>
+<li>읽기 전용이라 생각하면 된다.</li>
+</ul>
+</li>
+<li>
+<p>③ . 변수를 바꿀수 있다.(&amp;mut) 변수를 빌려서 코인 1개의 바꿀수 있는 권리가 있다.</p>
+<ul>
+<li>바꿀수 있는 기회는 딱 1번뿐..
+<ul>
+<li>변수가 바뀐 다음부터는 읽기 전용상태(&amp;)만 가능하다.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>예시를 보면 이해해 보자.</p>
+</li>
+</ul>
+<pre><code class="language-rs">// consume상태-&gt; 오너쉽을 이동했다.
+fn owner_consume(x: String) -&gt; String {
+    x
+}
+
+// borrowing &amp; 읽기 전용
+fn owner_reference_pattern(x: &amp;str) -&gt; &amp;str {
+    x
+}
+
+// &amp;mut 바꾼 다음 읽기전용만 가능
+fn mut_str(x: &amp;mut String) -&gt; &amp;mut String {
+    x.push_str(" + mutant String");
+    x
+}
+
+fn main() {
+    let x_consume = "consume string".to_string();
+    dbg!(owner_consume(x_consume));
+    // owner_consume(x_consume.clone()));
+
+    // use of value error
+    // dbg!(x_consume);
+    // println!("{}", x_consume);
+
+    let x_ref_str = "Reference String";
+    dbg!(owner_reference_pattern(x_ref_str));
+    dbg!(x_ref_str);
+
+    let mut x_mut_str = "Add String".to_string();
+    dbg!(mut_str(&amp;mut x_mut_str));
+
+    let int_x = 40;
+    let y = int_x;
+    // int는 copy type이라 오너쉽 생각안해도 됨. stack copy됨
+    dbg!(int_x);
+}
+</code></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">[src/main.rs:16:5] owner_consume(x_consume) = "consume string"
+[src/main.rs:24:5] owner01(x_ref_str) = "Reference String"
+[src/main.rs:25:5] x_ref_str = "Reference String"
+[src/main.rs:28:5] mut_str(&amp;mut x_mut_str) = "Add String + mutant String"
+[src/main.rs:32:5] int_x = 40
+</code></pre>
+<h1 id="ownership-rules"><a class="header" href="#ownership-rules">Ownership Rules<a href="Rust_syntax/Ownership_borrowing/Ownership_borrowing.html#link">|🔝|</a></a></h1>
+<ul>
+<li>
+<p>First, let's take a look at the ownership rules. Keep these rules in mind as we work through the examples that illustrate them"</p>
+<ul>
+<li>Each value in Rust has a variable that's called its owner.</li>
+<li>There can only be one owner at a time.</li>
+<li>When the owner goes out of scope, the value will be dropped.</li>
+</ul>
+</li>
+<li>
+<p>소유권 규칙</p>
+<ul>
+<li>먼저, 소유권에 적용되는 규칙부터 살펴보자. 앞으로 살펴볼 예제들은 이 규칙들을 설명하기 위한 것이므로 잘 기억하도록 하자.
+<ul>
+<li>러스트가 다루는 각각의 값은 소유자(owner)라고 부르는 변수를 가지고 있다.</li>
+<li>특정 시점에 값의 소유자는 단 하나뿐이다.</li>
+<li>소유자가 범위를 벗어나면 그 값은 제거된다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="borrowing-rules"><a class="header" href="#borrowing-rules">Borrowing rules<a href="Rust_syntax/Ownership_borrowing/Ownership_borrowing.html#link">|🔝|</a></a></h1>
+<ul>
+<li>
+<p>At any given time, you can have either one mutable reference or any number of immutable references.</p>
+</li>
+<li>
+<p>References must always be valid.</p>
+</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-고급-기술"><a class="header" href="#rust-고급-기술">Rust 고급 기술</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="traits"><a class="header" href="#traits">traits</a></h1>
-<h1 id="link-9"><a class="header" href="#link-9">link</a></h1>
+<h1 id="link-11"><a class="header" href="#link-11">link</a></h1>
 <ul>
 <li><a href="Advanced/">todo</a></li>
 </ul>
@@ -1281,7 +1425,7 @@ fn main() {
 [src\main.rs:102] my_half_orc.speak_elvish() = "yes"
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="operator"><a class="header" href="#operator">Operator</a></h1>
-<h1 id="link-10"><a class="header" href="#link-10">link</a></h1>
+<h1 id="link-12"><a class="header" href="#link-12">link</a></h1>
 <ul>
 <li><a href="Advanced/Operator/intro.html#operator-expressions">(Rust)Operator expressions</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Operators_in_C_and_C%2B%2B">Operators in C and C++</a></li>
@@ -1980,7 +2124,7 @@ See <a href="https://github.com/rust-lang/rust/blob/1.58.0/src/test/ui/expr/comp
 <ul>
 <li><a href="https://en.cppreference.com/w/c/language/operator_precedence">https://en.cppreference.com/w/c/language/operator_precedence</a></li>
 </ul>
-<h1 id="link-11"><a class="header" href="#link-11">link</a></h1>
+<h1 id="link-13"><a class="header" href="#link-13">link</a></h1>
 <hr />
 <h1 id="c-operator-precedence"><a class="header" href="#c-operator-precedence">C Operator Precedence</a></h1>
 <ul>
@@ -2346,7 +2490,7 @@ a <span class="sy4">?</span> b <span class="sy4">:</span> c<br>
 <li>https://en.cppreference.com/w/c/language/operator_precedence</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="logical_operators"><a class="header" href="#logical_operators">Logical_Operators</a></h1>
-<h1 id="link-12"><a class="header" href="#link-12">link</a></h1>
+<h1 id="link-14"><a class="header" href="#link-14">link</a></h1>
 <hr />
 <h1 id="rust-code"><a class="header" href="#rust-code">Rust Code</a></h1>
 <pre><code class="language-rs">fn main() {
@@ -2379,7 +2523,7 @@ true || !true = true
 !(true || true) == (!true &amp;&amp; !true) = true
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bitwise_operators"><a class="header" href="#bitwise_operators">Bitwise_Operators</a></h1>
-<h1 id="link-13"><a class="header" href="#link-13">link</a></h1>
+<h1 id="link-15"><a class="header" href="#link-15">link</a></h1>
 <hr />
 <h1 id="rust-code-1"><a class="header" href="#rust-code-1">Rust Code</a></h1>
 <pre><code class="language-rs">fn main() {
@@ -2408,7 +2552,7 @@ x01 &lt;&lt; y02 : 4  // left shift
 x01 &gt;&gt; y02 : 0   // right shift
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="algorithm알고리즘"><a class="header" href="#algorithm알고리즘">Algorithm알고리즘</a></h1>
-<h1 id="link-14"><a class="header" href="#link-14">link</a></h1>
+<h1 id="link-16"><a class="header" href="#link-16">link</a></h1>
 <ul>
 <li>
 <p><a href="Advanced/Algorithm/summary_algo.html#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%EC%9D%98-4%EB%8B%A8%EA%B3%84">알고리즘의 4단계</a></p>
@@ -2690,7 +2834,7 @@ node -&gt; |1 |      |   |2 |
 <li>https://youtu.be/1PFFgRcZLAk?si=6Da6I9xvcgkzo0sS</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust_release"><a class="header" href="#rust_release">rust_release</a></h1>
-<h1 id="link-15"><a class="header" href="#link-15">link</a></h1>
+<h1 id="link-17"><a class="header" href="#link-17">link</a></h1>
 <ul>
 <li>
 <p><a href="Advanced/rust_release/rust_release.html#rust-lang-httpswwwrust-langorg">rust 1.0부터 최신버젼까지 역사 흐름 rust2015~rust2024</a></p>
