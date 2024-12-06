@@ -5,7 +5,7 @@
 - [array(C++ vs Rust)](#arrayc--rust)
 
 
-- [for(C++ vs Rust)](#cpp--rust-for문)
+- [for(C++ vs Rust)](#for문c--rust)
 
 <hr />
 
@@ -88,7 +88,7 @@ fn main() {
 
 <hr />
 
-# Cpp & Rust for문[|🔝|](#link)
+# for문(C++ & Rust)[|🔝|](#link)
 
 - modern c++에서는 begin, end를 활용하겠지만 단순한 비교를 위해 옛날 스타일로 비교한다.
 
