@@ -16,7 +16,7 @@
 - 공간 지역성을 기울기로 표시(slopes of spatial locality, 공간적 국소성의 경사면)
 
 <div align="center">
-  <img src="https://i.sstatic.net/J5Jv5.jpg" />
+  <img src="https://github.com/user-attachments/assets/b1b1c634-ba57-46c7-bc46-b7f40bfd5b6c" />
 </div>
 
 <hr>
