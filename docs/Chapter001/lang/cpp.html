@@ -158,7 +158,12 @@
                         <h1 id="c언어"><a class="header" href="#c언어">C++언어</a></h1>
 <h1 id="link"><a class="header" href="#link">link</a></h1>
 <ul>
-<li><a href="#arrayc--rust">array(C++ vs Rust)</a></li>
+<li>
+<p><a href="#arrayc--rust">array(C++ vs Rust)</a></p>
+</li>
+<li>
+<p><a href="#cpp--rust-for%EB%AC%B8">for(C++ vs Rust)</a></p>
+</li>
 </ul>
 <hr />
 <h1 id="arrayc--rust"><a class="header" href="#arrayc--rust">array(C++ &amp; Rust)<a href="#link">|🔝|</a></a></h1>
@@ -230,6 +235,44 @@ fn main() {
 [7, 8, 9]
 </code></pre>
 <hr />
+<h1 id="cpp--rust-for문"><a class="header" href="#cpp--rust-for문">Cpp &amp; Rust for문<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li>modern c++에서는 begin, end를 활용하겠지만 단순한 비교를 위해 옛날 스타일로 비교한다.</li>
+</ul>
+<pre><code class="language-cpp">// c++
+#include &lt;iostream&gt;
+
+int main() {
+    for(int i =0; i&lt; 10; ++i) {
+        std::cout &lt;&lt; i &lt;&lt; std::endl;
+    }
+    return 0;
+}
+</code></pre>
+<ul>
+<li>Rust</li>
+</ul>
+<pre><code class="language-rs">// Rust
+fn main() {
+    for i in 0..10 {
+        println!("{}", i);
+    }
+}
+</code></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+</code></pre>
 
                     </main>
 

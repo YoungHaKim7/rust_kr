@@ -180,6 +180,12 @@
 </ul>
 </li>
 <li>
+<p>Rust는 특유의 안전감에 빠져들게 되면 다른언어로 못 가실 겁니다.(안전하고 빠른 승차감 ㅋㅋ)</p>
+<ul>
+<li>6개월정도는 오너쉽에 익숙해 지는 시간이 지옥같겠지만 익숙해 지시면 문법이 대부분 다 비슷비슷해서 갑자기 언어가 쉬워지는 마법이..  그러니 끝까지 잘 살아남아보세용~</li>
+</ul>
+</li>
+<li>
 <p>저같이 혼자 개발하는 분들을 위한 좋은글</p>
 <ul>
 <li><a href="https://news.hada.io/topic?id=18068&amp;utm_source=discord&amp;utm_medium=bot&amp;utm_campaign=1480">GN⁺: Ask HN: 배울 수 있는 훌륭한 시니어 없이, 엔지니어로 어떻게 성장할 수 있을까요?
@@ -680,7 +686,12 @@ fn main() {
 <div style="break-before: page; page-break-before: always;"></div><h1 id="c언어"><a class="header" href="#c언어">C++언어</a></h1>
 <h1 id="link-4"><a class="header" href="#link-4">link</a></h1>
 <ul>
-<li><a href="Chapter001/lang/cpp.html#arrayc--rust">array(C++ vs Rust)</a></li>
+<li>
+<p><a href="Chapter001/lang/cpp.html#arrayc--rust">array(C++ vs Rust)</a></p>
+</li>
+<li>
+<p><a href="Chapter001/lang/cpp.html#cpp--rust-for%EB%AC%B8">for(C++ vs Rust)</a></p>
+</li>
 </ul>
 <hr />
 <h1 id="arrayc--rust"><a class="header" href="#arrayc--rust">array(C++ &amp; Rust)<a href="Chapter001/lang/cpp.html#link">|🔝|</a></a></h1>
@@ -752,6 +763,44 @@ fn main() {
 [7, 8, 9]
 </code></pre>
 <hr />
+<h1 id="cpp--rust-for문"><a class="header" href="#cpp--rust-for문">Cpp &amp; Rust for문<a href="Chapter001/lang/cpp.html#link">|🔝|</a></a></h1>
+<ul>
+<li>modern c++에서는 begin, end를 활용하겠지만 단순한 비교를 위해 옛날 스타일로 비교한다.</li>
+</ul>
+<pre><code class="language-cpp">// c++
+#include &lt;iostream&gt;
+
+int main() {
+    for(int i =0; i&lt; 10; ++i) {
+        std::cout &lt;&lt; i &lt;&lt; std::endl;
+    }
+    return 0;
+}
+</code></pre>
+<ul>
+<li>Rust</li>
+</ul>
+<pre><code class="language-rs">// Rust
+fn main() {
+    for i in 0..10 {
+        println!("{}", i);
+    }
+}
+</code></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="c언어-1"><a class="header" href="#c언어-1">C언어</a></h1>
 <h1 id="link-5"><a class="header" href="#link-5">link</a></h1>
 <ul>

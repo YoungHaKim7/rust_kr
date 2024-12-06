@@ -5,6 +5,8 @@
 - [array(C++ vs Rust)](#arrayc--rust)
 
 
+- [for(C++ vs Rust)](#cpp--rust-for문)
+
 <hr />
 
 
@@ -85,3 +87,46 @@ fn main() {
 
 
 <hr />
+
+# Cpp & Rust for문[|🔝|](#link)
+
+- modern c++에서는 begin, end를 활용하겠지만 단순한 비교를 위해 옛날 스타일로 비교한다.
+
+```cpp
+// c++
+#include <iostream>
+
+int main() {
+    for(int i =0; i< 10; ++i) {
+        std::cout << i << std::endl;
+    }
+    return 0;
+}
+```
+
+
+- Rust
+
+```rs
+// Rust
+fn main() {
+    for i in 0..10 {
+        println!("{}", i);
+    }
+}
+```
+
+- Result
+
+```bash
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+```
