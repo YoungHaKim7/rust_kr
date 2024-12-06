@@ -3,7 +3,9 @@
 
 # link
 
-- [array(zig vs Rust)](#arrayzig--rust)
+- [array(Zig vs Rust)](#arrayzig--rust)
+
+- [for(Zig & Rust)](#forzig--rust)
 
 
 <hr />
@@ -12,6 +14,7 @@
 
 
 ```zig
+// zig
 const std = @import("std");
 const print = std.debug.print;
 
@@ -75,3 +78,70 @@ fn main() {
 
 
 <hr />
+
+
+# for(Zig & Rust)[|🔝|](#link)
+
+
+- Rust
+
+```rs
+// Rust
+fn main() {
+    for i in 0..10 {
+        println!("{}", i);
+    }
+}
+```
+
+
+- zig
+  - https://zig-by-example.com/for
+
+```zig
+// zig
+const std = @import("std");
+const print = std.debug.print;
+
+pub fn main() !void {
+    var array = [_]u32{ 1, 2, 3 };
+
+    for (array) |elem| {
+        print("by val: {}\n", .{elem});
+    }
+
+    for (&array) |*elem| {
+        elem.* += 100;
+        print("by ref: {}\n", .{elem.*});
+    }
+
+    for (array, &array) |val, *ref| {
+        _ = val;
+        _ = ref;
+    }
+
+    for (0.., array) |i, elem| {
+        print("{}: {}\n", .{ i, elem });
+    }
+
+    for (array) |_| {}
+}
+```
+
+- Result
+
+```bash
+
+by val: 1
+by val: 2
+by val: 3
+by ref: 101
+by ref: 102
+by ref: 103
+0: 101
+1: 102
+2: 103
+```
+
+<hr />
+

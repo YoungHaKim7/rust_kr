@@ -621,11 +621,17 @@ let my_vector = vec![0, 0, 0];
 </ul>
 <h1 id="link-3"><a class="header" href="#link-3">link</a></h1>
 <ul>
-<li><a href="Chapter001/lang/zig.html#arrayzig--rust">array(zig vs Rust)</a></li>
+<li>
+<p><a href="Chapter001/lang/zig.html#arrayzig--rust">array(Zig vs Rust)</a></p>
+</li>
+<li>
+<p><a href="Chapter001/lang/zig.html#forzig--rust">for(Zig &amp; Rust)</a></p>
+</li>
 </ul>
 <hr />
 <h1 id="arrayzig--rust"><a class="header" href="#arrayzig--rust">array(Zig &amp; Rust)<a href="Chapter001/lang/zig.html#link">|🔝|</a></a></h1>
-<pre><code class="language-zig">const std = @import("std");
+<pre><code class="language-zig">// zig
+const std = @import("std");
 const print = std.debug.print;
 
 pub fn main() !void {
@@ -681,6 +687,67 @@ fn main() {
 <pre><code class="language-bash">[1, 2, 3]
 [4, 5, 6]
 [7, 8, 9]
+</code></pre>
+<hr />
+<h1 id="forzig--rust"><a class="header" href="#forzig--rust">for(Zig &amp; Rust)<a href="Chapter001/lang/zig.html#link">|🔝|</a></a></h1>
+<ul>
+<li>Rust</li>
+</ul>
+<pre><code class="language-rs">// Rust
+fn main() {
+    for i in 0..10 {
+        println!("{}", i);
+    }
+}
+</code></pre>
+<ul>
+<li>zig
+<ul>
+<li>https://zig-by-example.com/for</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-zig">// zig
+const std = @import("std");
+const print = std.debug.print;
+
+pub fn main() !void {
+    var array = [_]u32{ 1, 2, 3 };
+
+    for (array) |elem| {
+        print("by val: {}\n", .{elem});
+    }
+
+    for (&amp;array) |*elem| {
+        elem.* += 100;
+        print("by ref: {}\n", .{elem.*});
+    }
+
+    for (array, &amp;array) |val, *ref| {
+        _ = val;
+        _ = ref;
+    }
+
+    for (0.., array) |i, elem| {
+        print("{}: {}\n", .{ i, elem });
+    }
+
+    for (array) |_| {}
+}
+</code></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">
+by val: 1
+by val: 2
+by val: 3
+by ref: 101
+by ref: 102
+by ref: 103
+0: 101
+1: 102
+2: 103
 </code></pre>
 <hr />
 <div style="break-before: page; page-break-before: always;"></div><h1 id="c언어"><a class="header" href="#c언어">C++언어</a></h1>
