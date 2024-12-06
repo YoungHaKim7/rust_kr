@@ -8,6 +8,10 @@
 - [tuple](#tuple-빠르다)
 - [Rust에서 function선언하기 ](#fn-rust에서는-function을-선언할때-이렇게-붙힌다)
 
+<hr />
+
+- [물어보고 싶거나 하고 싶은말 써 주세요comment <댓글로 이동>](#comment)
+
 
 <hr />
 
@@ -57,3 +61,12 @@ let my_tuple = (1, "test");
 ```rs
 fn main () {}
 ```
+
+<hr />
+
+<h1 id="comment">물어보고 싶거나 하고 싶은말 써 주세요comment<a href="#link">|🔝|</a></h1>
+
+<script src="https://utteranc.es/client.js" repo="YoungHaKim7/blog_comments_bot" issue-term="url"
+    theme="github-light" crossorigin="anonymous" async>
+</script>
+
