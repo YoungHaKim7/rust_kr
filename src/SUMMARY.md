@@ -38,3 +38,7 @@
   - [rust_rfcs_nightly](./Advanced/rust_release/rust_rfcs.md)
   - [C++오너쉽개념 기초 C++11에서 가져옴(move_semantics)](./Advanced/cpp/move_semantics.md)
   - [Rust Lifetime개념 깊게deep dive](./Advanced/rust_deep_dive/rust_lifetime.md)
+
+- [Rust Optimization최적화](./Advanced/Optimization/optimization.md)
+  - [모든 언어별 공통적인 최적화 개념](./Advanced/Optimization/common.md)
+  - [Rust Optimization](./Advanced/Optimization/rust_optimization.md)
