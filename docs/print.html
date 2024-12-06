@@ -695,15 +695,69 @@ fn main() {
 </ul>
 <pre><code class="language-rs">// Rust
 fn main() {
-    for i in 0..10 {
+    for i in 0..4 {
         println!("{}", i);
     }
+
+    let mut array = [1, 2, 3];
+
+    // Iterate over the array by value
+    for elem in &amp;array {
+        println!("by val: {}", elem);
+    }
+
+    // Iterate over the array by mutable reference
+    for elem in &amp;mut array {
+        *elem += 100;
+        println!("by ref: {}", elem);
+    }
+
+    let array02 = [1, 2, 3];
+    // Iterate over the array with both value and mutable reference
+    for (val, ref elem) in array02.iter().zip(array.iter_mut()) {
+        println!("ele {}, val = {}", val, elem)
+    }
+
+    // Iterate over the array with index and value
+    for (i, elem) in array.iter().enumerate() {
+        println!("{}: {}", i, elem);
+    }
+
+    // Iterate over the array (no-op)
+    for i in &amp;array {
+        println!("{i}");
+    }
+
+    
 }
+</code></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">0
+1
+2
+3
+by val: 1
+by val: 2
+by val: 3
+by ref: 101
+by ref: 102
+by ref: 103
+ele 1, val = 101
+ele 2, val = 102
+ele 3, val = 103
+0: 101
+1: 102
+2: 103
+101
+102
+103
 </code></pre>
 <ul>
 <li>zig
 <ul>
-<li>https://zig-by-example.com/for</li>
+<li><a href="https://zig-by-example.com/for">https://zig-by-example.com/for</a></li>
 </ul>
 </li>
 </ul>
