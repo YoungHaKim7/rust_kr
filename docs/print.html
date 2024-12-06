@@ -3695,16 +3695,34 @@ To sanitize this, users must explicitly supply <code>--remap-path-prefix=&lt;pat
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-optimization최적화"><a class="header" href="#rust-optimization최적화">Rust Optimization최적화</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="모든-언어별-공통적인-최적화-개념"><a class="header" href="#모든-언어별-공통적인-최적화-개념">모든 언어별 공통적인 최적화 개념</a></h1>
 <h1 id="link-18"><a class="header" href="#link-18">link</a></h1>
+<ul>
+<li><a href="Advanced/Optimization/common.html#temporal-locality-in-memory-mountain">Temporal locality in memory mountain</a></li>
+<li><a href="Advanced/Optimization/common.html#%EB%AA%A8%EB%93%A0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EB%93%A4%EC%9D%B4-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-%EC%BB%B4%ED%93%A8%ED%84%B0%EC%9D%98-%EC%8B%9C%EA%B0%84-%EC%A0%95%EB%A6%AC">모든 프로그래머들이 알아야 할 컴퓨터의 시간 정리</a></li>
+<li><a href="Advanced/Optimization/common.html#%EA%B7%B8%EB%A6%BC%EC%9C%BC%EB%A1%9C-%EC%9D%B4%ED%95%B4%ED%95%98%EB%8A%94-switch-if-else-while-foreach-try-catch">그림으로 이해하는 Switch, if else, while, foreach, try, catch</a></li>
+</ul>
 <hr />
+<h1 id="temporal-locality-in-memory-mountain"><a class="header" href="#temporal-locality-in-memory-mountain">Temporal locality in memory mountain<a href="Advanced/Optimization/common.html#link">|🔝|</a></a></h1>
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/56720935/temporal-locality-in-memory-mountain">https://stackoverflow.com/questions/56720935/temporal-locality-in-memory-mountain</a></p>
+</li>
+<li>
+<p>시간 지역성을 계곡으로 표시(ridges of temporal locality, 시간적 국소성의 능선)</p>
+</li>
+<li>
+<p>공간 지역성을 기울기로 표시(slopes of spatial locality, 공간적 국소성의 경사면)</p>
+</li>
+</ul>
+<div align="center">
+  <img src="https://i.sstatic.net/J5Jv5.jpg" />
+</div>
+<hr>
 <p align="center">
   <img src="https://i.imgur.com/k0t1e.png" />
 </p>
-<ul>
-<li>모든 프로그래머들이 알아야 할 컴퓨터의 시간 정리
+<h1 id="모든-프로그래머들이-알아야-할-컴퓨터의-시간-정리"><a class="header" href="#모든-프로그래머들이-알아야-할-컴퓨터의-시간-정리">모든 프로그래머들이 알아야 할 컴퓨터의 시간 정리<a href="Advanced/Optimization/common.html#link">|🔝|</a></a></h1>
 <ul>
 <li><a href="https://gist.github.com/jboner/2841832">https://gist.github.com/jboner/2841832</a></li>
-</ul>
-</li>
 </ul>
 <pre><code>Latency Comparison Numbers (~2012)
 ----------------------------------
@@ -3759,6 +3777,7 @@ Visual comparison chart: http://i.imgur.com/k0t1e.png
 </ul>
 </li>
 </ul>
+<h1 id="그림으로-이해하는-switch-if-else-while-foreach-try-catch"><a class="header" href="#그림으로-이해하는-switch-if-else-while-foreach-try-catch">그림으로 이해하는 Switch, if else, while, foreach, try, catch<a href="Advanced/Optimization/common.html#link">|🔝|</a></a></h1>
 <p align="center">
   <img src="https://yt3.ggpht.com/YXq5z7b_VJXXgFtIEzRMIlce8OhyggmzFxk91SSm7JBo1yO3Z3jbOJ50he4n7pCsOXk410P-Vdpa3Vs=s1600-nd-v1" />
 </p>

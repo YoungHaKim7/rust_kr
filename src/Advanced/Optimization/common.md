@@ -2,16 +2,32 @@
 
 # link
 
+- [Temporal locality in memory mountain](#temporal-locality-in-memory-mountain)
+- [모든 프로그래머들이 알아야 할 컴퓨터의 시간 정리](#모든-프로그래머들이-알아야-할-컴퓨터의-시간-정리)
+- [그림으로 이해하는 Switch, if else, while, foreach, try, catch](#그림으로-이해하는-switch-if-else-while-foreach-try-catch)
+
 
 <hr />
 
+# Temporal locality in memory mountain[|🔝|](#link)
+- [https://stackoverflow.com/questions/56720935/temporal-locality-in-memory-mountain](https://stackoverflow.com/questions/56720935/temporal-locality-in-memory-mountain)
+
+- 시간 지역성을 계곡으로 표시(ridges of temporal locality, 시간적 국소성의 능선)
+- 공간 지역성을 기울기로 표시(slopes of spatial locality, 공간적 국소성의 경사면)
+
+<div align="center">
+  <img src="https://i.sstatic.net/J5Jv5.jpg" />
+</div>
+
+<hr>
 
 <p align="center">
   <img src="https://i.imgur.com/k0t1e.png" />
 </p>
 
-- 모든 프로그래머들이 알아야 할 컴퓨터의 시간 정리
-  - [https://gist.github.com/jboner/2841832](https://gist.github.com/jboner/2841832)
+# 모든 프로그래머들이 알아야 할 컴퓨터의 시간 정리[|🔝|](#link)
+
+- [https://gist.github.com/jboner/2841832](https://gist.github.com/jboner/2841832)
 
 ```
 Latency Comparison Numbers (~2012)
@@ -56,6 +72,8 @@ Visual comparison chart: http://i.imgur.com/k0t1e.png
 
 - switch문과 if문의 성능 비교 (ISA관점에서)
   - [https://thinkpro.tistory.com/m/132](https://thinkpro.tistory.com/m/132)
+
+# 그림으로 이해하는 Switch, if else, while, foreach, try, catch[|🔝|](#link)
 
 <p align="center">
   <img src="https://yt3.ggpht.com/YXq5z7b_VJXXgFtIEzRMIlce8OhyggmzFxk91SSm7JBo1yO3Z3jbOJ50he4n7pCsOXk410P-Vdpa3Vs=s1600-nd-v1" />
