@@ -7,8 +7,9 @@
 
 - [array(Kotlin vs Rust)](#arrayc--rust)
 
-- [물어보고 싶거나 하고 싶은말 써 주세요comment <댓글로 이동>](#comment)
+<hr />
 
+- [물어보고 싶거나 하고 싶은말 써 주세요comment <댓글로 이동>](#comment)
 
 <hr />
 
