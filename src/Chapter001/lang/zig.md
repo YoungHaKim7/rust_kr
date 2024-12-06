@@ -96,7 +96,7 @@ fn main() {
 
 
 - zig
-  - https://zig-by-example.com/for
+  - [https://zig-by-example.com/for](https://zig-by-example.com/for)
 
 ```zig
 // zig
