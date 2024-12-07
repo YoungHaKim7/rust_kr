@@ -20,7 +20,7 @@
     - [struct](./Chapter001/struct/rust_struct.md)
 -----------
 # Rust Lang
-  - [Rust_Syntax러스트문법](./Rust_syntax/intro.md)
+- [Rust_Syntax러스트문법](./Rust_syntax/intro.md)
   - [Rust_Getting_Started설치및 시작](./Rust_syntax/getting_stared/hello_world.md)
   - [Programming_fake_install가짜인스톨프로그램 만들기](./Rust_syntax/programming/fake_install.md)
   - [Common Programming Concepts프로그래밍컨셉](./Rust_syntax/Common_Programming/concepts.md)
