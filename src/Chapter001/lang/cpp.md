@@ -62,7 +62,7 @@ $ g++ -std=c++2b -pedantic -pthread -pedantic-errors -lm -Wall -Wextra -ggdb -o 
 
 - Rust
 
-```rs
+```rust
 // Rust
 
 fn main() {
@@ -111,7 +111,7 @@ int main() {
 
 - Rust
 
-```rs
+```rust
 // Rust
 fn main() {
     for i in 0..10 {

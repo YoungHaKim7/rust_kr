@@ -1,5 +1,14 @@
 # rust_1_85_Rust Edition 2024
 
+# Rust 2024
+
+| Info | |
+| --- | --- |
+| RFC | [#3501](https://rust-lang.github.io/rfcs/3501-edition-2024.html) |
+| Release version | 1.85.0 |
+
+<hr />
+
 # (241130기준)현재는 nightly로 사용가능한듯 찾아보자
 - [https://doc.rust-lang.org/nightly/edition-guide/rust-2024/index.html](https://doc.rust-lang.org/nightly/edition-guide/rust-2024/index.html)
 

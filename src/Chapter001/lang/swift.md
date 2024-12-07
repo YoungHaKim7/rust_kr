@@ -62,7 +62,7 @@ Build of product 'MyCLIAdd' complete! (3.22s)
 
 - Rust
 
-```rs
+```rust
 // Rust
 
 fn main() {

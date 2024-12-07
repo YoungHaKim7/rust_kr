@@ -53,7 +53,7 @@ $ zig build run
 
 - Rust
 
-```rs
+```rust
 // Rust
 
 fn main() {
@@ -89,7 +89,7 @@ fn main() {
 
 - Rust
 
-```rs
+```rust
 // Rust
 fn main() {
     for i in 0..4 {

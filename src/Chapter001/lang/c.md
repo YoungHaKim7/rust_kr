@@ -47,7 +47,7 @@ clang -pedantic -pthread -pedantic-errors -lm -Wall -Wextra -ggdb -o ./target/ma
 - Rust
 
 
-```rs
+```rust
 // Rust
 
 fn main() {
