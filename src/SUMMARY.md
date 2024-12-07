@@ -27,6 +27,8 @@
     - [Variables&Mutability변수불편](./Rust_syntax/Common_Programming/Val_Mut/val_mutable.md)
     - [Data_Types데이터 타입](./Rust_syntax/Common_Programming/Data_Types/data_types.md)
   - [OwnerShip오너쉽_borrowing](./Rust_syntax/Ownership_borrowing/Ownership_borrowing.md)
+  - [Struct를 이용한 구조화](./Rust_syntax/struct/structs.md)
+    - [Struct 정의 및 인스턴스화(Instantiating)](./Rust_syntax/struct/defining_structs.md)
 
 -----------
 # Rust 고급 기술

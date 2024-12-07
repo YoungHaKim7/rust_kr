@@ -13,10 +13,17 @@
 
 ```rust
 // Rust
+use std::u32::MAX;
+
 fn main() {
     let x = 0x55; // 0101 0101 (10진수로 85)
     let y = 0x66; // 0110 0110
     let usize_test_x = 0x55;
+    let u32_test_x: u32 = 0x55;
+    let u32max_test_x: u32 = MAX;
+    let x_i8: i8 = 3; // 0011
+    let y_i8: i8 = 10; // 1010
+
     let x_01 = 0x1; // 0001
     let y_02 = 0x2; // 0010
 
@@ -25,8 +32,16 @@ fn main() {
     assert_eq!(-x02, -6);
     assert_eq!(!x02, -7);
 
-    println!("~x : {} // Bitwise NOT 숫자 1이 올라가면서 -86으로 바뀜(85 -> -86)", !x); //  앞에가 다 1로 가득참.1111 1010 1010 인데 강제 형변환 된면서 값이 이상해진듯
-    println!("~x : {}", !usize_test_x); // 
+    println!(
+        "~x : {} // Bitwise NOT 숫자 1이 올라가면서 -86으로 바뀜(85 -> -86)",
+        !x
+    ); //  앞에가 다 1로 가득참.1111 1010 1010 인데 강제 형변환 된면서 값이 이상해진듯
+    println!("~x : {}", !usize_test_x); //
+    println!("~x : {}", !u32_test_x); //
+    println!("~x : {}", u32max_test_x); //
+    println!("~x : {}", !u32max_test_x); //
+    println!("~x : {}", !x_i8); // - 0100
+    println!("~x : {}", !y_i8); // -11 - 1011
     println!("x & y : {} // Bitwise AND & ", x & y); // 0100 0100
     println!("x | y : {} // Bitwise OR | ", x | y); // 0111 0111
     println!("x ^ y : {} // Bitwise XOR ^", x ^ y); // 0011 0011
@@ -39,10 +54,16 @@ fn main() {
 
 ```bash
 # rust 에서는 C언어에서 ~x 이걸 !x 이렇게 표현한다. not gate
+~x : -86 // Bitwise NOT 숫자 1이 올라가면서 -86으로 바뀜(85 -> -86)
 ~x : -86
-x & y : 68
-x | y : 119
-x ^ y : 51
+~x : 4294967210
+~x : 4294967295
+~x : 0
+~x : -4
+~x : -11
+x & y : 68 // Bitwise AND &
+x | y : 119 // Bitwise OR |
+x ^ y : 51 // Bitwise XOR ^
 x01 << y02 : 4  // left shift
 x01 >> y02 : 0   // right shift
 ```

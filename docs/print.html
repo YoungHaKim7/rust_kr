@@ -159,6 +159,9 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="welcome소개"><a class="header" href="#welcome소개">welcome소개</a></h1>
+<p align="center">
+  <img alt="rust1" width="36px" src="https://user-images.githubusercontent.com/67513038/213436632-820a1675-98d9-4626-979d-be63c60cdcb7.png" />
+</p>
 <ul>
 <li>안녕하세요.  저는 러스트를 2021년 12월 <a href="https://youtube.com/playlist?list=PLfllocyHVgsSJf1zO6k6o3SX2mbZjAqYE&amp;si=9FDPCNOctQZy9qXU">easy rust</a>를 만나 러스트를 시작하여 지금까지의 여정을 책으로 정리했습니다
 <ul>
@@ -1504,9 +1507,50 @@ fn main() {
 <p>References must always be valid.</p>
 </li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="using-structs-to-structure-related-data"><a class="header" href="#using-structs-to-structure-related-data">Using Structs to Structure Related Data</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="struct-정의-및-인스턴스화instantiating"><a class="header" href="#struct-정의-및-인스턴스화instantiating">Struct 정의 및 인스턴스화(Instantiating)</a></h1>
+<h1 id="link-11"><a class="header" href="#link-11">link</a></h1>
+<hr />
+<h1 id="tuple-struct"><a class="header" href="#tuple-struct">tuple struct</a></h1>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct TupleStructColor(u8,u8,u8)
+
+struct Datau8(u8)
+
+struct Stringdata(String)
+<span class="boring">}</span></code></pre></pre>
+<h1 id="unit-struct"><a class="header" href="#unit-struct">unit struct</a></h1>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct UnitStruct;
+<span class="boring">}</span></code></pre></pre>
+<h1 id="user-data"><a class="header" href="#user-data">User Data</a></h1>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// {} 괄호 안쪽을 field 필드라고 부른다.
+// UserData라는 struct 안에 username, age, email, address, active가 존재한다.
+//  추후에 데이터를 부를때 UserData를 통해 접근한다.
+struct UserData {
+  username: String,
+  age: u8,
+  email : String,
+  address: String,
+  active : bool,
+}
+<span class="boring">}</span></code></pre></pre>
+<h1 id="example"><a class="header" href="#example">example</a></h1>
+<pre><pre class="playground"><code class="language-rust">#[derive(Debug)]
+struct Color(u8,u8,u8);
+
+fn main() {
+  let black = Color(0, 0 ,0);
+  println!("Black Color : {:?}", black);
+}
+</code></pre></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-고급-기술"><a class="header" href="#rust-고급-기술">Rust 고급 기술</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="traits"><a class="header" href="#traits">traits</a></h1>
-<h1 id="link-11"><a class="header" href="#link-11">link</a></h1>
+<h1 id="link-12"><a class="header" href="#link-12">link</a></h1>
 <ul>
 <li><a href="Advanced/">todo</a></li>
 </ul>
@@ -1656,7 +1700,7 @@ fn main() {
 <ul>
 <li><em>22 July 2020 · #rust · #sizedness</em></li>
 </ul>
-<h1 id="link-12"><a class="header" href="#link-12">link</a></h1>
+<h1 id="link-13"><a class="header" href="#link-13">link</a></h1>
 <p><strong>Table of Contents</strong></p>
 <ul>
 <li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#intro">Intro</a></li>
@@ -2799,7 +2843,7 @@ struct Struct {
 <li><a href="https://eli.thegreenplace.net/2011/12/15/understanding-lvalues-and-rvalues-in-c-and-c/">111215)Understanding lvalues and rvalues in C and C++</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ownership밴다이어그램으로-소유권-이해"><a class="header" href="#ownership밴다이어그램으로-소유권-이해">OwnerShip밴다이어그램으로 소유권 이해</a></h1>
-<h1 id="link-13"><a class="header" href="#link-13">link</a></h1>
+<h1 id="link-14"><a class="header" href="#link-14">link</a></h1>
 <hr />
 <h1 id="벤다이어그램-이해"><a class="header" href="#벤다이어그램-이해">벤다이어그램 이해</a></h1>
 <ul>
@@ -2832,12 +2876,12 @@ struct Struct {
 <li><a href="https://users.rust-lang.org/t/reference-and-mutable-reference-of-methods-on-disjoint-fields/83823">Reference and Mutable Reference of methods on disjoint fields</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="closures클로져deepdive"><a class="header" href="#closures클로져deepdive">Closures클로져DeepDive</a></h1>
-<h1 id="link-14"><a class="header" href="#link-14">link</a></h1>
+<h1 id="link-15"><a class="header" href="#link-15">link</a></h1>
 <hr />
 <h1 id="클로져closures-다이어그램으로-이해하기"><a class="header" href="#클로져closures-다이어그램으로-이해하기">클로져Closures 다이어그램으로 이해하기</a></h1>
 <p><img src="https://github.com/YoungHaKim7/Cpp_Training/assets/67513038/d27b93e6-9935-4367-9339-6d25e65b3a80" alt="fnrust" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="다른언어에서-러스트로-온-좋은-기능들"><a class="header" href="#다른언어에서-러스트로-온-좋은-기능들">다른언어에서 러스트로 온 좋은 기능들..</a></h1>
-<h1 id="link-15"><a class="header" href="#link-15">link</a></h1>
+<h1 id="link-16"><a class="header" href="#link-16">link</a></h1>
 <ul>
 <li><a href="Advanced/rust_release/Rfcs/./rust_const_fn.html"><code>const fn</code>(Rust)_C++에서 (C++)constexpr에서 가져옴</a></li>
 </ul>
@@ -2846,7 +2890,7 @@ struct Struct {
 <ul>
 <li><a href="https://www.reddit.com/r/rust/comments/omefkk/will_const_ever_be_close_to_cs_constexpr/?rdt=34372">https://www.reddit.com/r/rust/comments/omefkk/will_const_ever_be_close_to_cs_constexpr/?rdt=34372</a></li>
 </ul>
-<h1 id="link-16"><a class="header" href="#link-16">link</a></h1>
+<h1 id="link-17"><a class="header" href="#link-17">link</a></h1>
 <ul>
 <li><a href="Advanced/rust_release/Rfcs/rust_const_fn.html#c%EC%97%90%EC%84%9C-c11%EC%97%90%EC%84%9C-constexpr%EB%8F%84%EC%9E%85%EB%90%9C-%EC%8A%A4%ED%86%A0%EB%A6%AC">C++에서 C++11에서 constexpr도입된 스토리</a></li>
 <li><a href="Advanced/rust_release/Rfcs/rust_const_fn.html#rust-verion-const-fn-%EB%B0%9C%EC%A0%84-%EC%97%AD%EC%82%AC">Rust에 도입된 <code>const fn</code> Version별로 정리. 발전 역사</a></li>
@@ -3101,7 +3145,7 @@ a strict minimal subset of the [const fn RFC][RFC-911]. Refer to the
 [language reference][const-reference] for what exactly is available.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="operator"><a class="header" href="#operator">Operator</a></h1>
-<h1 id="link-17"><a class="header" href="#link-17">link</a></h1>
+<h1 id="link-18"><a class="header" href="#link-18">link</a></h1>
 <ul>
 <li><a href="Advanced/Operator/intro.html#operator-expressions">(Rust)Operator expressions</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Operators_in_C_and_C%2B%2B">Operators in C and C++</a></li>
@@ -3800,7 +3844,7 @@ See <a href="https://github.com/rust-lang/rust/blob/1.58.0/src/test/ui/expr/comp
 <ul>
 <li><a href="https://en.cppreference.com/w/c/language/operator_precedence">https://en.cppreference.com/w/c/language/operator_precedence</a></li>
 </ul>
-<h1 id="link-18"><a class="header" href="#link-18">link</a></h1>
+<h1 id="link-19"><a class="header" href="#link-19">link</a></h1>
 <hr />
 <h1 id="c-operator-precedence"><a class="header" href="#c-operator-precedence">C Operator Precedence</a></h1>
 <ul>
@@ -4166,7 +4210,7 @@ a <span class="sy4">?</span> b <span class="sy4">:</span> c<br>
 <li>https://en.cppreference.com/w/c/language/operator_precedence</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="logical_operators"><a class="header" href="#logical_operators">Logical_Operators</a></h1>
-<h1 id="link-19"><a class="header" href="#link-19">link</a></h1>
+<h1 id="link-20"><a class="header" href="#link-20">link</a></h1>
 <hr />
 <h1 id="rust-code"><a class="header" href="#rust-code">Rust Code</a></h1>
 <pre><code class="language-rs">fn main() {
@@ -4199,7 +4243,7 @@ true || !true = true
 !(true || true) == (!true &amp;&amp; !true) = true
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bitwise_operators"><a class="header" href="#bitwise_operators">Bitwise_Operators</a></h1>
-<h1 id="link-20"><a class="header" href="#link-20">link</a></h1>
+<h1 id="link-21"><a class="header" href="#link-21">link</a></h1>
 <ul>
 <li><a href="Advanced/Operator/bitwise_operators.html#a%EA%B0%80--86%EC%9C%BC%EB%A1%9C-%ED%8F%89%EA%B0%80-%EB%90%98%EB%8A%94-%EC%9D%B4%EC%9C%A0">~a가 -86으로 평가 되는 이유</a></li>
 </ul>
@@ -4209,10 +4253,17 @@ true || !true = true
 <li><a href="https://doc.rust-lang.org/reference/expressions/operator-expr.html#negation-operators">https://doc.rust-lang.org/reference/expressions/operator-expr.html#negation-operators</a></li>
 </ul>
 <pre><pre class="playground"><code class="language-rust">// Rust
+use std::u32::MAX;
+
 fn main() {
     let x = 0x55; // 0101 0101 (10진수로 85)
     let y = 0x66; // 0110 0110
     let usize_test_x = 0x55;
+    let u32_test_x: u32 = 0x55;
+    let u32max_test_x: u32 = MAX;
+    let x_i8: i8 = 3; // 0011
+    let y_i8: i8 = 10; // 1010
+
     let x_01 = 0x1; // 0001
     let y_02 = 0x2; // 0010
 
@@ -4221,8 +4272,16 @@ fn main() {
     assert_eq!(-x02, -6);
     assert_eq!(!x02, -7);
 
-    println!("~x : {} // Bitwise NOT 숫자 1이 올라가면서 -86으로 바뀜(85 -&gt; -86)", !x); //  앞에가 다 1로 가득참.1111 1010 1010 인데 강제 형변환 된면서 값이 이상해진듯
-    println!("~x : {}", !usize_test_x); // 
+    println!(
+        "~x : {} // Bitwise NOT 숫자 1이 올라가면서 -86으로 바뀜(85 -&gt; -86)",
+        !x
+    ); //  앞에가 다 1로 가득참.1111 1010 1010 인데 강제 형변환 된면서 값이 이상해진듯
+    println!("~x : {}", !usize_test_x); //
+    println!("~x : {}", !u32_test_x); //
+    println!("~x : {}", u32max_test_x); //
+    println!("~x : {}", !u32max_test_x); //
+    println!("~x : {}", !x_i8); // - 0100
+    println!("~x : {}", !y_i8); // -11 - 1011
     println!("x &amp; y : {} // Bitwise AND &amp; ", x &amp; y); // 0100 0100
     println!("x | y : {} // Bitwise OR | ", x | y); // 0111 0111
     println!("x ^ y : {} // Bitwise XOR ^", x ^ y); // 0011 0011
@@ -4233,10 +4292,16 @@ fn main() {
 <li>Result</li>
 </ul>
 <pre><code class="language-bash"># rust 에서는 C언어에서 ~x 이걸 !x 이렇게 표현한다. not gate
+~x : -86 // Bitwise NOT 숫자 1이 올라가면서 -86으로 바뀜(85 -&gt; -86)
 ~x : -86
-x &amp; y : 68
-x | y : 119
-x ^ y : 51
+~x : 4294967210
+~x : 4294967295
+~x : 0
+~x : -4
+~x : -11
+x &amp; y : 68 // Bitwise AND &amp;
+x | y : 119 // Bitwise OR |
+x ^ y : 51 // Bitwise XOR ^
 x01 &lt;&lt; y02 : 4  // left shift
 x01 &gt;&gt; y02 : 0   // right shift
 </code></pre>
@@ -4400,7 +4465,7 @@ x02 &gt;&gt; y02 = 2  // right shift
 </li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="algorithm알고리즘"><a class="header" href="#algorithm알고리즘">Algorithm알고리즘</a></h1>
-<h1 id="link-21"><a class="header" href="#link-21">link</a></h1>
+<h1 id="link-22"><a class="header" href="#link-22">link</a></h1>
 <ul>
 <li>
 <p><a href="Advanced/Algorithm/summary_algo.html#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%EC%9D%98-4%EB%8B%A8%EA%B3%84">알고리즘의 4단계</a></p>
@@ -4682,7 +4747,7 @@ node -&gt; |1 |      |   |2 |
 <li>https://youtu.be/1PFFgRcZLAk?si=6Da6I9xvcgkzo0sS</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust_release"><a class="header" href="#rust_release">rust_release</a></h1>
-<h1 id="link-22"><a class="header" href="#link-22">link</a></h1>
+<h1 id="link-23"><a class="header" href="#link-23">link</a></h1>
 <ul>
 <li>
 <p><a href="Advanced/rust_release/rust_release.html#rust-lang-httpswwwrust-langorg">rust 1.0부터 최신버젼까지 역사 흐름 rust2015~rust2024</a></p>
@@ -7307,7 +7372,7 @@ assert_eq!(cr"C:\foo", c"C:\\foo");
 <p>As part of the <a href="Advanced/rust_release/editions/rust-2021/reserved-syntax.html">syntax reservation</a> for the 2021 edition, any macro input which may run into this issue should issue a warning from the <code>rust_2021_prefixes_incompatible_syntax</code> migration lint.
 See that chapter for more detail.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust_1_31_rust-edition-2018"><a class="header" href="#rust_1_31_rust-edition-2018">rust_1_31_Rust Edition 2018</a></h1>
-<h1 id="link-23"><a class="header" href="#link-23">link</a></h1>
+<h1 id="link-24"><a class="header" href="#link-24">link</a></h1>
 <hr />
 <h1 id="rust-2018"><a class="header" href="#rust-2018">Rust 2018</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Info</th><th></th></tr></thead><tbody>
@@ -7712,7 +7777,7 @@ really <em>to</em> 2015. As such, there's not much else to say about it!</p>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-optimization최적화"><a class="header" href="#rust-optimization최적화">Rust Optimization최적화</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="모든-언어별-공통적인-최적화-개념"><a class="header" href="#모든-언어별-공통적인-최적화-개념">모든 언어별 공통적인 최적화 개념</a></h1>
-<h1 id="link-24"><a class="header" href="#link-24">link</a></h1>
+<h1 id="link-25"><a class="header" href="#link-25">link</a></h1>
 <ul>
 <li>
 <p><a href="Advanced/Optimization/common.html#temporal-locality-in-memory-mountain">Temporal locality in memory mountain</a></p>
@@ -8319,7 +8384,7 @@ Visual comparison chart: http://i.imgur.com/k0t1e.png
     theme="github-light" crossorigin="anonymous" async>
 </script>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-optimization"><a class="header" href="#rust-optimization">Rust Optimization</a></h1>
-<h1 id="link-25"><a class="header" href="#link-25">link</a></h1>
+<h1 id="link-26"><a class="header" href="#link-26">link</a></h1>
 <ul>
 <li><a href="Advanced/Optimization/rust_optimization.html#rust-benchmarking">Rust Benchmarking(criterion)</a></li>
 <li><a href="Advanced/Optimization/rust_optimization.html#rust-optimization-1">Rust Optimization</a></li>
