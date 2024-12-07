@@ -9,20 +9,29 @@
 
 # Rust Code
 
-```rs
+- [https://doc.rust-lang.org/reference/expressions/operator-expr.html#negation-operators](https://doc.rust-lang.org/reference/expressions/operator-expr.html#negation-operators)
+
+```rust
 // Rust
 fn main() {
-    let x = 0x55; // 0101 0101
+    let x = 0x55; // 0101 0101 (10진수로 85)
     let y = 0x66; // 0110 0110
-    let x_01 = 0x1;
-    let y_02 = 0x2;
+    let usize_test_x = 0x55;
+    let x_01 = 0x1; // 0001
+    let y_02 = 0x2; // 0010
 
-    println!("~x : {}", !x);
-    println!("x & y : {}", x & y);
-    println!("x | y : {}", x | y);
-    println!("x ^ y : {}", x ^ y);
-    println!("x01 << y02 : {}  // left shift", x_01 << y_02);
-    println!("x01 >> y02 : {}   // right shift", x_01 >> y_02);
+    // Bitwise NOT
+    let x02 = 6;
+    assert_eq!(-x02, -6);
+    assert_eq!(!x02, -7);
+
+    println!("~x : {} // Bitwise NOT 숫자 1이 올라가면서 -86으로 바뀜(85 -> -86)", !x); //  앞에가 다 1로 가득참.1111 1010 1010 인데 강제 형변환 된면서 값이 이상해진듯
+    println!("~x : {}", !usize_test_x); // 
+    println!("x & y : {} // Bitwise AND & ", x & y); // 0100 0100
+    println!("x | y : {} // Bitwise OR | ", x | y); // 0111 0111
+    println!("x ^ y : {} // Bitwise XOR ^", x ^ y); // 0011 0011
+    println!("x01 << y02 : {}  // left shift", x_01 << y_02); // 0100
+    println!("x01 >> y02 : {}   // right shift", x_01 >> y_02); // 0000
 }
 ```
 
