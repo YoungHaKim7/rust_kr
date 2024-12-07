@@ -31,6 +31,8 @@
 
         <!-- Custom theme stylesheets -->
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Provide site root to javascript -->
         <script>
@@ -1648,8 +1650,1200 @@ fn main() {
 [src\main.rs:99] my_half_elf.speak_elvish() = "yes"
 [src\main.rs:102] my_half_orc.speak_elvish() = "yes"
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="operator"><a class="header" href="#operator">Operator</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sizedness-in-rust"><a class="header" href="#sizedness-in-rust">Sizedness-in-rust</a></h1>
+<ul>
+<li>자료 출처 한글로 번역함 : <a href="https://github.com/pretzelhammer/rust-blog">https://github.com/pretzelhammer/rust-blog</a>
+<ul>
+<li><a href="https://github.com/pretzelhammer/rust-blog/blob/master/posts/sizedness-in-rust.md">https://github.com/pretzelhammer/rust-blog/blob/master/posts/sizedness-in-rust.md</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="sizedness-in-rust-1"><a class="header" href="#sizedness-in-rust-1">Sizedness in Rust</a></h1>
+<ul>
+<li><em>22 July 2020 · #rust · #sizedness</em></li>
+</ul>
 <h1 id="link-12"><a class="header" href="#link-12">link</a></h1>
+<p><strong>Table of Contents</strong></p>
+<ul>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#intro">Intro</a></li>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#sizedness">Sizedness</a></li>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#sized-trait"><code>Sized</code> Trait</a></li>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#sized-in-generics"><code>Sized</code> in Generics</a></li>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#unsized-types">Unsized Types</a>
+<ul>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#slices">Slices</a></li>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#trait-objects">Trait Objects</a></li>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#trait-object-limitations">Trait Object Limitations</a>
+<ul>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#cannot-cast-unsized-types-to-trait-objects">Cannot Cast Unsized Types to Trait Objects</a></li>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#cannot-create-multi-trait-objects">Cannot create Multi-Trait Objects</a></li>
+</ul>
+</li>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#user-defined-unsized-types">User-Defined Unsized Types</a></li>
+</ul>
+</li>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#zero-sized-types">Zero-Sized Types</a>
+<ul>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#unit-type">Unit Type</a></li>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#user-defined-unit-structs">User-Defined Unit Structs</a></li>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#never-type">Never Type</a></li>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#user-defined-pseudo-never-types">User-Defined Pseudo Never Types</a></li>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#phantomdata">PhantomData</a></li>
+</ul>
+</li>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#conclusion">Conclusion</a></li>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#discuss">Discuss</a></li>
+<li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#further-reading">Further Reading</a></li>
+</ul>
+<hr />
+<h2 id="intro"><a class="header" href="#intro">Intro<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h2>
+<ul>
+<li>
+<p>Sizedness is lowkey one of the most important concepts to understand in Rust. It intersects a bunch of other language features in often subtle ways and only rears its ugly head in the form of <em>"x doesn't have size known at compile time"</em> error messages which every Rustacean is all too familiar with. In this article we'll explore all flavors of sizedness from sized types, to unsized types, to zero-sized types while examining their use-cases, benefits, pain points, and workarounds.</p>
+<ul>
+<li>크기는 러스트에서 이해해야 할 가장 중요한 개념 중 하나입니다. 이 개념은 종종 미묘한 방식으로 다른 언어 기능을 많이 교차하며, 모든 러스트족이 너무 익숙한 <em>"x는 컴파일 시점에 크기를 알 수 없습니다"</em> 오류 메시지의 형태로만 추악한 머리를 들려줍니다. 이 글에서는 크기 유형부터 크기가 없는 유형, 크기가 없는 유형, 크기가 없는 유형에 이르기까지 모든 종류의 크기를 탐색하는 동시에 사용 사례, 이점, 문제점 및 해결 방법을 살펴봅니다.</li>
+</ul>
+</li>
+<li>
+<p>Table of phrases I use and what they're supposed to mean:</p>
+<ul>
+<li>제가 사용하는 문구 표와 그 의미:</li>
+</ul>
+</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Phrase</th><th>Shorthand for</th></tr></thead><tbody>
+<tr><td>sizedness</td><td>property of being sized or unsized</td></tr>
+<tr><td>sized type</td><td>type with a known size at compile time</td></tr>
+<tr><td>1) unsized type <em>or</em><br>2) DST</td><td>dynamically-sized type, i.e. size not known at compile time</td></tr>
+<tr><td>?sized type</td><td>type that may or may not be sized</td></tr>
+<tr><td>unsized coercion</td><td>coercing a sized type into an unsized type</td></tr>
+<tr><td>ZST</td><td>zero-sized type, i.e. instances of the type are 0 bytes in size</td></tr>
+<tr><td>width</td><td>single unit of measurement of pointer width</td></tr>
+<tr><td>1) thin pointer <em>or</em><br>2) single-width pointer</td><td>pointer that is <em>1 width</em></td></tr>
+<tr><td>1) fat pointer <em>or</em><br>2) double-width pointer</td><td>pointer that is <em>2 widths</em></td></tr>
+<tr><td>1) pointer <em>or</em><br>2) reference</td><td>some pointer of some width, width will be clarified by context</td></tr>
+<tr><td>slice</td><td>double-width pointer to a dynamically sized view into some array</td></tr>
+</tbody></table>
+</div>
+<h2 id="sizedness"><a class="header" href="#sizedness">Sizedness<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h2>
+<ul>
+<li>In Rust a type is sized if its size in bytes can be determined at compile-time. Determining a type's size is important for being able to allocate enough space for instances of that type on the stack. Sized types can be passed around by value or by reference. If a type's size can't be determined at compile-time then it's referred to as an unsized type or a DST, Dynamically-Sized Type. Since unsized types can't be placed on the stack they can only be passed around by reference. Some examples of sized and unsized types:
+<ul>
+<li>Rust에서 유형의 크기(바이트)를 컴파일 시간에 결정할 수 있는지 여부는 크기가 결정됩니다. 유형의 크기를 결정하는 것은 스택에서 해당 유형의 인스턴스에 충분한 공간을 할당할 수 있으려면 중요합니다. 크기가 있는 유형은 값별로 또는 참조로 전달할 수 있습니다. 컴파일 시간에 유형의 크기를 결정할 수 없는 경우 이를 크기가 없는 유형 또는 동적 크기가 있는 DST 유형이라고 합니다. 크기가 없는 유형은 스택에 배치할 수 없으므로 참조로만 전달할 수 있습니다. 크기가 큰 유형과 크기가 없는 유형의 몇 가지 예입니다:</li>
+</ul>
+</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">use std::mem::size_of;
+
+fn main() {
+    // primitives
+    assert_eq!(4, size_of::&lt;i32&gt;());
+    assert_eq!(8, size_of::&lt;f64&gt;());
+
+    // tuples
+    assert_eq!(8, size_of::&lt;(i32, i32)&gt;());
+
+    // arrays
+    assert_eq!(0, size_of::&lt;[i32; 0]&gt;());
+    assert_eq!(12, size_of::&lt;[i32; 3]&gt;());
+
+    struct Point {
+        x: i32,
+        y: i32,
+    }
+
+    // structs
+    assert_eq!(8, size_of::&lt;Point&gt;());
+
+    // enums
+    assert_eq!(8, size_of::&lt;Option&lt;i32&gt;&gt;());
+
+    // get pointer width, will be
+    // 4 bytes wide on 32-bit targets or
+    // 8 bytes wide on 64-bit targets
+    const WIDTH: usize = size_of::&lt;&amp;()&gt;();
+
+    // pointers to sized types are 1 width
+    assert_eq!(WIDTH, size_of::&lt;&amp;i32&gt;());
+    assert_eq!(WIDTH, size_of::&lt;&amp;mut i32&gt;());
+    assert_eq!(WIDTH, size_of::&lt;Box&lt;i32&gt;&gt;());
+    assert_eq!(WIDTH, size_of::&lt;fn(i32) -&gt; i32&gt;());
+
+    const DOUBLE_WIDTH: usize = 2 * WIDTH;
+
+    // unsized struct
+    struct Unsized {
+        unsized_field: [i32],
+    }
+
+    // pointers to unsized types are 2 widths
+    assert_eq!(DOUBLE_WIDTH, size_of::&lt;&amp;str&gt;()); // slice
+    assert_eq!(DOUBLE_WIDTH, size_of::&lt;&amp;[i32]&gt;()); // slice
+    assert_eq!(DOUBLE_WIDTH, size_of::&lt;&amp;dyn ToString&gt;()); // trait object
+    assert_eq!(DOUBLE_WIDTH, size_of::&lt;Box&lt;dyn ToString&gt;&gt;()); // trait object
+    assert_eq!(DOUBLE_WIDTH, size_of::&lt;&amp;Unsized&gt;()); // user-defined unsized type
+
+    // unsized types
+    size_of::&lt;str&gt;(); // compile error
+    size_of::&lt;[i32]&gt;(); // compile error
+    size_of::&lt;dyn ToString&gt;(); // compile error
+    size_of::&lt;Unsized&gt;(); // compile error
+}</code></pre></pre>
+<ul>
+<li>How we determine the size of sized types is straight-forward: all primitives and pointers have known sizes and all structs, tuples, enums, and arrays are just made up of primitives and pointers or other nested structs, tuples, enums, and arrays so we can just count up the bytes recursively, taking into account extra bytes needed for padding and alignment. We can't determine the size of unsized types for similarly straight-forward reasons: slices can have any number of elements in them and can thus be of any size at run-time and trait objects can be implemented by any number of structs or enums and thus can also be of any size at run-time.
+<ul>
+<li>크기가 큰 유형의 크기를 결정하는 방법은 간단합니다. 모든 프리미티브와 포인터에는 크기가 알려져 있고 모든 구조, 튜플, 에넘, 어레이는 프리미티브와 포인터 또는 기타 중첩된 구조, 튜플, 에넘, 어레이로 구성되어 패딩과 정렬에 필요한 추가 바이트를 고려하여 바이트를 재귀적으로 카운트할 수 있습니다. 슬라이스에는 여러 개의 요소가 포함될 수 있으므로 런타임에 모든 크기가 될 수 있고 특성 개체는 여러 개의 구조 또는 에넘으로 구현될 수 있으므로 런타임에 모든 크기가 될 수도 있습니다.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Pro tips</strong></p>
+<ul>
+<li>pointers of dynamically sized views into arrays are called slices in Rust, e.g. a <code>&amp;str</code> is a <em>"string slice"</em>, a <code>&amp;[i32]</code> is an <em>"i32 slice"</em></li>
+<li>slices are double-width because they store a pointer to the array and the number of elements in the array</li>
+<li>trait object pointers are double-width because they store a pointer to the data and a pointer to a vtable</li>
+<li>unsized structs pointers are double-width because they store a pointer to the struct data and the size of the struct</li>
+<li>unsized structs can only have 1 unsized field and it must be the last field in the struct</li>
+</ul>
+<p>To really hammer home the point about double-width pointers for unsized types here's a commented code example comparing arrays to slices:</p>
+<ul>
+<li>동적 크기의 뷰를 배열에 넣는 포인터를 러스트에서 슬라이스라고 합니다. 예를 들어, '&amp;str'은 <em>"끈 슬라이스"</em>, '&amp;[i32]'는 <em>"i32 슬라이스"입니다</em></li>
+<li>슬라이스는 배열에 대한 포인터와 배열의 요소 수를 저장하기 때문에 두 배 너비입니다</li>
+<li>특성 객체 포인터는 데이터에 대한 포인터와 vtable에 대한 포인터를 저장하기 때문에 두 배 폭입니다</li>
+<li>크기가 작은 구조물 포인터는 구조물 데이터와 구조물의 크기에 대한 포인터를 저장하기 때문에 두 배 너비입니다</li>
+<li>크기가 작은 구조물에는 크기가 작은 필드가 하나만 있을 수 있으며 구조물의 마지막 필드여야 합니다</li>
+</ul>
+<p>크기가 크지 않은 유형의 두 배 너비 포인터에 대한 요점을 파악하기 위해 배열과 슬라이스를 비교한 코드 예제를 소개합니다:</p>
+<pre><pre class="playground"><code class="language-rust">use std::mem::size_of;
+
+const WIDTH: usize = size_of::&lt;&amp;()&gt;();
+const DOUBLE_WIDTH: usize = 2 * WIDTH;
+
+fn main() {
+    // data length stored in type
+    // an [i32; 3] is an array of three i32s
+    let nums: &amp;[i32; 3] = &amp;[1, 2, 3];
+
+    // single-width pointer
+    assert_eq!(WIDTH, size_of::&lt;&amp;[i32; 3]&gt;());
+
+    let mut sum = 0;
+
+    // can iterate over nums safely
+    // Rust knows it's exactly 3 elements
+    for num in nums {
+        sum += num;
+    }
+
+    assert_eq!(6, sum);
+
+    // unsized coercion from [i32; 3] to [i32]
+    // data length now stored in pointer
+    let nums: &amp;[i32] = &amp;[1, 2, 3];
+
+    // double-width pointer required to also store data length
+    assert_eq!(DOUBLE_WIDTH, size_of::&lt;&amp;[i32]&gt;());
+
+    let mut sum = 0;
+
+    // can iterate over nums safely
+    // Rust knows it's exactly 3 elements
+    for num in nums {
+        sum += num;
+    }
+
+    assert_eq!(6, sum);
+}</code></pre></pre>
+<p>And here's another commented code example comparing structs to trait objects:</p>
+<pre><pre class="playground"><code class="language-rust">use std::mem::size_of;
+
+const WIDTH: usize = size_of::&lt;&amp;()&gt;();
+const DOUBLE_WIDTH: usize = 2 * WIDTH;
+
+trait Trait {
+    fn print(&amp;self);
+}
+
+struct Struct;
+struct Struct2;
+
+impl Trait for Struct {
+    fn print(&amp;self) {
+        println!("struct");
+    }
+}
+
+impl Trait for Struct2 {
+    fn print(&amp;self) {
+        println!("struct2");
+    }
+}
+
+fn print_struct(s: &amp;Struct) {
+    // always prints "struct"
+    // this is known at compile-time
+    s.print();
+    // single-width pointer
+    assert_eq!(WIDTH, size_of::&lt;&amp;Struct&gt;());
+}
+
+fn print_struct2(s2: &amp;Struct2) {
+    // always prints "struct2"
+    // this is known at compile-time
+    s2.print();
+    // single-width pointer
+    assert_eq!(WIDTH, size_of::&lt;&amp;Struct2&gt;());
+}
+
+fn print_trait(t: &amp;dyn Trait) {
+    // print "struct" or "struct2" ?
+    // this is unknown at compile-time
+    t.print();
+    // Rust has to check the pointer at run-time
+    // to figure out whether to use Struct's
+    // or Struct2's implementation of "print"
+    // so the pointer has to be double-width
+    assert_eq!(DOUBLE_WIDTH, size_of::&lt;&amp;dyn Trait&gt;());
+}
+
+fn main() {
+    // single-width pointer to data
+    let s = &amp;Struct; 
+    print_struct(s); // prints "struct"
+    
+    // single-width pointer to data
+    let s2 = &amp;Struct2;
+    print_struct2(s2); // prints "struct2"
+    
+    // unsized coercion from Struct to dyn Trait
+    // double-width pointer to point to data AND Struct's vtable
+    let t: &amp;dyn Trait = &amp;Struct;
+    print_trait(t); // prints "struct"
+    
+    // unsized coercion from Struct2 to dyn Trait
+    // double-width pointer to point to data AND Struct2's vtable
+    let t: &amp;dyn Trait = &amp;Struct2;
+    print_trait(t); // prints "struct2"
+}</code></pre></pre>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>only instances of sized types can be placed on the stack, i.e. can be passed around by value</li>
+<li>instances of unsized types can't be placed on the stack and must be passed around by reference</li>
+<li>pointers to unsized types are double-width because aside from pointing to data they need to do an extra bit of bookkeeping to also keep track of the data's length <em>or</em> point to a vtable</li>
+<li>크기가 큰 유형의 인스턴스만 스택에 배치할 수 있습니다</li>
+<li>크기가 작은 유형의 인스턴스는 스택에 배치할 수 없으며 참조하여 전달해야 합니다</li>
+<li>크기가 작은 유형의 포인터는 두 배 너비이므로 데이터를 가리키는 것 외에도 데이터의 길이를 추적하기 위해 추가로 약간의 부기를 해야 합니다(또는 테이블을 가리키는 것)</li>
+</ul>
+<h2 id="sized-trait"><a class="header" href="#sized-trait"><code>Sized</code> Trait<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h2>
+<p>The <code>Sized</code> trait in Rust is an auto trait and a marker trait.</p>
+<p>Auto traits are traits that get automatically implemented for a type if it passes certain conditions. Marker traits are traits that mark a type as having a certain property. Marker traits do not have any trait items such as methods, associated functions, associated constants, or associated types. All auto traits are marker traits but not all marker traits are auto traits. Auto traits must be marker traits so the compiler can provide an automatic default implementation for them, which would not be possible if the trait had any trait items.</p>
+<p>A type gets an auto <code>Sized</code> implementation if all of its members are also <code>Sized</code>. What "members" means depends on the containing type, for example: fields of a struct, variants of an enum, elements of an array, items of a tuple, and so on. Once a type has been "marked" with a <code>Sized</code> implementation that means its size in bytes is known at compile time.</p>
+<p>Other examples of auto marker traits are the <code>Send</code> and <code>Sync</code> traits. A type is <code>Send</code> if it is safe to send that type across threads. A type is <code>Sync</code> if it's safe to share references of that type between threads. A type gets auto <code>Send</code> and <code>Sync</code> implementations if all of its members are also <code>Send</code> and <code>Sync</code>. What makes <code>Sized</code> somewhat special is that it's not possible to opt-out of unlike with the other auto marker traits which are possible to opt-out of.</p>
+<ul>
+<li>러스트의 '사이즈' 특성은 자동 특성과 마커 특성입니다.</li>
+</ul>
+<p>자동 특성은 특정 조건을 통과하면 유형에 대해 자동으로 구현되는 특성입니다. 마커 특성은 유형이 특정 속성을 가진 것으로 표시되는 특성입니다. 마커 특성에는 방법, 관련 함수, 관련 상수 또는 관련 유형과 같은 특성 항목이 없습니다. 모든 자동 특성은 마커 특성이지만 모든 마커 특성이 자동 특성인 것은 아닙니다. 자동 특성은 마커 특성이어야 컴파일러가 자동 기본 구현을 제공할 수 있으며, 특성에 특성 항목이 있는 경우 불가능합니다.</p>
+<p>모든 구성원이 '크기'인 경우 유형은 자동 '크기' 구현을 얻습니다. 예를 들어 "멤버"가 의미하는 것은 포함된 유형에 따라 달라집니다. 유형이 '크기' 구현으로 '표시'되면 컴파일 시 바이트 단위로 해당 크기를 알 수 있습니다.</p>
+<p>자동 마커 특성의 다른 예로는 '보내기' 및 '동기화' 특성이 있습니다. 한 유형은 스레드 간에 해당 유형을 전송하는 것이 안전한 경우 '보내기'입니다. 한 유형은 스레드 간에 해당 유형의 참조를 공유하는 것이 안전한 경우 '동기화'입니다. 모든 구성원이 '보내기' 및 '동기화'인 경우 자동으로 '보내기' 및 '동기화'를 구현할 수 있습니다. '크기'를 다소 특별하게 만드는 것은 옵트아웃할 수 있는 다른 자동 마커 특성과 달리 옵트아웃할 수 없다는 점입니다.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span>#![feature(negative_impls)]
+
+<span class="boring">fn main() {
+</span>// this type is Sized, Send, and Sync
+struct Struct;
+
+// opt-out of Send trait
+impl !Send for Struct {} // ✅
+
+// opt-out of Sync trait
+impl !Sync for Struct {} // ✅
+
+// can't opt-out of Sized
+impl !Sized for Struct {} // ❌
+<span class="boring">}</span></code></pre></pre>
+<p>This seems reasonable since there might be reasons why we wouldn't want our type to be sent or shared across threads, however it's hard to imagine a scenario where we'd want the compiler to "forget" the size of our type and treat it as an unsized type as that offers no benefits and merely makes the type more difficult to work with.</p>
+<p>Also, to be super pedantic <code>Sized</code> is not technically an auto trait since it's not defined using the <code>auto</code> keyword but the special treatment it gets from the compiler makes it behave very similarly to auto traits so in practice it's okay to think of it as an auto trait.</p>
+<ul>
+<li>스레드 간에 우리 유형을 전송하거나 공유하는 것을 원하지 않는 이유가 있을 수 있지만, 컴파일러가 우리 유형의 크기를 '잊고' 크기가 없는 유형으로 취급하여 혜택을 제공하지 않고 유형을 작업하기 어렵게 만드는 시나리오를 상상하기는 어렵습니다.</li>
+</ul>
+<p>또한 초현학적인 '사이즈'는 '자동' 키워드로 정의되지 않았기 때문에 엄밀히 말하면 자동 특성이 아니지만 컴파일러로부터 받는 특별한 대우로 인해 자동 특성과 매우 유사하게 행동하므로 실제로는 자동 특성으로 생각해도 괜찮습니다.</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li><code>Sized</code> is an "auto" marker trait</li>
+</ul>
+<h2 id="sized-in-generics"><a class="header" href="#sized-in-generics"><code>Sized</code> in Generics<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h2>
+<p>It's not immediately obvious that whenever we write any generic code every generic type parameter gets auto-bound with the <code>Sized</code> trait by default.</p>
+<ul>
+<li>일반 코드를 작성할 때마다 모든 일반 유형 매개 변수가 기본적으로 '크기' 특성으로 자동 바인딩된다는 것이 즉시 명확하지는 않습니다.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// this generic function...
+fn func&lt;T&gt;(t: T) {}
+
+// ...desugars to...
+fn func&lt;T: Sized&gt;(t: T) {}
+
+// ...which we can opt-out of by explicitly setting ?Sized...
+fn func&lt;T: ?Sized&gt;(t: T) {} // ❌
+
+// ...which doesn't compile since it doesn't have
+// a known size so we must put it behind a pointer...
+fn func&lt;T: ?Sized&gt;(t: &amp;T) {} // ✅
+fn func&lt;T: ?Sized&gt;(t: Box&lt;T&gt;) {} // ✅
+<span class="boring">}</span></code></pre></pre>
+<p><strong>Pro tips</strong></p>
+<ul>
+<li><code>?Sized</code> can be pronounced <em>"optionally sized"</em> or <em>"maybe sized"</em> and adding it to a type parameter's bounds allows the type to be sized or unsized</li>
+<li><code>?Sized</code> in general is referred to as a <em>"widening bound"</em> or a <em>"relaxed bound"</em> as it relaxes rather than constrains the type parameter</li>
+<li><code>?Sized</code> is the only relaxed bound in Rust</li>
+</ul>
+<p>So why does this matter? Well, any time we're working with a generic type and that type is behind a pointer we almost always want to opt-out of the default <code>Sized</code> bound to make our function more flexible in what argument types it will accept. Also, if we don't opt-out of the default <code>Sized</code> bound we'll eventually get some surprising and confusing compile error messages.</p>
+<p>Let me take you on the journey of the first generic function I ever wrote in Rust. I started learning Rust before the <code>dbg!</code> macro landed in stable so the only way to print debug values was to type out <code>println!("{:?}", some_value);</code> every time which is pretty tedious so I decided to write a <code>debug</code> helper function like this:</p>
+<pre><pre class="playground"><code class="language-rust">use std::fmt::Debug;
+
+fn debug&lt;T: Debug&gt;(t: T) { // T: Debug + Sized
+    println!("{:?}", t);
+}
+
+fn main() {
+    debug("my str"); // T = &amp;str, &amp;str: Debug + Sized ✅
+}</code></pre></pre>
+<p>So far so good, but the function takes ownership of any values passed to it which is kinda annoying so I changed the function to only take references instead:</p>
+<pre><pre class="playground"><code class="language-rust">use std::fmt::Debug;
+
+fn dbg&lt;T: Debug&gt;(t: &amp;T) { // T: Debug + Sized
+    println!("{:?}", t);
+}
+
+fn main() {
+    dbg("my str"); // &amp;T = &amp;str, T = str, str: Debug + !Sized ❌
+}</code></pre></pre>
+<p>Which now throws this error:</p>
+<pre><code class="language-none">error[E0277]: the size for values of type `str` cannot be known at compilation time
+ --&gt; src/main.rs:8:9
+  |
+3 | fn dbg&lt;T: Debug&gt;(t: &amp;T) {
+  |        - required by this bound in `dbg`
+...
+8 |     dbg("my str");
+  |         ^^^^^^^^ doesn't have a size known at compile-time
+  |
+  = help: the trait `std::marker::Sized` is not implemented for `str`
+  = note: to learn more, visit &lt;https://doc.rust-lang.org/book/ch19-04-advanced-types.html#dynamically-sized-types-and-the-sized-trait&gt;
+help: consider relaxing the implicit `Sized` restriction
+  |
+3 | fn dbg&lt;T: Debug + ?Sized&gt;(t: &amp;T) {
+  |   
+</code></pre>
+<p>When I first saw this I found it incredibly confusing. Despite making my function more restrictive in what arguments it takes than before it now somehow throws a compile error! What is going on?</p>
+<p>I've already kinda spoiled the answer in the code comments above, but basically: Rust performs pattern matching when resolving <code>T</code> to its concrete types during compilation. Here's a couple tables to help clarify:</p>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th><code>T</code></th><th><code>&amp;T</code></th></tr></thead><tbody>
+<tr><td><code>&amp;str</code></td><td><code>T</code> = <code>&amp;str</code></td><td><code>T</code> = <code>str</code></td></tr>
+</tbody></table>
+</div><div class="table-wrapper"><table><thead><tr><th>Type</th><th><code>Sized</code></th></tr></thead><tbody>
+<tr><td><code>str</code></td><td>❌</td></tr>
+<tr><td><code>&amp;str</code></td><td>✅</td></tr>
+<tr><td><code>&amp;&amp;str</code></td><td>✅</td></tr>
+</tbody></table>
+</div>
+<p>This is why I had to add a <code>?Sized</code> bound to make the function work as intended after changing it to take references. The working function below:</p>
+<pre><pre class="playground"><code class="language-rust">use std::fmt::Debug;
+
+fn debug&lt;T: Debug + ?Sized&gt;(t: &amp;T) { // T: Debug + ?Sized
+    println!("{:?}", t);
+}
+
+fn main() {
+    debug("my str"); // &amp;T = &amp;str, T = str, str: Debug + !Sized ✅
+}</code></pre></pre>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>all generic type parameters are auto-bound with <code>Sized</code> by default</li>
+<li>if we have a generic function which takes an argument of some <code>T</code> behind a pointer, e.g. <code>&amp;T</code>, <code>Box&lt;T&gt;</code>, <code>Rc&lt;T&gt;</code>, et cetera, then we almost always want to opt-out of the default <code>Sized</code> bound with <code>T: ?Sized</code></li>
+</ul>
+<hr />
+<hr />
+<h2 id="unsized-types"><a class="header" href="#unsized-types">Unsized Types<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h2>
+<h3 id="slices"><a class="header" href="#slices">Slices<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h3>
+<p>The most common slices are string slices <code>&amp;str</code> and array slices <code>&amp;[T]</code>. What's nice about slices is that many other types coerce to them, so leveraging slices and Rust's auto type coercions allow us to write flexible APIs.</p>
+<p>Type coercions can happen in several places but most notably on function arguments and at method calls. The kinds of type coercions we're interested in are deref coercions and unsized coercions. A deref coercion is when a <code>T</code> gets coerced into a <code>U</code> following a deref operation, i.e. <code>T: Deref&lt;Target = U&gt;</code>, e.g. <code>String.deref() -&gt; str</code>. An unsized coercion is when a <code>T</code> gets coerced into a <code>U</code> where <code>T</code> is a sized type and <code>U</code> is an unsized type, i.e. <code>T: Unsize&lt;U&gt;</code>, e.g. <code>[i32; 3] -&gt; [i32]</code>.</p>
+<pre><pre class="playground"><code class="language-rust">trait Trait {
+    fn method(&amp;self) {}
+}
+
+impl Trait for str {
+    // can now call "method" on
+    // 1) str or
+    // 2) String since String: Deref&lt;Target = str&gt;
+}
+impl&lt;T&gt; Trait for [T] {
+    // can now call "method" on
+    // 1) any &amp;[T]
+    // 2) any U where U: Deref&lt;Target = [T]&gt;, e.g. Vec&lt;T&gt;
+    // 3) [T; N] for any N, since [T; N]: Unsize&lt;[T]&gt;
+}
+
+fn str_fun(s: &amp;str) {}
+fn slice_fun&lt;T&gt;(s: &amp;[T]) {}
+
+fn main() {
+    let str_slice: &amp;str = "str slice";
+    let string: String = "string".to_owned();
+
+    // function args
+    str_fun(str_slice);
+    str_fun(&amp;string); // deref coercion
+
+    // method calls
+    str_slice.method();
+    string.method(); // deref coercion
+
+    let slice: &amp;[i32] = &amp;[1];
+    let three_array: [i32; 3] = [1, 2, 3];
+    let five_array: [i32; 5] = [1, 2, 3, 4, 5];
+    let vec: Vec&lt;i32&gt; = vec![1];
+
+    // function args
+    slice_fun(slice);
+    slice_fun(&amp;vec); // deref coercion
+    slice_fun(&amp;three_array); // unsized coercion
+    slice_fun(&amp;five_array); // unsized coercion
+
+    // method calls
+    slice.method();
+    vec.method(); // deref coercion
+    three_array.method(); // unsized coercion
+    five_array.method(); // unsized coercion
+}</code></pre></pre>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>leveraging slices and Rust's auto type coercions allows us to write flexible APIs</li>
+</ul>
+<hr />
+<h3 id="trait-objects"><a class="header" href="#trait-objects">Trait Objects<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h3>
+<p>Traits are <code>?Sized</code> by default. This program:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Trait: ?Sized {}
+<span class="boring">}</span></code></pre></pre>
+<p>Throws this error:</p>
+<pre><code class="language-none">error: `?Trait` is not permitted in supertraits
+ --&gt; src/main.rs:1:14
+  |
+1 | trait Trait: ?Sized {}
+  |              ^^^^^^
+  |
+  = note: traits are `?Sized` by default
+</code></pre>
+<p>We'll get into why traits are <code>?Sized</code> by default soon but first let's ask ourselves what are the implications of a trait being <code>?Sized</code>? Let's desugar the above example:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Trait where Self: ?Sized {}
+<span class="boring">}</span></code></pre></pre>
+<p>Okay, so by default traits allow <code>self</code> to possibly be an unsized type. As we learned earlier we can't pass unsized types around by value, so that limits us in the kind of methods we can define in the trait. It should be impossible to write a method the takes or returns <code>self</code> by value and yet this surprisingly compiles:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Trait {
+    fn method(self); // ✅
+}
+<span class="boring">}</span></code></pre></pre>
+<p>However the moment we try to implement the method, either by providing a default implementation or by implementing the trait for an unsized type, we get compile errors:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Trait {
+    fn method(self) {} // ❌
+}
+
+impl Trait for str {
+    fn method(self) {} // ❌
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Throws:</p>
+<pre><code class="language-none">error[E0277]: the size for values of type `Self` cannot be known at compilation time
+ --&gt; src/lib.rs:2:15
+  |
+2 |     fn method(self) {}
+  |               ^^^^ doesn't have a size known at compile-time
+  |
+  = help: the trait `std::marker::Sized` is not implemented for `Self`
+  = note: to learn more, visit &lt;https://doc.rust-lang.org/book/ch19-04-advanced-types.html#dynamically-sized-types-and-the-sized-trait&gt;
+  = note: all local variables must have a statically known size
+  = help: unsized locals are gated as an unstable feature
+help: consider further restricting `Self`
+  |
+2 |     fn method(self) where Self: std::marker::Sized {}
+  |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0277]: the size for values of type `str` cannot be known at compilation time
+ --&gt; src/lib.rs:6:15
+  |
+6 |     fn method(self) {}
+  |               ^^^^ doesn't have a size known at compile-time
+  |
+  = help: the trait `std::marker::Sized` is not implemented for `str`
+  = note: to learn more, visit &lt;https://doc.rust-lang.org/book/ch19-04-advanced-types.html#dynamically-sized-types-and-the-sized-trait&gt;
+  = note: all local variables must have a statically known size
+  = help: unsized locals are gated as an unstable feature
+</code></pre>
+<p>If we're determined to pass <code>self</code> around by value we can fix the first error by explicitly binding the trait with <code>Sized</code>:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Trait: Sized {
+    fn method(self) {} // ✅
+}
+
+impl Trait for str { // ❌
+    fn method(self) {}
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Now throws:</p>
+<pre><code class="language-none">error[E0277]: the size for values of type `str` cannot be known at compilation time
+ --&gt; src/lib.rs:7:6
+  |
+1 | trait Trait: Sized {
+  |              ----- required by this bound in `Trait`
+...
+7 | impl Trait for str {
+  |      ^^^^^ doesn't have a size known at compile-time
+  |
+  = help: the trait `std::marker::Sized` is not implemented for `str`
+  = note: to learn more, visit &lt;https://doc.rust-lang.org/book/ch19-04-advanced-types.html#dynamically-sized-types-and-the-sized-trait&gt;
+</code></pre>
+<p>Which is okay, as we knew upon binding the trait with <code>Sized</code> we'd no longer be able to implement it for unsized types such as <code>str</code>. If on the other hand we really wanted to implement the trait for <code>str</code> an alternative solution would be to keep the trait <code>?Sized</code> and pass <code>self</code> around by reference:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Trait {
+    fn method(&amp;self) {} // ✅
+}
+
+impl Trait for str {
+    fn method(&amp;self) {} // ✅
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Instead of marking the entire trait as <code>?Sized</code> or <code>Sized</code> we have the more granular and precise option of marking individual methods as <code>Sized</code> like so:</p>
+<pre><pre class="playground"><code class="language-rust">trait Trait {
+    fn method(self) where Self: Sized {}
+}
+
+impl Trait for str {} // ✅!?
+
+fn main() {
+    "str".method(); // ❌
+}</code></pre></pre>
+<p>It's surprising that Rust compiles <code>impl Trait for str {}</code> without any complaints, but it eventually catches the error when we attempt to call <code>method</code> on an unsized type so all is fine. It's a little weird but affords us some flexibility in implementing traits with some <code>Sized</code> methods for unsized types as long as we never call the <code>Sized</code> methods:</p>
+<pre><pre class="playground"><code class="language-rust">trait Trait {
+    fn method(self) where Self: Sized {}
+    fn method2(&amp;self) {}
+}
+
+impl Trait for str {} // ✅
+
+fn main() {
+    // we never call "method" so no errors
+    "str".method2(); // ✅
+}</code></pre></pre>
+<p>Now back to the original question, why are traits <code>?Sized</code> by default? The answer is trait objects. Trait objects are inherently unsized because any type of any size can implement a trait, therefore we can only implement <code>Trait</code> for <code>dyn Trait</code> if <code>Trait: ?Sized</code>. To put it in code:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Trait: ?Sized {}
+
+// the above is REQUIRED for
+
+impl Trait for dyn Trait {
+    // compiler magic here
+}
+
+// since `dyn Trait` is unsized
+
+// and now we can use `dyn Trait` in our program
+
+fn function(t: &amp;dyn Trait) {} // ✅
+<span class="boring">}</span></code></pre></pre>
+<p>If we try to actually compile the above program we get:</p>
+<pre><code class="language-none">error[E0371]: the object type `(dyn Trait + 'static)` automatically implements the trait `Trait`
+ --&gt; src/lib.rs:5:1
+  |
+5 | impl Trait for dyn Trait {
+  | ^^^^^^^^^^^^^^^^^^^^^^^^ `(dyn Trait + 'static)` automatically implements trait `Trait`
+</code></pre>
+<p>Which is the compiler telling us to chill since it automatically provides the implementation of <code>Trait</code> for <code>dyn Trait</code>. Again, since <code>dyn Trait</code> is unsized the compiler can only provide this implementation if <code>Trait: ?Sized</code>. If we bound <code>Trait</code> by <code>Sized</code> then <code>Trait</code> becomes <em>"object unsafe"</em> which is a term that means we can't cast types which implement <code>Trait</code> to trait objects of <code>dyn Trait</code>. As expected this program does not compile:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Trait: Sized {}
+
+fn function(t: &amp;dyn Trait) {} // ❌
+<span class="boring">}</span></code></pre></pre>
+<p>Throws:</p>
+<pre><code class="language-none">error[E0038]: the trait `Trait` cannot be made into an object
+ --&gt; src/lib.rs:3:18
+  |
+1 | trait Trait: Sized {}
+  |       -----  ----- ...because it requires `Self: Sized`
+  |       |
+  |       this trait cannot be made into an object...
+2 | 
+3 | fn function(t: &amp;dyn Trait) {}
+  |                ^^^^^^^^^^ the trait `Trait` cannot be made into an object
+</code></pre>
+<p>Let's try to make an <code>?Sized</code> trait with a <code>Sized</code> method and see if we can cast it to a trait object:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Trait {
+    fn method(self) where Self: Sized {}
+    fn method2(&amp;self) {}
+}
+
+fn function(arg: &amp;dyn Trait) { // ✅
+    arg.method(); // ❌
+    arg.method2(); // ✅
+}
+<span class="boring">}</span></code></pre></pre>
+<p>As we saw before everything is okay as long as we don't call the <code>Sized</code> method on the trait object.</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>all traits are <code>?Sized</code> by default</li>
+<li><code>Trait: ?Sized</code> is required for <code>impl Trait for dyn Trait</code></li>
+<li>we can require <code>Self: Sized</code> on a per-method basis</li>
+<li>traits bound by <code>Sized</code> can't be made into trait objects</li>
+</ul>
+<h3 id="trait-object-limitations"><a class="header" href="#trait-object-limitations">Trait Object Limitations</a></h3>
+<p>Even if a trait is object-safe there are still sizedness-related edge cases which limit what types can be cast to trait objects and how many and what kind of traits can be represented by a trait object.</p>
+<h4 id="cannot-cast-unsized-types-to-trait-objects"><a class="header" href="#cannot-cast-unsized-types-to-trait-objects">Cannot Cast Unsized Types to Trait Objects<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h4>
+<pre><pre class="playground"><code class="language-rust">fn generic&lt;T: ToString&gt;(t: T) {}
+fn trait_object(t: &amp;dyn ToString) {}
+
+fn main() {
+    generic(String::from("String")); // ✅
+    generic("str"); // ✅
+    trait_object(&amp;String::from("String")); // ✅ - unsized coercion
+    trait_object("str"); // ❌ - unsized coercion impossible
+}</code></pre></pre>
+<p>Throws:</p>
+<pre><code class="language-none">error[E0277]: the size for values of type `str` cannot be known at compilation time
+ --&gt; src/main.rs:8:18
+  |
+8 |     trait_object("str");
+  |                  ^^^^^ doesn't have a size known at compile-time
+  |
+  = help: the trait `std::marker::Sized` is not implemented for `str`
+  = note: to learn more, visit &lt;https://doc.rust-lang.org/book/ch19-04-advanced-types.html#dynamically-sized-types-and-the-sized-trait&gt;
+  = note: required for the cast to the object type `dyn std::string::ToString`
+</code></pre>
+<p>The reason why passing a <code>&amp;String</code> to a function expecting a <code>&amp;dyn ToString</code> works is because of type coercion. <code>String</code> implements <code>ToString</code> and we can convert a sized type such as <code>String</code> into an unsized type such as <code>dyn ToString</code> via an unsized coercion. <code>str</code> also implements <code>ToString</code> and converting <code>str</code> into a <code>dyn ToString</code> would also require an unsized coercion but <code>str</code> is already unsized! How do we unsize an already unsized type into another unsized type?</p>
+<p><code>&amp;str</code> pointers are double-width, storing a pointer to the data and the data length. <code>&amp;dyn ToString</code> pointers are also double-width, storing a pointer to the data and a pointer to a vtable. To coerce a <code>&amp;str</code> into a <code>&amp;dyn toString</code> would require a triple-width pointer to store a pointer to the data, the data length, and a pointer to a vtable. Rust does not support triple-width pointers so casting an unsized type to a trait object is not possible.</p>
+<p>Previous two paragraphs summarized in a table:</p>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Pointer to Data</th><th>Data Length</th><th>Pointer to VTable</th><th>Total Width</th></tr></thead><tbody>
+<tr><td><code>&amp;String</code></td><td>✅</td><td>❌</td><td>❌</td><td>1 ✅</td></tr>
+<tr><td><code>&amp;str</code></td><td>✅</td><td>✅</td><td>❌</td><td>2 ✅</td></tr>
+<tr><td><code>&amp;String as &amp;dyn ToString</code></td><td>✅</td><td>❌</td><td>✅</td><td>2 ✅</td></tr>
+<tr><td><code>&amp;str as &amp;dyn ToString</code></td><td>✅</td><td>✅</td><td>✅</td><td>3 ❌</td></tr>
+</tbody></table>
+</div>
+<h4 id="cannot-create-multi-trait-objects"><a class="header" href="#cannot-create-multi-trait-objects">Cannot create Multi-Trait Objects<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h4>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Trait {}
+trait Trait2 {}
+
+fn function(t: &amp;(dyn Trait + Trait2)) {}
+<span class="boring">}</span></code></pre></pre>
+<p>Throws:</p>
+<pre><code class="language-none">error[E0225]: only auto traits can be used as additional traits in a trait object
+ --&gt; src/lib.rs:4:30
+  |
+4 | fn function(t: &amp;(dyn Trait + Trait2)) {}
+  |                      -----   ^^^^^^
+  |                      |       |
+  |                      |       additional non-auto trait
+  |                      |       trait alias used in trait object type (additional use)
+  |                      first non-auto trait
+  |                      trait alias used in trait object type (first use)
+</code></pre>
+<p>Remember that a trait object pointer is double-width: storing 1 pointer to the data and another to the vtable, but there's 2 traits here so there's 2 vtables which would require the <code>&amp;(dyn Trait + Trait2)</code> pointer to be 3 widths. Auto-traits like <code>Sync</code> and <code>Send</code> are allowed since they don't have methods and thus don't have vtables.</p>
+<p>The workaround for this is to combine vtables by combining the traits using another trait like so:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Trait {
+    fn method(&amp;self) {}
+}
+
+trait Trait2 {
+    fn method2(&amp;self) {}
+}
+
+trait Trait3: Trait + Trait2 {}
+
+// auto blanket impl Trait3 for any type that also impls Trait &amp; Trait2
+impl&lt;T: Trait + Trait2&gt; Trait3 for T {}
+
+// from `dyn Trait + Trait2` to `dyn Trait3` 
+fn function(t: &amp;dyn Trait3) {
+    t.method(); // ✅
+    t.method2(); // ✅
+}
+<span class="boring">}</span></code></pre></pre>
+<p>One downside of this workaround is that Rust does not support supertrait upcasting. What this means is that if we have a <code>dyn Trait3</code> we can't use it where we need a <code>dyn Trait</code> or a <code>dyn Trait2</code>. This program does not compile:</p>
+<pre><pre class="playground"><code class="language-rust">trait Trait {
+    fn method(&amp;self) {}
+}
+
+trait Trait2 {
+    fn method2(&amp;self) {}
+}
+
+trait Trait3: Trait + Trait2 {}
+
+impl&lt;T: Trait + Trait2&gt; Trait3 for T {}
+
+struct Struct;
+impl Trait for Struct {}
+impl Trait2 for Struct {}
+
+fn takes_trait(t: &amp;dyn Trait) {}
+fn takes_trait2(t: &amp;dyn Trait2) {}
+
+fn main() {
+    let t: &amp;dyn Trait3 = &amp;Struct;
+    takes_trait(t); // ❌
+    takes_trait2(t); // ❌
+}</code></pre></pre>
+<p>Throws:</p>
+<pre><code class="language-none">error[E0308]: mismatched types
+  --&gt; src/main.rs:22:17
+   |
+22 |     takes_trait(t);
+   |                 ^ expected trait `Trait`, found trait `Trait3`
+   |
+   = note: expected reference `&amp;dyn Trait`
+              found reference `&amp;dyn Trait3`
+
+error[E0308]: mismatched types
+  --&gt; src/main.rs:23:18
+   |
+23 |     takes_trait2(t);
+   |                  ^ expected trait `Trait2`, found trait `Trait3`
+   |
+   = note: expected reference `&amp;dyn Trait2`
+              found reference `&amp;dyn Trait3`
+</code></pre>
+<p>This is because <code>dyn Trait3</code> is a distinct type from <code>dyn Trait</code> and <code>dyn Trait2</code> in the sense that they have different vtable layouts, although <code>dyn Trait3</code> does contain all the methods of <code>dyn Trait</code> and <code>dyn Trait2</code>. The workaround here is to add explicit casting methods:</p>
+<pre><pre class="playground"><code class="language-rust">trait Trait {}
+trait Trait2 {}
+
+trait Trait3: Trait + Trait2 {
+    fn as_trait(&amp;self) -&gt; &amp;dyn Trait;
+    fn as_trait2(&amp;self) -&gt; &amp;dyn Trait2;
+}
+
+impl&lt;T: Trait + Trait2&gt; Trait3 for T {
+    fn as_trait(&amp;self) -&gt; &amp;dyn Trait {
+        self
+    }
+    fn as_trait2(&amp;self) -&gt; &amp;dyn Trait2 {
+        self
+    }
+}
+
+struct Struct;
+impl Trait for Struct {}
+impl Trait2 for Struct {}
+
+fn takes_trait(t: &amp;dyn Trait) {}
+fn takes_trait2(t: &amp;dyn Trait2) {}
+
+fn main() {
+    let t: &amp;dyn Trait3 = &amp;Struct;
+    takes_trait(t.as_trait()); // ✅
+    takes_trait2(t.as_trait2()); // ✅
+}</code></pre></pre>
+<p>This is a simple and straight-forward workaround that seems like something the Rust compiler could automate for us. Rust is not shy about performing type coercions as we have seen with deref and unsized coercions, so why isn't there a trait upcasting coercion? This is a good question with a familiar answer: the Rust core team is working on other higher-priority and higher-impact features. Fair enough.</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>Rust doesn't support pointers wider than 2 widths so
+<ul>
+<li>we can't cast unsized types to trait objects</li>
+<li>we can't have multi-trait objects, but we can work around this by coalescing multiple traits into a single trait</li>
+</ul>
+</li>
+</ul>
+<h3 id="user-defined-unsized-types"><a class="header" href="#user-defined-unsized-types">User-Defined Unsized Types<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Unsized {
+    unsized_field: [i32],
+}
+<span class="boring">}</span></code></pre></pre>
+<p>We can define an unsized struct by giving the struct an unsized field. Unsized structs can only have 1 unsized field and it must be the last field in the struct. This is a requirement so that the compiler can determine the starting offset of every field in the struct at compile-time, which is important for efficient and fast field access. Furthermore, a single unsized field is the most that can be tracked using a double-width pointer, as more unsized fields would require more widths.</p>
+<p>So how do we even instantiate this thing? The same way we do with any unsized type: by first making a sized version of it then coercing it into the unsized version. However, <code>Unsized</code> is always unsized by definition, there's no way to make a sized version of it! The only workaround is to make the struct generic so that it can exist in both sized and unsized versions:</p>
+<pre><pre class="playground"><code class="language-rust">struct MaybeSized&lt;T: ?Sized&gt; {
+    maybe_sized: T,
+}
+
+fn main() {
+    // unsized coercion from MaybeSized&lt;[i32; 3]&gt; to MaybeSized&lt;[i32]&gt;
+    let ms: &amp;MaybeSized&lt;[i32]&gt; = &amp;MaybeSized { maybe_sized: [1, 2, 3] };
+}</code></pre></pre>
+<p>So what are the use-cases of this? There aren't any particularly compelling ones, user-defined unsized types are a pretty half-baked feature right now and their limitations outweigh any benefits. They're mentioned here purely for the sake of comprehensiveness.</p>
+<p><strong>Fun fact:</strong> <code>std::ffi::OsStr</code> and <code>std::path::Path</code> are 2 unsized structs in the standard library that you've probably used before without realizing!</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>user-defined unsized types are a half-baked feature right now and their limitations outweigh any benefits</li>
+</ul>
+<h2 id="zero-sized-types"><a class="header" href="#zero-sized-types">Zero-Sized Types<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h2>
+<p>ZSTs sound exotic at first but they're used everywhere.</p>
+<h3 id="unit-type"><a class="header" href="#unit-type">Unit Type</a></h3>
+<p>The most common ZST is the unit type: <code>()</code>. All empty blocks <code>{}</code> evaluate to <code>()</code> and if the block is non-empty but the last expression is discarded with a semicolon <code>;</code> then it also evaluates to <code>()</code>. Example:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let a: () = {};
+    let b: i32 = {
+        5
+    };
+    let c: () = {
+        5;
+    };
+}</code></pre></pre>
+<p>Every function which doesn't have an explicit return type returns <code>()</code> by default.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// with sugar
+fn function() {}
+
+// desugared
+fn function() -&gt; () {}
+<span class="boring">}</span></code></pre></pre>
+<p>Since <code>()</code> is zero bytes all instances of <code>()</code> are the same which makes for some really simple <code>Default</code>, <code>PartialEq</code>, and <code>Ord</code> implementations:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::cmp::Ordering;
+
+impl Default for () {
+    fn default() {}
+}
+
+impl PartialEq for () {
+    fn eq(&amp;self, _other: &amp;()) -&gt; bool {
+        true
+    }
+    fn ne(&amp;self, _other: &amp;()) -&gt; bool {
+        false
+    }
+}
+
+impl Ord for () {
+    fn cmp(&amp;self, _other: &amp;()) -&gt; Ordering {
+        Ordering::Equal
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>The compiler understands <code>()</code> is zero-sized and optimizes away interactions with instances of <code>()</code>. For example, a <code>Vec&lt;()&gt;</code> will never make any heap allocations, and pushing and popping <code>()</code> from the <code>Vec</code> just increments and decrements its <code>len</code> field:</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    // zero capacity is all the capacity we need to "store" infinitely many ()
+    let mut vec: Vec&lt;()&gt; = Vec::with_capacity(0);
+    // causes no heap allocations or vec capacity changes
+    vec.push(()); // len++
+    vec.push(()); // len++
+    vec.push(()); // len++
+    vec.pop(); // len--
+    assert_eq!(2, vec.len());
+}</code></pre></pre>
+<p>The above example has no practical applications, but is there any situation where we can take advantage of the above idea in a meaningful way? Surprisingly yes, we can get an efficient <code>HashSet&lt;Key&gt;</code> implementation from a <code>HashMap&lt;Key, Value&gt;</code> by setting the <code>Value</code> to <code>()</code> which is exactly how <code>HashSet</code> in the Rust standard library works:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// std::collections::HashSet
+pub struct HashSet&lt;T&gt; {
+    map: HashMap&lt;T, ()&gt;,
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>all instances of a ZST are equal to each other</li>
+<li>Rust compiler knows to optimize away interactions with ZSTs</li>
+</ul>
+<h3 id="user-defined-unit-structs"><a class="header" href="#user-defined-unit-structs">User-Defined Unit Structs<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h3>
+<p>A unit struct is any struct without any fields, e.g.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Struct;
+<span class="boring">}</span></code></pre></pre>
+<p>Properties that make unit structs more useful than <code>()</code>:</p>
+<ul>
+<li>we can implement whatever traits we want on our own unit structs, Rust's trait orphan rules prevent us from implementing traits for <code>()</code> as it's defined in the standard library</li>
+<li>unit structs can be given meaningful names within the context of our program</li>
+<li>unit structs, like all structs, are non-Copy by default, which may be important in the context of our program</li>
+</ul>
+<h3 id="never-type"><a class="header" href="#never-type">Never Type<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h3>
+<p>The second most common ZST is the never type: <code>!</code>. It's called the never type because it represents computations that never resolve to any value at all.</p>
+<p>A couple interesting properties of <code>!</code> that make it different from <code>()</code>:</p>
+<ul>
+<li><code>!</code> can be coerced into any other type</li>
+<li>it's not possible to create instances of <code>!</code></li>
+</ul>
+<p>The first interesting property is very useful for ergonomics and allows us to use handy macros like these:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// nice for quick prototyping
+fn example&lt;T&gt;(t: &amp;[T]) -&gt; Vec&lt;T&gt; {
+    unimplemented!() // ! coerced to Vec&lt;T&gt;
+}
+
+fn example2() -&gt; i32 {
+    // we know this parse call will never fail
+    match "123".parse::&lt;i32&gt;() {
+        Ok(num) =&gt; num,
+        Err(_) =&gt; unreachable!(), // ! coerced to i32
+    }
+}
+
+fn example3(some_condition: bool) -&gt; &amp;'static str {
+    if !some_condition {
+        panic!() // ! coerced to &amp;str
+    } else {
+        "str"
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>break</code>, <code>continue</code>, and <code>return</code> expressions also have type <code>!</code>:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn example() -&gt; i32 {
+    // we can set the type of x to anything here
+    // since the block never evaluates to any value
+    let x: String = {
+        return 123 // ! coerced to String
+    };
+}
+
+fn example2(nums: &amp;[i32]) -&gt; Vec&lt;i32&gt; {
+    let mut filtered = Vec::new();
+    for num in nums {
+        filtered.push(
+            if *num &lt; 0 {
+                break // ! coerced to i32
+            } else if *num % 2 == 0 {
+                *num
+            } else {
+                continue // ! coerced to i32
+            }
+        );
+    }
+    filtered
+}
+<span class="boring">}</span></code></pre></pre>
+<p>The second interesting property of <code>!</code> allows us to mark certain states as impossible on a type level. Let's take this function signature as an example:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn function() -&gt; Result&lt;Success, Error&gt;;
+<span class="boring">}</span></code></pre></pre>
+<p>We know that if the function returns and was successful the <code>Result</code> will contain some instance of type <code>Success</code> and if it errored <code>Result</code> will contain some instance of type <code>Error</code>. Now let's compare that to this function signature:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn function() -&gt; Result&lt;Success, !&gt;;
+<span class="boring">}</span></code></pre></pre>
+<p>We know that if the function returns and was successful the <code>Result</code> will hold some instance of type <code>Success</code> and if it errored... but wait, it can never error, since it's impossible to create instances of <code>!</code>. Given the above function signature we know this function will never error. How about this function signature:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn function() -&gt; Result&lt;!, Error&gt;;
+<span class="boring">}</span></code></pre></pre>
+<p>The inverse of the previous is now true: if this function returns we know it must have errored as success is impossible.</p>
+<p>A practical application of the former example would be the <code>FromStr</code> implementation for <code>String</code> as it's impossible to fail converting a <code>&amp;str</code> into a <code>String</code>:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span>#![feature(never_type)]
+
+<span class="boring">fn main() {
+</span>use std::str::FromStr;
+
+impl FromStr for String {
+    type Err = !;
+    fn from_str(s: &amp;str) -&gt; Result&lt;String, Self::Err&gt; {
+        Ok(String::from(s))
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>A practical application of the latter example would be a function that runs an infinite loop that's never meant to return, like a server responding to client requests, unless there's some error:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span>#![feature(never_type)]
+
+<span class="boring">fn main() {
+</span>fn run_server() -&gt; Result&lt;!, ConnectionError&gt; {
+    loop {
+        let (request, response) = get_request()?;
+        let result = request.process();
+        response.send(result);
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>The feature flag is necessary because while the never type exists and works within Rust internals using it in user-code is still considered experimental.</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li><code>!</code> can be coerced into any other type</li>
+<li>it's not possible to create instances of <code>!</code> which we can use to mark certain states as impossible at a type level</li>
+</ul>
+<h3 id="user-defined-pseudo-never-types"><a class="header" href="#user-defined-pseudo-never-types">User-Defined Pseudo Never Types</a></h3>
+<p>While it's not possible to define a type that can coerce to any other type it is possible to define a type which is impossible to create instances of such as an <code>enum</code> without any variants:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum Void {}
+<span class="boring">}</span></code></pre></pre>
+<p>This allows us to remove the feature flag from the previous two examples and implement them using stable Rust:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum Void {}
+
+// example 1
+impl FromStr for String {
+    type Err = Void;
+    fn from_str(s: &amp;str) -&gt; Result&lt;String, Self::Err&gt; {
+        Ok(String::from(s))
+    }
+}
+
+// example 2
+fn run_server() -&gt; Result&lt;Void, ConnectionError&gt; {
+    loop {
+        let (request, response) = get_request()?;
+        let result = request.process();
+        response.send(result);
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>This is the technique the Rust standard library uses, as the <code>Err</code> type for the <code>FromStr</code> implementation of <code>String</code> is <code>std::convert::Infallible</code> which is defined as:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub enum Infallible {}
+<span class="boring">}</span></code></pre></pre>
+<h3 id="phantomdata"><a class="header" href="#phantomdata">PhantomData<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h3>
+<p>The third most commonly used ZST is probably <code>PhantomData</code>. <code>PhantomData</code> is a zero-sized marker struct which can be used to "mark" a containing struct as having certain properties. It's similar in purpose to its auto marker trait cousins such as <code>Sized</code>, <code>Send</code>, and <code>Sync</code> but being a marker struct is used a little bit differently. Giving a thorough explanation of <code>PhantomData</code> and exploring all of its use-cases is outside the scope of this article so let's only briefly go over a single simple example. Recall this code snippet presented earlier:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span>#![feature(negative_impls)]
+
+<span class="boring">fn main() {
+</span>// this type is Send and Sync
+struct Struct;
+
+// opt-out of Send trait
+impl !Send for Struct {}
+
+// opt-out of Sync trait
+impl !Sync for Struct {}
+<span class="boring">}</span></code></pre></pre>
+<p>It's unfortunate that we have to use a feature flag, can we accomplish the same result using only stable Rust? As we've learned, a type is only <code>Send</code> and <code>Sync</code> if all of its members are also <code>Send</code> and <code>Sync</code>, so we can add a <code>!Send</code> and <code>!Sync</code> member to <code>Struct</code> like <code>Rc&lt;()&gt;</code>:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::rc::Rc;
+
+// this type is not Send or Sync
+struct Struct {
+    // adds 8 bytes to every instance
+    _not_send_or_sync: Rc&lt;()&gt;,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>This is less than ideal because it adds size to every instance of <code>Struct</code> and we now also have to conjure a <code>Rc&lt;()&gt;</code> from thin air every time we want to create a <code>Struct</code>. Since <code>PhantomData</code> is a ZST it solves both of these problems:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::rc::Rc;
+use std::marker::PhantomData;
+
+type NotSendOrSyncPhantom = PhantomData&lt;Rc&lt;()&gt;&gt;;
+
+// this type is not Send or Sync
+struct Struct {
+    // adds no additional size to instances
+    _not_send_or_sync: NotSendOrSyncPhantom,
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li><code>PhantomData</code> is a zero-sized marker struct which can be used to "mark" a containing struct as having certain properties</li>
+</ul>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h2>
+<ul>
+<li>only instances of sized types can be placed on the stack, i.e. can be passed around by value</li>
+<li>instances of unsized types can't be placed on the stack and must be passed around by reference</li>
+<li>pointers to unsized types are double-width because aside from pointing to data they need to do an extra bit of bookkeeping to also keep track of the data's length <em>or</em> point to a vtable</li>
+<li><code>Sized</code> is an "auto" marker trait</li>
+<li>all generic type parameters are auto-bound with <code>Sized</code> by default</li>
+<li>if we have a generic function which takes an argument of some <code>T</code> behind a pointer, e.g. <code>&amp;T</code>, <code>Box&lt;T&gt;</code>, <code>Rc&lt;T&gt;</code>, et cetera, then we almost always want to opt-out of the default <code>Sized</code> bound with <code>T: ?Sized</code></li>
+<li>leveraging slices and Rust's auto type coercions allows us to write flexible APIs</li>
+<li>all traits are <code>?Sized</code> by default</li>
+<li><code>Trait: ?Sized</code> is required for <code>impl Trait for dyn Trait</code></li>
+<li>we can require <code>Self: Sized</code> on a per-method basis</li>
+<li>traits bound by <code>Sized</code> can't be made into trait objects</li>
+<li>Rust doesn't support pointers wider than 2 widths so
+<ul>
+<li>we can't cast unsized types to trait objects</li>
+<li>we can't have multi-trait objects, but we can work around this by coalescing multiple traits into a single trait</li>
+</ul>
+</li>
+<li>user-defined unsized types are a half-baked feature right now and their limitations outweigh any benefits</li>
+<li>all instances of a ZST are equal to each other</li>
+<li>Rust compiler knows to optimize away interactions with ZSTs</li>
+<li><code>!</code> can be coerced into any other type</li>
+<li>it's not possible to create instances of <code>!</code> which we can use to mark certain states as impossible at a type level</li>
+<li><code>PhantomData</code> is a zero-sized marker struct which can be used to "mark" a containing struct as having certain properties</li>
+</ul>
+<h2 id="discuss"><a class="header" href="#discuss">Discuss<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h2>
+<p>Discuss this article on</p>
+<ul>
+<li><a href="https://users.rust-lang.org/t/blog-post-sizedness-in-rust/46293?u=pretzelhammer">official Rust users forum</a></li>
+<li><a href="https://www.reddit.com/r/learnrust/comments/hx2jd0/sizedness_in_rust/">learnrust subreddit</a></li>
+<li><a href="https://www.reddit.com/r/rust/comments/hxips7/sizedness_in_rust/">rust subreddit</a></li>
+<li><a href="https://github.com/pretzelhammer/rust-blog/discussions">Github</a></li>
+</ul>
+<h2 id="further-reading"><a class="header" href="#further-reading">Further Reading<a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#link">|🔝|</a></a></h2>
+<ul>
+<li><a href="Advanced/pretzelhammer_blog/./common-rust-lifetime-misconceptions.html">Common Rust Lifetime Misconceptions</a></li>
+<li><a href="Advanced/pretzelhammer_blog/./tour-of-rusts-standard-library-traits.html">Tour of Rust's Standard Library Traits</a></li>
+<li><a href="Advanced/pretzelhammer_blog/./chat-server.html">Beginner's Guide to Concurrent Programming: Coding a Multithreaded Chat Server using Tokio</a></li>
+<li><a href="Advanced/pretzelhammer_blog/./learning-rust-in-2024.html">Learning Rust in 2024</a></li>
+<li><a href="Advanced/pretzelhammer_blog/./rust-in-non-rust-servers.html">Using Rust in Non-Rust Servers to Improve Performance</a></li>
+<li><a href="Advanced/pretzelhammer_blog/./restful-api-in-sync-and-async-rust.html">RESTful API in Sync &amp; Async Rust</a></li>
+<li><a href="Advanced/pretzelhammer_blog/./too-many-brainfuck-compilers.html">Learn Assembly with Entirely Too Many Brainfuck Compilers</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="c오너쉽개념-기초-c11에서-가져옴"><a class="header" href="#c오너쉽개념-기초-c11에서-가져옴">C++오너쉽개념 기초 C++11에서 가져옴</a></h1>
+<ul>
+<li><a href="https://stackoverflow.com/questions/3106110/what-is-move-semantics">What is move semantics?</a></li>
+<li><a href="https://eli.thegreenplace.net/2011/12/15/understanding-lvalues-and-rvalues-in-c-and-c/">111215)Understanding lvalues and rvalues in C and C++</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ownership밴다이어그램으로-소유권-이해"><a class="header" href="#ownership밴다이어그램으로-소유권-이해">OwnerShip밴다이어그램으로 소유권 이해</a></h1>
+<h1 id="link-13"><a class="header" href="#link-13">link</a></h1>
+<hr />
+<h1 id="벤다이어그램-이해"><a class="header" href="#벤다이어그램-이해">벤다이어그램 이해</a></h1>
+<ul>
+<li><a href="https://namu.wiki/w/%EB%B2%A4%20%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8">https://namu.wiki/w/%EB%B2%A4%20%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8</a></li>
+</ul>
+<h1 id="오너쉽-관계를-잘이해하자구현할-때-중요하다impl"><a class="header" href="#오너쉽-관계를-잘이해하자구현할-때-중요하다impl">오너쉽 관계를 잘이해하자(구현할 때 중요하다impl)</a></h1>
+<ul>
+<li>
+<p><code>T</code>는 오너쉽을 가지고 있다. <code>T</code>는 하위(<code>&amp;</code>, <code>&amp;mut</code>) 모두 커버되는 SuperSet</p>
+<ul>
+<li><code>T</code> is a superset of (<code>&amp;</code> , <code>&amp;mut</code>), denoted by</li>
+</ul>
+</li>
+<li>
+<p><code>&amp;</code> 와 <code>&amp;mut</code> 은 disjoint set 관계</p>
+<ul>
+<li>&amp;(reference) and (&amp;mut) are disjoint set</li>
+</ul>
+</li>
+</ul>
+<p>\[T \supseteq Reference, ref mut \]</p>
+<p>\[Reference \cup ref mut \]</p>
+<img src="https://github.com/user-attachments/assets/87fa951a-0d2e-4238-a136-98229dd146a1" />
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Subset">https://en.wikipedia.org/wiki/Subset</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Disjoint_sets">https://en.wikipedia.org/wiki/Disjoint_sets</a></li>
+</ul>
+<h1 id="reference-and-mutable-reference-관련-글"><a class="header" href="#reference-and-mutable-reference-관련-글">Reference and Mutable Reference 관련 글</a></h1>
+<ul>
+<li><a href="https://users.rust-lang.org/t/reference-and-mutable-reference-of-methods-on-disjoint-fields/83823">Reference and Mutable Reference of methods on disjoint fields</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="closures클로져deepdive"><a class="header" href="#closures클로져deepdive">Closures클로져DeepDive</a></h1>
+<h1 id="link-14"><a class="header" href="#link-14">link</a></h1>
+<hr />
+<h1 id="클로져closures-다이어그램으로-이해하기"><a class="header" href="#클로져closures-다이어그램으로-이해하기">클로져Closures 다이어그램으로 이해하기</a></h1>
+<p><img src="https://github.com/YoungHaKim7/Cpp_Training/assets/67513038/d27b93e6-9935-4367-9339-6d25e65b3a80" alt="fnrust" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="operator"><a class="header" href="#operator">Operator</a></h1>
+<h1 id="link-15"><a class="header" href="#link-15">link</a></h1>
 <ul>
 <li><a href="Advanced/Operator/intro.html#operator-expressions">(Rust)Operator expressions</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Operators_in_C_and_C%2B%2B">Operators in C and C++</a></li>
@@ -2348,7 +3542,7 @@ See <a href="https://github.com/rust-lang/rust/blob/1.58.0/src/test/ui/expr/comp
 <ul>
 <li><a href="https://en.cppreference.com/w/c/language/operator_precedence">https://en.cppreference.com/w/c/language/operator_precedence</a></li>
 </ul>
-<h1 id="link-13"><a class="header" href="#link-13">link</a></h1>
+<h1 id="link-16"><a class="header" href="#link-16">link</a></h1>
 <hr />
 <h1 id="c-operator-precedence"><a class="header" href="#c-operator-precedence">C Operator Precedence</a></h1>
 <ul>
@@ -2714,7 +3908,7 @@ a <span class="sy4">?</span> b <span class="sy4">:</span> c<br>
 <li>https://en.cppreference.com/w/c/language/operator_precedence</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="logical_operators"><a class="header" href="#logical_operators">Logical_Operators</a></h1>
-<h1 id="link-14"><a class="header" href="#link-14">link</a></h1>
+<h1 id="link-17"><a class="header" href="#link-17">link</a></h1>
 <hr />
 <h1 id="rust-code"><a class="header" href="#rust-code">Rust Code</a></h1>
 <pre><code class="language-rs">fn main() {
@@ -2747,7 +3941,7 @@ true || !true = true
 !(true || true) == (!true &amp;&amp; !true) = true
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bitwise_operators"><a class="header" href="#bitwise_operators">Bitwise_Operators</a></h1>
-<h1 id="link-15"><a class="header" href="#link-15">link</a></h1>
+<h1 id="link-18"><a class="header" href="#link-18">link</a></h1>
 <ul>
 <li><a href="Advanced/Operator/bitwise_operators.html#a%EA%B0%80--86%EC%9C%BC%EB%A1%9C-%ED%8F%89%EA%B0%80-%EB%90%98%EB%8A%94-%EC%9D%B4%EC%9C%A0">~a가 -86으로 평가 되는 이유</a></li>
 </ul>
@@ -2915,8 +4109,31 @@ x02 &gt;&gt; y02 = 2  // right shift
 </ul>
 <pre><code>10101010 (unsigned) = 11111111111111111111111110101010 (signed)
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rust-lifetime개념-깊게deep-dive"><a class="header" href="#rust-lifetime개념-깊게deep-dive">Rust Lifetime개념 깊게deep dive</a></h1>
+<ul>
+<li><a href="https://dl.acm.org/doi/10.1145/3443420">https://dl.acm.org/doi/10.1145/3443420</a></li>
+</ul>
+<h1 id="210417a-lightweight-formalism-for-reference-lifetimes-and-borrowing-in-rust"><a class="header" href="#210417a-lightweight-formalism-for-reference-lifetimes-and-borrowing-in-rust">(210417)A Lightweight Formalism for Reference Lifetimes and Borrowing in Rust</a></h1>
+<ul>
+<li>A Lightweight Formalism for Reference Lifetimes and Borrowing in Rust</li>
+</ul>
+<img src="https://github.com/user-attachments/assets/e788a943-01f5-40bc-9aa3-5586302fbe69" />
+<ul>
+<li>Abstract
+<ul>
+<li>Rust is a relatively new programming language that has gained significant traction since its v1.0 release in 2015. Rust aims to be a systems language that competes with C/C++. A claimed advantage of Rust is a strong focus on memory safety without garbage collection. This is primarily achieved through two concepts, namely, reference lifetimes and borrowing. Both of these are well-known ideas stemming from the literature on region-based memory management and linearity/uniqueness. Rust brings both of these ideas together to form a coherent programming model. Furthermore, Rust has a strong focus on stack-allocated data and, like C/C++ but unlike Java, permits references to local variables.</li>
+<li>Type checking in Rust can be viewed as a two-phase process: First, a traditional type checker operates in a flow-insensitive fashion; second, a borrow checker enforces an ownership invariant using a flow-sensitive analysis. In this article, we present a lightweight formalism that captures these two phases using a flow-sensitive type system that enforces “type and borrow safety.” In particular, programs that are type and borrow safe will not attempt to dereference dangling pointers. Our calculus core captures many aspects of Rust, including copy- and move-semantics, mutable borrowing, reborrowing, partial moves, and lifetimes. In particular, it remains sufficiently lightweight to be easily digested and understood and, we argue, still captures the salient aspects of reference lifetimes and borrowing. Furthermore, extensions to the core can easily add more complex features (e.g., control-flow, tuples, method invocation). We provide a soundness proof to verify our key claims of the calculus. We also provide a reference implementation in Java with which we have model checked our calculus using over 500B input programs. We have also fuzz tested the Rust compiler using our calculus against 2B programs and, to date, found one confirmed compiler bug and several other possible issues.</li>
+<li>추상
+<ul>
+<li>Rust는 2015년 v1.0이 출시된 이후 상당한 관심을 받고 있는 비교적 새로운 프로그래밍 언어입니다. Rust는 C/C++와 경쟁하는 시스템 언어를 목표로 합니다. Rust의 장점은 쓰레기 수거 없이 메모리 안전에 중점을 둔다는 것입니다. 이는 주로 기준 수명과 차입이라는 두 가지 개념을 통해 달성됩니다. 이 두 가지 모두 지역 기반 메모리 관리와 선형성/고유성에 관한 문헌에서 비롯된 잘 알려진 아이디어입니다. Rust는 이 두 가지 아이디어를 모두 결합하여 일관된 프로그래밍 모델을 형성합니다. 또한 Rust는 스택 할당 데이터에 중점을 두고 있으며 C/C++와 마찬가지로 로컬 변수에 대한 참조를 허용합니다.</li>
+<li>Rust의 유형 확인은 2단계 프로세스로 볼 수 있습니다: 첫째, 기존 유형 검사기는 흐름에 민감하지 않은 방식으로 작동하고, 둘째, 차입 검사기는 흐름에 민감한 분석을 사용하여 소유권 불변량을 강제합니다. 이 글에서는 "유형 및 차입 안전"을 강제하는 흐름에 민감한 유형 시스템을 사용하여 이 두 단계를 캡처하는 가벼운 형식주의를 제시합니다. 특히 유형 및 차입 안전한 프로그램은 달링 포인터를 참조 해제하려고 시도하지 않습니다. 우리의 미적분 코어는 복사 및 이동 시맨틱, 돌연변이 차입, 재융자, 부분 이동, 수명 등 Rust의 많은 측면을 캡처합니다. 특히, 쉽게 소화하고 이해할 수 있을 만큼 충분히 가볍고 여전히 참조 수명과 차입의 두드러진 측면을 캡처한다고 주장합니다. 또한 코어 확장은 더 복잡한 기능(예: 제어 흐름, 튜플, 방법 호출)을 쉽게 추가할 수 있습니다. 우리는 미적분에 대한 주요 주장을 검증하기 위한 건전성 증명을 제공합니다. 또한 500B 이상의 입력 프로그램을 사용하여 미적분을 모델링한 Java의 참조 구현을 제공합니다. 또한 2B 프로그램에 대해 미적분을 사용하여 Rust 컴파일러를 퍼지 테스트했으며, 현재까지 하나의 확인된 컴파일러 버그와 기타 몇 가지 가능한 문제를 발견했습니다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="algorithm알고리즘"><a class="header" href="#algorithm알고리즘">Algorithm알고리즘</a></h1>
-<h1 id="link-16"><a class="header" href="#link-16">link</a></h1>
+<h1 id="link-19"><a class="header" href="#link-19">link</a></h1>
 <ul>
 <li>
 <p><a href="Advanced/Algorithm/summary_algo.html#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%EC%9D%98-4%EB%8B%A8%EA%B3%84">알고리즘의 4단계</a></p>
@@ -3198,7 +4415,7 @@ node -&gt; |1 |      |   |2 |
 <li>https://youtu.be/1PFFgRcZLAk?si=6Da6I9xvcgkzo0sS</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust_release"><a class="header" href="#rust_release">rust_release</a></h1>
-<h1 id="link-17"><a class="header" href="#link-17">link</a></h1>
+<h1 id="link-20"><a class="header" href="#link-20">link</a></h1>
 <ul>
 <li>
 <p><a href="Advanced/rust_release/rust_release.html#rust-lang-httpswwwrust-langorg">rust 1.0부터 최신버젼까지 역사 흐름 rust2015~rust2024</a></p>
@@ -3664,37 +4881,9 @@ To sanitize this, users must explicitly supply <code>--remap-path-prefix=&lt;pat
 <ul>
 <li><a href="https://github.com/rust-lang/rfcs">https://github.com/rust-lang/rfcs</a></li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="c오너쉽개념-기초-c11에서-가져옴"><a class="header" href="#c오너쉽개념-기초-c11에서-가져옴">C++오너쉽개념 기초 C++11에서 가져옴</a></h1>
-<ul>
-<li><a href="https://stackoverflow.com/questions/3106110/what-is-move-semantics">What is move semantics?</a></li>
-<li><a href="https://eli.thegreenplace.net/2011/12/15/understanding-lvalues-and-rvalues-in-c-and-c/">111215)Understanding lvalues and rvalues in C and C++</a></li>
-</ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="rust-lifetime개념-깊게deep-dive"><a class="header" href="#rust-lifetime개념-깊게deep-dive">Rust Lifetime개념 깊게deep dive</a></h1>
-<ul>
-<li><a href="https://dl.acm.org/doi/10.1145/3443420">https://dl.acm.org/doi/10.1145/3443420</a></li>
-</ul>
-<h1 id="210417a-lightweight-formalism-for-reference-lifetimes-and-borrowing-in-rust"><a class="header" href="#210417a-lightweight-formalism-for-reference-lifetimes-and-borrowing-in-rust">(210417)A Lightweight Formalism for Reference Lifetimes and Borrowing in Rust</a></h1>
-<ul>
-<li>A Lightweight Formalism for Reference Lifetimes and Borrowing in Rust</li>
-</ul>
-<img src="https://github.com/user-attachments/assets/e788a943-01f5-40bc-9aa3-5586302fbe69" />
-<ul>
-<li>Abstract
-<ul>
-<li>Rust is a relatively new programming language that has gained significant traction since its v1.0 release in 2015. Rust aims to be a systems language that competes with C/C++. A claimed advantage of Rust is a strong focus on memory safety without garbage collection. This is primarily achieved through two concepts, namely, reference lifetimes and borrowing. Both of these are well-known ideas stemming from the literature on region-based memory management and linearity/uniqueness. Rust brings both of these ideas together to form a coherent programming model. Furthermore, Rust has a strong focus on stack-allocated data and, like C/C++ but unlike Java, permits references to local variables.</li>
-<li>Type checking in Rust can be viewed as a two-phase process: First, a traditional type checker operates in a flow-insensitive fashion; second, a borrow checker enforces an ownership invariant using a flow-sensitive analysis. In this article, we present a lightweight formalism that captures these two phases using a flow-sensitive type system that enforces “type and borrow safety.” In particular, programs that are type and borrow safe will not attempt to dereference dangling pointers. Our calculus core captures many aspects of Rust, including copy- and move-semantics, mutable borrowing, reborrowing, partial moves, and lifetimes. In particular, it remains sufficiently lightweight to be easily digested and understood and, we argue, still captures the salient aspects of reference lifetimes and borrowing. Furthermore, extensions to the core can easily add more complex features (e.g., control-flow, tuples, method invocation). We provide a soundness proof to verify our key claims of the calculus. We also provide a reference implementation in Java with which we have model checked our calculus using over 500B input programs. We have also fuzz tested the Rust compiler using our calculus against 2B programs and, to date, found one confirmed compiler bug and several other possible issues.</li>
-<li>추상
-<ul>
-<li>Rust는 2015년 v1.0이 출시된 이후 상당한 관심을 받고 있는 비교적 새로운 프로그래밍 언어입니다. Rust는 C/C++와 경쟁하는 시스템 언어를 목표로 합니다. Rust의 장점은 쓰레기 수거 없이 메모리 안전에 중점을 둔다는 것입니다. 이는 주로 기준 수명과 차입이라는 두 가지 개념을 통해 달성됩니다. 이 두 가지 모두 지역 기반 메모리 관리와 선형성/고유성에 관한 문헌에서 비롯된 잘 알려진 아이디어입니다. Rust는 이 두 가지 아이디어를 모두 결합하여 일관된 프로그래밍 모델을 형성합니다. 또한 Rust는 스택 할당 데이터에 중점을 두고 있으며 C/C++와 마찬가지로 로컬 변수에 대한 참조를 허용합니다.</li>
-<li>Rust의 유형 확인은 2단계 프로세스로 볼 수 있습니다: 첫째, 기존 유형 검사기는 흐름에 민감하지 않은 방식으로 작동하고, 둘째, 차입 검사기는 흐름에 민감한 분석을 사용하여 소유권 불변량을 강제합니다. 이 글에서는 "유형 및 차입 안전"을 강제하는 흐름에 민감한 유형 시스템을 사용하여 이 두 단계를 캡처하는 가벼운 형식주의를 제시합니다. 특히 유형 및 차입 안전한 프로그램은 달링 포인터를 참조 해제하려고 시도하지 않습니다. 우리의 미적분 코어는 복사 및 이동 시맨틱, 돌연변이 차입, 재융자, 부분 이동, 수명 등 Rust의 많은 측면을 캡처합니다. 특히, 쉽게 소화하고 이해할 수 있을 만큼 충분히 가볍고 여전히 참조 수명과 차입의 두드러진 측면을 캡처한다고 주장합니다. 또한 코어 확장은 더 복잡한 기능(예: 제어 흐름, 튜플, 방법 호출)을 쉽게 추가할 수 있습니다. 우리는 미적분에 대한 주요 주장을 검증하기 위한 건전성 증명을 제공합니다. 또한 500B 이상의 입력 프로그램을 사용하여 미적분을 모델링한 Java의 참조 구현을 제공합니다. 또한 2B 프로그램에 대해 미적분을 사용하여 Rust 컴파일러를 퍼지 테스트했으며, 현재까지 하나의 확인된 컴파일러 버그와 기타 몇 가지 가능한 문제를 발견했습니다.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-optimization최적화"><a class="header" href="#rust-optimization최적화">Rust Optimization최적화</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="모든-언어별-공통적인-최적화-개념"><a class="header" href="#모든-언어별-공통적인-최적화-개념">모든 언어별 공통적인 최적화 개념</a></h1>
-<h1 id="link-18"><a class="header" href="#link-18">link</a></h1>
+<h1 id="link-21"><a class="header" href="#link-21">link</a></h1>
 <ul>
 <li>
 <p><a href="Advanced/Optimization/common.html#temporal-locality-in-memory-mountain">Temporal locality in memory mountain</a></p>
@@ -4301,7 +5490,7 @@ Visual comparison chart: http://i.imgur.com/k0t1e.png
     theme="github-light" crossorigin="anonymous" async>
 </script>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-optimization"><a class="header" href="#rust-optimization">Rust Optimization</a></h1>
-<h1 id="link-19"><a class="header" href="#link-19">link</a></h1>
+<h1 id="link-22"><a class="header" href="#link-22">link</a></h1>
 <ul>
 <li><a href="Advanced/Optimization/rust_optimization.html#rust-benchmarking">Rust Benchmarking(criterion)</a></li>
 <li><a href="Advanced/Optimization/rust_optimization.html#rust-optimization-1">Rust Optimization</a></li>
@@ -4391,7 +5580,9 @@ Visual comparison chart: http://i.imgur.com/k0t1e.png
 
         <script>
         window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
         });
         </script>
 

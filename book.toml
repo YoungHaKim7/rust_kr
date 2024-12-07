@@ -8,8 +8,8 @@ title = "rust_kr"
 [output.html]
 git-repository-url = "https://github.com/YoungHaKim7/rust_kr"
 git-repository-icon = "fa-github"
+mathjax-support = true
 # smart-punctuation = true
-# mathjax-support = true
 
 [output.html.playground]
 # line-numbers = true
