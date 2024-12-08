@@ -1,10 +1,11 @@
 # IntegerDisplay정수표시(CS)
 
 # link
+- [마이너스 구현을 위해 필요two's complement encoding(2의 보수)](#twos-complement-encoding2의-보수)
 
 <hr />
 
-# two's complement encoding(2의 보수)
+# two's complement encoding(2의 보수)[|🔝|](#link)
 
 - [code 예시](https://github.com/YoungHaKim7/rust_book_src_examples/tree/main/005_Rust_advanced_course/CS_Computer_System/Integer_Display/b01_two_complement)
 
@@ -27,3 +28,5 @@ fn main() {
 마이너스로 빼기를 구현하기 위해 2의 보수 개념이 필요하다.
 0xB(10진수=11)의 2의 보수 : -11
 ```
+
+<hr />

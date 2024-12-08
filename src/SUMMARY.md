@@ -117,7 +117,7 @@
 # 문제해결Rust코드로 해결하기
 - [문제해결Rust코드로 해결](./Problem_Solving/Problem_index.md)
   - [정렬(Sort)](./Problem_Solving/Sort/Sort_Problem_Solving.md)
-  - [검색(Search)](./Problem_Solving/Search/Sort_Problem_Solving.md)
+  - [검색(Search)](./Problem_Solving/Search/Search_Problem_Solving.md)
   - [문자열 패턴 매칭(SPM: String Pattern Matching)](./Problem_Solving/SPM/String_Pattern_Matching_Problem_Solving.md)
     - [csv문서에서 내가 원하는정보 뽑아내기](./Problem_Solving/SPM/csv_search_collect.md)
   - [계산(Calculation)](./Problem_Solving/Calculation/Calculation_Problem_Solving.md)
