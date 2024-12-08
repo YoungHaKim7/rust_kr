@@ -1,5 +1,8 @@
 # rust_kr
 
+- 코드 예시
+  - https://github.com/YoungHaKim7/rust_book_src_examples
+
 # local에서 작업할때
 
 ```
@@ -13,6 +16,14 @@ mdbook serve --open
 # mathjax doc
 
 - https://docs.mathjax.org/en/latest/basic/mathjax.html
+
+- 쓰려면 앞에 역슬러시 2개 []안에 넣어주기
+  - LaTex문법 적용
+
+```
+\\[T \supseteq Reference, ref mut \\]
+
+```
 
 # thanks
 - [easy rust 유튜브 시리즈](https://youtube.com/playlist?list=PLfllocyHVgsSJf1zO6k6o3SX2mbZjAqYE&si=FqG1Ajd3myvXltd7)
