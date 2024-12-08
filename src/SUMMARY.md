@@ -49,6 +49,8 @@
   - [Algorithm알고리즘](./Advanced/Algorithm/summary_algo.md)
   - [Rust_FFI](./Advanced/FFI/summary_FFI.md)
     - [C언어_Rust_FFI](./Advanced/FFI/C_FFI.md)
+  - [Rust(ComputerSystem,CS)](./Advanced/CS_ComputerSystem/CS_index.md)
+    - [IntegerDisplay정수표시(CS)](./Advanced/CS_ComputerSystem/Integer_Display/CS_integer.md)
   - [rust_release](./Advanced/rust_release/rust_release.md)
     - [rust_1_85_Rust Edition 2024](./Advanced/rust_release/rust_1_85.md)
       - [Language](./Advanced/rust_release/editions/rust-2024/language.md)

@@ -19,6 +19,7 @@ mdbook serve --open
 
 - 쓰려면 앞에 역슬러시 2개 []안에 넣어주기
   - LaTex문법 적용
+    - https://ko.wikipedia.org/wiki/%EC%9C%84%ED%82%A4%EB%B0%B1%EA%B3%BC:TeX_%EB%AC%B8%EB%B2%95
 
 ```
 \\[T \supseteq Reference, ref mut \\]
@@ -33,7 +34,7 @@ mdbook serve --open
   - https://course.rs/about-book.html
 - mdBook설명서
   - https://rust-lang.github.io/mdBook/
-    - 기본적으로 제공하는 css class이름 - https://rust-lang.github.io/mdBook/format/mdbook.html#html-classes-provided-by-mdbook
+    - [기본적으로 제공하는 CSS class이름](https://rust-lang.github.io/mdBook/format/mdbook.html#html-classes-provided-by-mdbook)
 
 
 
