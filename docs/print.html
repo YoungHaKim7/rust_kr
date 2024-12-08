@@ -8338,11 +8338,18 @@ Visual comparison chart: http://i.imgur.com/k0t1e.png
 <div style="break-before: page; page-break-before: always;"></div><h1 id="정렬sort"><a class="header" href="#정렬sort">정렬(Sort)</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="검색search"><a class="header" href="#검색search">검색(Search)</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="문자열-패턴-매칭spm-string-pattern-matching"><a class="header" href="#문자열-패턴-매칭spm-string-pattern-matching">문자열 패턴 매칭(SPM: String Pattern Matching)</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="계산calculation"><a class="header" href="#계산calculation">계산(Calculation)</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="x3계산"><a class="header" href="#x3계산">x^3계산</a></h1>
-<h1 id="q0001-3에-3승을-구현해주세요"><a class="header" href="#q0001-3에-3승을-구현해주세요">Q0001: 3에 3승을 구현해주세요.</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="csv문서에서-내가-원하는정보-뽑아내기"><a class="header" href="#csv문서에서-내가-원하는정보-뽑아내기">csv문서에서 내가 원하는정보 뽑아내기</a></h1>
+<h1 id="q0001-csv에서-2020년도-1월-이후-입사한-직원을-뽑아내라"><a class="header" href="#q0001-csv에서-2020년도-1월-이후-입사한-직원을-뽑아내라">Q0001: csv에서 2020년도 1월 이후 입사한 직원을 뽑아내라.</a></h1>
 <ul>
-<li><a href="Problem_Solving/Calculation/x_x_xCalculation_Problem_Solving.html#a0001_q0001%EB%A1%9C-%EC%9D%B4%EB%8F%99">A0001로 이동</a></li>
+<li>
+<p><a href="https://github.com/google/it-cert-automation-practice/blob/master/Course4/Lab4/employees-with-date.csv">https://github.com/google/it-cert-automation-practice/blob/master/Course4/Lab4/employees-with-date.csv</a></p>
+<ul>
+<li><a href="https://github.com/google/it-cert-automation-practice">https://github.com/google/it-cert-automation-practice</a></li>
+</ul>
+</li>
+<li>
+<p><a href="Problem_Solving/SPM/csv_search_collect.html#a0001_q0001%EB%A1%9C-%EC%9D%B4%EB%8F%99">A0001로 이동</a></p>
+</li>
 </ul>
 <h1 id="공백-답은-맨-아래"><a class="header" href="#공백-답은-맨-아래">공백 답은 맨 아래</a></h1>
 <h1 id="공백-답은-맨-아래-1"><a class="header" href="#공백-답은-맨-아래-1">공백 답은 맨 아래</a></h1>
@@ -8369,7 +8376,85 @@ Visual comparison chart: http://i.imgur.com/k0t1e.png
 <h1 id="공백-답은-맨-아래-22"><a class="header" href="#공백-답은-맨-아래-22">공백 답은 맨 아래</a></h1>
 <h1 id="공백-답은-맨-아래-23"><a class="header" href="#공백-답은-맨-아래-23">공백 답은 맨 아래</a></h1>
 <h1 id="공백-답은-맨-아래-24"><a class="header" href="#공백-답은-맨-아래-24">공백 답은 맨 아래</a></h1>
-<h1 id="a0001_q0001로-이동"><a class="header" href="#a0001_q0001로-이동">A0001_<a href="Problem_Solving/Calculation/x_x_xCalculation_Problem_Solving.html#q0001-3%EC%97%90-3%EC%8A%B9%EC%9D%84-%EA%B5%AC%ED%98%84%ED%95%B4%EC%A3%BC%EC%84%B8%EC%9A%94">Q0001로 이동</a></a></h1>
+<h1 id="a0001_q0001로-이동"><a class="header" href="#a0001_q0001로-이동">A0001_<a href="Problem_Solving/SPM/csv_search_collect.html#q0001-csv%EC%97%90%EC%84%9C-2020%EB%85%84%EB%8F%84-1%EC%9B%94-%EC%9D%B4%ED%9B%84-%EC%9E%85%EC%82%AC%ED%95%9C-%EC%A7%81%EC%9B%90%EC%9D%84-%EB%BD%91%EC%95%84%EB%82%B4%EB%9D%BC">Q0001로 이동</a></a></h1>
+<ul>
+<li>Q0001: csv에서 2020년도 1월 이후 입사한 직원을 뽑아내라.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+use chrono::NaiveDate;
+use std::error::Error;
+use std::fs::File;
+use std::io::{BufRead, BufReader};
+use std::str::FromStr; // Add chrono crate for date parsing
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    let file = File::open("employees-with-date.csv")?;
+    let reader = BufReader::new(file);
+    let mut lines: Vec&lt;String&gt; = Vec::new();
+
+    for line in reader.lines() {
+        let line = line?;
+        lines.push(line);
+    }
+
+    let threshold_date = NaiveDate::from_str("2020-01-01")?; // Set the threshold date (Jan 1, 2020)
+
+    println!("Lines in the file with date after January 2020:");
+
+    for (i, line) in lines.iter().enumerate() {
+        // Split the line into columns (assume CSV format with commas)
+        let columns: Vec&lt;&amp;str&gt; = line.split(',').collect();
+
+        if columns.len() &gt;= 2 {
+            // Parse the date from the second column (assuming it's in YYYY-MM-DD format)
+            if let Ok(date) = NaiveDate::from_str(columns[3]) {
+                if date &gt; threshold_date {
+                    // If the date is after Jan 1, 2020, print the line
+                    println!("{}: {}", i + 1, line);
+
+                    // Optionally, debug the line
+                    let mut my_vec: Vec&lt;_&gt; = vec![];
+                    my_vec.push(line);
+                    dbg!(my_vec);
+                }
+            }
+        }
+    }
+
+    Ok(())
+}</code></pre></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="계산calculation"><a class="header" href="#계산calculation">계산(Calculation)</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="x3계산"><a class="header" href="#x3계산">x^3계산</a></h1>
+<h1 id="q0001-3에-3승을-구현해주세요"><a class="header" href="#q0001-3에-3승을-구현해주세요">Q0001: 3에 3승을 구현해주세요.</a></h1>
+<ul>
+<li><a href="Problem_Solving/Calculation/x_x_xCalculation_Problem_Solving.html#a0001_q0001%EB%A1%9C-%EC%9D%B4%EB%8F%99">A0001로 이동</a></li>
+</ul>
+<h1 id="공백-답은-맨-아래-25"><a class="header" href="#공백-답은-맨-아래-25">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-26"><a class="header" href="#공백-답은-맨-아래-26">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-27"><a class="header" href="#공백-답은-맨-아래-27">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-28"><a class="header" href="#공백-답은-맨-아래-28">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-29"><a class="header" href="#공백-답은-맨-아래-29">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-30"><a class="header" href="#공백-답은-맨-아래-30">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-31"><a class="header" href="#공백-답은-맨-아래-31">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-32"><a class="header" href="#공백-답은-맨-아래-32">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-33"><a class="header" href="#공백-답은-맨-아래-33">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-34"><a class="header" href="#공백-답은-맨-아래-34">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-35"><a class="header" href="#공백-답은-맨-아래-35">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-36"><a class="header" href="#공백-답은-맨-아래-36">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-37"><a class="header" href="#공백-답은-맨-아래-37">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-38"><a class="header" href="#공백-답은-맨-아래-38">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-39"><a class="header" href="#공백-답은-맨-아래-39">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-40"><a class="header" href="#공백-답은-맨-아래-40">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-41"><a class="header" href="#공백-답은-맨-아래-41">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-42"><a class="header" href="#공백-답은-맨-아래-42">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-43"><a class="header" href="#공백-답은-맨-아래-43">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-44"><a class="header" href="#공백-답은-맨-아래-44">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-45"><a class="header" href="#공백-답은-맨-아래-45">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-46"><a class="header" href="#공백-답은-맨-아래-46">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-47"><a class="header" href="#공백-답은-맨-아래-47">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-48"><a class="header" href="#공백-답은-맨-아래-48">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-49"><a class="header" href="#공백-답은-맨-아래-49">공백 답은 맨 아래</a></h1>
+<h1 id="a0001_q0001로-이동-1"><a class="header" href="#a0001_q0001로-이동-1">A0001_<a href="Problem_Solving/Calculation/x_x_xCalculation_Problem_Solving.html#q0001-3%EC%97%90-3%EC%8A%B9%EC%9D%84-%EA%B5%AC%ED%98%84%ED%95%B4%EC%A3%BC%EC%84%B8%EC%9A%94">Q0001로 이동</a></a></h1>
 <pre><pre class="playground"><code class="language-rust">use std::ops::Mul;
 
 fn xxx&lt;T&gt;(x: T) -&gt; T
@@ -8397,32 +8482,32 @@ fn main() {
 <ul>
 <li><a href="Problem_Solving/Calculation/all_sum_even_sumCalculation_Problem_Solving.html#a0003_q0003%EB%A1%9C-%EC%9D%B4%EB%8F%99">A0003로 이동</a></li>
 </ul>
-<h1 id="공백-답은-맨-아래-25"><a class="header" href="#공백-답은-맨-아래-25">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-26"><a class="header" href="#공백-답은-맨-아래-26">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-27"><a class="header" href="#공백-답은-맨-아래-27">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-28"><a class="header" href="#공백-답은-맨-아래-28">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-29"><a class="header" href="#공백-답은-맨-아래-29">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-30"><a class="header" href="#공백-답은-맨-아래-30">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-31"><a class="header" href="#공백-답은-맨-아래-31">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-32"><a class="header" href="#공백-답은-맨-아래-32">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-33"><a class="header" href="#공백-답은-맨-아래-33">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-34"><a class="header" href="#공백-답은-맨-아래-34">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-35"><a class="header" href="#공백-답은-맨-아래-35">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-36"><a class="header" href="#공백-답은-맨-아래-36">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-37"><a class="header" href="#공백-답은-맨-아래-37">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-38"><a class="header" href="#공백-답은-맨-아래-38">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-39"><a class="header" href="#공백-답은-맨-아래-39">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-40"><a class="header" href="#공백-답은-맨-아래-40">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-41"><a class="header" href="#공백-답은-맨-아래-41">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-42"><a class="header" href="#공백-답은-맨-아래-42">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-43"><a class="header" href="#공백-답은-맨-아래-43">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-44"><a class="header" href="#공백-답은-맨-아래-44">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-45"><a class="header" href="#공백-답은-맨-아래-45">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-46"><a class="header" href="#공백-답은-맨-아래-46">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-47"><a class="header" href="#공백-답은-맨-아래-47">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-48"><a class="header" href="#공백-답은-맨-아래-48">공백 답은 맨 아래</a></h1>
-<h1 id="공백-답은-맨-아래-49"><a class="header" href="#공백-답은-맨-아래-49">공백 답은 맨 아래</a></h1>
-<h1 id="a0001_q0001로-이동-1"><a class="header" href="#a0001_q0001로-이동-1">A0001_<a href="Problem_Solving/Calculation/all_sum_even_sumCalculation_Problem_Solving.html#q0001-%EA%B3%A0%EA%B0%9D%EC%9D%B4--1%EB%B6%80%ED%84%B0-10-%EC%88%AB%EC%9E%90%EB%A5%BC-%EB%8B%A4-%EB%8D%94%ED%95%B4-%EB%8B%AC%EB%9D%BC%EA%B3%A0-%ED%95%9C%EB%8B%A4-%EA%B5%AC%ED%98%84">Q0001로 이동</a></a></h1>
+<h1 id="공백-답은-맨-아래-50"><a class="header" href="#공백-답은-맨-아래-50">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-51"><a class="header" href="#공백-답은-맨-아래-51">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-52"><a class="header" href="#공백-답은-맨-아래-52">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-53"><a class="header" href="#공백-답은-맨-아래-53">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-54"><a class="header" href="#공백-답은-맨-아래-54">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-55"><a class="header" href="#공백-답은-맨-아래-55">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-56"><a class="header" href="#공백-답은-맨-아래-56">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-57"><a class="header" href="#공백-답은-맨-아래-57">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-58"><a class="header" href="#공백-답은-맨-아래-58">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-59"><a class="header" href="#공백-답은-맨-아래-59">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-60"><a class="header" href="#공백-답은-맨-아래-60">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-61"><a class="header" href="#공백-답은-맨-아래-61">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-62"><a class="header" href="#공백-답은-맨-아래-62">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-63"><a class="header" href="#공백-답은-맨-아래-63">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-64"><a class="header" href="#공백-답은-맨-아래-64">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-65"><a class="header" href="#공백-답은-맨-아래-65">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-66"><a class="header" href="#공백-답은-맨-아래-66">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-67"><a class="header" href="#공백-답은-맨-아래-67">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-68"><a class="header" href="#공백-답은-맨-아래-68">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-69"><a class="header" href="#공백-답은-맨-아래-69">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-70"><a class="header" href="#공백-답은-맨-아래-70">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-71"><a class="header" href="#공백-답은-맨-아래-71">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-72"><a class="header" href="#공백-답은-맨-아래-72">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-73"><a class="header" href="#공백-답은-맨-아래-73">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-74"><a class="header" href="#공백-답은-맨-아래-74">공백 답은 맨 아래</a></h1>
+<h1 id="a0001_q0001로-이동-2"><a class="header" href="#a0001_q0001로-이동-2">A0001_<a href="Problem_Solving/Calculation/all_sum_even_sumCalculation_Problem_Solving.html#q0001-%EA%B3%A0%EA%B0%9D%EC%9D%B4--1%EB%B6%80%ED%84%B0-10-%EC%88%AB%EC%9E%90%EB%A5%BC-%EB%8B%A4-%EB%8D%94%ED%95%B4-%EB%8B%AC%EB%9D%BC%EA%B3%A0-%ED%95%9C%EB%8B%A4-%EA%B5%AC%ED%98%84">Q0001로 이동</a></a></h1>
 <ul>
 <li>Q0001: 고객이  (1부터 10) 숫자를 다 더해 달라고 한다 .구현.</li>
 </ul>
