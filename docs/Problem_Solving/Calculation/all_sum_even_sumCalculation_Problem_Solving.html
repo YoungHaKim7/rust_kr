@@ -1,0 +1,342 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>짝수만 계산&amp;받은 데이터롤 모두 더하기(+) - rust_kr</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">rust_kr</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/YoungHaKim7/rust_kr" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="짝수만-계산받은-데이터롤-모두-더하기"><a class="header" href="#짝수만-계산받은-데이터롤-모두-더하기">짝수만 계산&amp;받은 데이터롤 모두 더하기(+)</a></h1>
+<h1 id="q0001-고객이--1부터-10-숫자를-다-더해-달라고-한다-구현"><a class="header" href="#q0001-고객이--1부터-10-숫자를-다-더해-달라고-한다-구현">Q0001: 고객이  (1부터 10) 숫자를 다 더해 달라고 한다 .구현.</a></h1>
+<ul>
+<li><a href="#a0001_q0001%EB%A1%9C-%EC%9D%B4%EB%8F%99">A0001로 이동</a></li>
+</ul>
+<h1 id="q0002-고객이--1부터-10-짝수숫자를-다-더해-달라고-한다-1개의-기능에-2가지가-바로-되게구현"><a class="header" href="#q0002-고객이--1부터-10-짝수숫자를-다-더해-달라고-한다-1개의-기능에-2가지가-바로-되게구현">Q0002: 고객이  (1부터 10) 짝수숫자를 다 더해 달라고 한다 (1개의 기능에 2가지가 바로 되게).구현.</a></h1>
+<ul>
+<li><a href="#a0002_q0002%EB%A1%9C-%EC%9D%B4%EB%8F%99">A0002로 이동</a></li>
+</ul>
+<h1 id="q0003-고객이-맘에-변해서-더-하는-기능-1개-짝수만-더하는-기능을-따로-구해해-달라고-한다-1--10-짝수숫자를-다-더해-달라고-한다-1개의-기능에-2가지가-바로-되게구현"><a class="header" href="#q0003-고객이-맘에-변해서-더-하는-기능-1개-짝수만-더하는-기능을-따로-구해해-달라고-한다-1--10-짝수숫자를-다-더해-달라고-한다-1개의-기능에-2가지가-바로-되게구현">Q0003: 고객이 맘에 변해서 더 하는 기능 1개 짝수만 더하는 기능을 따로 구해해 달라고 한다. (1 ~ 10) 짝수숫자를 다 더해 달라고 한다 (1개의 기능에 2가지가 바로 되게).구현.</a></h1>
+<ul>
+<li><a href="#a0003_q0003%EB%A1%9C-%EC%9D%B4%EB%8F%99">A0003로 이동</a></li>
+</ul>
+<h1 id="공백-답은-맨-아래"><a class="header" href="#공백-답은-맨-아래">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-1"><a class="header" href="#공백-답은-맨-아래-1">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-2"><a class="header" href="#공백-답은-맨-아래-2">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-3"><a class="header" href="#공백-답은-맨-아래-3">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-4"><a class="header" href="#공백-답은-맨-아래-4">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-5"><a class="header" href="#공백-답은-맨-아래-5">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-6"><a class="header" href="#공백-답은-맨-아래-6">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-7"><a class="header" href="#공백-답은-맨-아래-7">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-8"><a class="header" href="#공백-답은-맨-아래-8">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-9"><a class="header" href="#공백-답은-맨-아래-9">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-10"><a class="header" href="#공백-답은-맨-아래-10">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-11"><a class="header" href="#공백-답은-맨-아래-11">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-12"><a class="header" href="#공백-답은-맨-아래-12">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-13"><a class="header" href="#공백-답은-맨-아래-13">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-14"><a class="header" href="#공백-답은-맨-아래-14">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-15"><a class="header" href="#공백-답은-맨-아래-15">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-16"><a class="header" href="#공백-답은-맨-아래-16">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-17"><a class="header" href="#공백-답은-맨-아래-17">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-18"><a class="header" href="#공백-답은-맨-아래-18">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-19"><a class="header" href="#공백-답은-맨-아래-19">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-20"><a class="header" href="#공백-답은-맨-아래-20">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-21"><a class="header" href="#공백-답은-맨-아래-21">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-22"><a class="header" href="#공백-답은-맨-아래-22">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-23"><a class="header" href="#공백-답은-맨-아래-23">공백 답은 맨 아래</a></h1>
+<h1 id="공백-답은-맨-아래-24"><a class="header" href="#공백-답은-맨-아래-24">공백 답은 맨 아래</a></h1>
+<h1 id="a0001_q0001로-이동"><a class="header" href="#a0001_q0001로-이동">A0001_<a href="#q0001-%EA%B3%A0%EA%B0%9D%EC%9D%B4--1%EB%B6%80%ED%84%B0-10-%EC%88%AB%EC%9E%90%EB%A5%BC-%EB%8B%A4-%EB%8D%94%ED%95%B4-%EB%8B%AC%EB%9D%BC%EA%B3%A0-%ED%95%9C%EB%8B%A4-%EA%B5%AC%ED%98%84">Q0001로 이동</a></a></h1>
+<ul>
+<li>Q0001: 고객이  (1부터 10) 숫자를 다 더해 달라고 한다 .구현.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">use std::iter::Sum;
+
+fn intsum&lt;T&gt;(x: Vec&lt;T&gt;) -&gt; T
+where
+    T: Sum + Copy,
+{
+    x.into_iter().sum()
+}
+
+fn main() {
+    let my_vec: Vec&lt;i32&gt; = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    println!("Sum: {}", intsum(my_vec));
+}
+
+</code></pre></pre>
+<pre><code class="language-bash">Sum: 55
+</code></pre>
+<h1 id="a0002_q0002로-이동"><a class="header" href="#a0002_q0002로-이동">A0002_<a href="#q0002-%EA%B3%A0%EA%B0%9D%EC%9D%B4--1%EB%B6%80%ED%84%B0-10-%EC%A7%9D%EC%88%98%EC%88%AB%EC%9E%90%EB%A5%BC-%EB%8B%A4-%EB%8D%94%ED%95%B4-%EB%8B%AC%EB%9D%BC%EA%B3%A0-%ED%95%9C%EB%8B%A4-1%EA%B0%9C%EC%9D%98-%EA%B8%B0%EB%8A%A5%EC%97%90-2%EA%B0%80%EC%A7%80%EA%B0%80-%EB%B0%94%EB%A1%9C-%EB%90%98%EA%B2%8C%EA%B5%AC%ED%98%84">Q0002로 이동</a></a></h1>
+<ul>
+<li>Q0002: 고객이  (1부터 10) 짝수숫자를 다 더해 달라고 한다 (1개의 기능에 2가지가 바로 되게).구현.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+use std::iter::Sum;
+use std::ops::Rem;
+
+fn intsum_evensum&lt;T&gt;(x: Vec&lt;T&gt;) -&gt; (T, T)
+where
+    T: Sum + Copy + From&lt;u8&gt; + Rem&lt;Output = T&gt; + PartialEq,
+{
+    // Compute the sum of all elements
+    let all_sum = x.iter().cloned().sum();
+
+    // Compute the sum of even elements
+    let even_sum = x
+        .iter()
+        .cloned()
+        .filter(|&amp;n| n % T::from(2) == T::from(0))
+        .sum();
+
+    (all_sum, even_sum)
+}
+
+fn main() {
+    let my_vec: Vec&lt;i32&gt; = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let (all_sum, even_sum) = intsum_evensum(my_vec);
+    println!("Total Sum: {}", all_sum);
+    println!("Even Numbers Sum: {}", even_sum);
+}</code></pre></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">Total Sum: 55
+Even Numbers Sum: 30
+</code></pre>
+<h1 id="a0003_q0003로-이동"><a class="header" href="#a0003_q0003로-이동">A0003_<a href="#q0003-%EA%B3%A0%EA%B0%9D%EC%9D%B4-%EB%A7%98%EC%97%90-%EB%B3%80%ED%95%B4%EC%84%9C-%EB%8D%94-%ED%95%98%EB%8A%94-%EA%B8%B0%EB%8A%A5-1%EA%B0%9C-%EC%A7%9D%EC%88%98%EB%A7%8C-%EB%8D%94%ED%95%98%EB%8A%94-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EB%94%B0%EB%A1%9C-%EA%B5%AC%ED%95%B4%ED%95%B4-%EB%8B%AC%EB%9D%BC%EA%B3%A0-%ED%95%9C%EB%8B%A4-1--10-%EC%A7%9D%EC%88%98%EC%88%AB%EC%9E%90%EB%A5%BC-%EB%8B%A4-%EB%8D%94%ED%95%B4-%EB%8B%AC%EB%9D%BC%EA%B3%A0-%ED%95%9C%EB%8B%A4-1%EA%B0%9C%EC%9D%98-%EA%B8%B0%EB%8A%A5%EC%97%90-2%EA%B0%80%EC%A7%80%EA%B0%80-%EB%B0%94%EB%A1%9C-%EB%90%98%EA%B2%8C%EA%B5%AC%ED%98%84">Q0003로 이동</a></a></h1>
+<ul>
+<li>Q0003: 고객이 맘에 변해서 더 하는 기능 1개 짝수만 더하는 기능을 따로 구해해 달라고 한다. (1 ~ 10) 짝수숫자를 다 더해 달라고 한다 (1개의 기능에 2가지가 바로 되게).구현.
+<ul>
+<li>소유권 문제를 피하기 위해 <code>&amp;</code>로 구현</li>
+</ul>
+</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">use std::iter::Sum;
+use std::ops::Rem;
+
+fn all_sum&lt;T&gt;(x: &amp;Vec&lt;T&gt;) -&gt; T
+where
+    T: Sum + Copy,
+{
+    x.iter().cloned().sum()
+}
+
+fn even_sum&lt;T&gt;(x: &amp;Vec&lt;T&gt;) -&gt; T
+where
+    T: Sum + Copy + From&lt;u8&gt; + Rem&lt;Output = T&gt; + PartialEq,
+{
+    x.iter()
+        .cloned()
+        .filter(|n| *n % T::from(2) == T::from(0))
+        .sum()
+}
+
+fn main() {
+    let my_vec: Vec&lt;i32&gt; = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let vec_all_sum = all_sum(&amp;my_vec);
+    let vec_even_sum = even_sum(&amp;my_vec);
+    println!("Total Sum: {:?}", vec_all_sum);
+    println!("Even Numbers Sum: {:?}", vec_even_sum);
+}</code></pre></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">Total Sum: 55
+Even Numbers Sum: 30
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../Problem_Solving/Calculation/x_x_xCalculation_Problem_Solving.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../Problem_Solving/Calculation/x_x_xCalculation_Problem_Solving.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

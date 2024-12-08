@@ -107,3 +107,15 @@
 - [Rust Optimization최적화](./Advanced/Optimization/optimization.md)
   - [모든 언어별 공통적인 최적화 개념](./Advanced/Optimization/common.md)
   - [Rust Optimization](./Advanced/Optimization/rust_optimization.md)
+
+
+-----------
+# 문제해결Rust코드로 해결하기
+- [문제해결Rust코드로 해결](./Problem_Solving/Problem_index.md)
+  - [정렬(Sort)](./Problem_Solving/Sort/Sort_Problem_Solving.md)
+  - [검색(Search)](./Problem_Solving/Search/Sort_Problem_Solving.md)
+  - [문자열 패턴 매칭(SPM: String Pattern Matching)](./Problem_Solving/SPM/String_Pattern_Matching_Problem_Solving.md)
+  - [계산(Calculation)](./Problem_Solving/Calculation/Calculation_Problem_Solving.md)
+    - [x^3계산](./Problem_Solving/Calculation/x_x_xCalculation_Problem_Solving.md)
+    - [짝수만 계산&받은 데이터롤 모두 더하기(+)](./Problem_Solving/Calculation/all_sum_even_sumCalculation_Problem_Solving.md)
+
