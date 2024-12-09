@@ -16,6 +16,7 @@
     - [C언어](./Chapter001/lang/c.md)
     - [Kotlin언어](./Chapter001/lang/kotlin.md)
     - [Swift언어](./Chapter001/lang/swift.md)
+    - [C#언어](./Chapter001/lang/c_sharp.md)
   - [Rust의 전체적인 그림 잡기](./Chapter001/rust_summary.md)
     - [struct](./Chapter001/struct/rust_struct.md)
 -----------
