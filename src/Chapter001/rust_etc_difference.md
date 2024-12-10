@@ -7,6 +7,7 @@
 <hr />
 
 # Rust 러스트 언어와 다른 언어의 차이점
+- [statements vs expressions좀 더 깊게](https://doc.rust-lang.org/reference/statements-and-expressions.html)
 
 # 러스트는 statement와 expression차이를 잘 알아야 한다.[|🔝|](#link)
 
