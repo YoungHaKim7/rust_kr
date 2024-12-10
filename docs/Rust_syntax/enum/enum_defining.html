@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Rust 고급 기술 - rust_kr</title>
+        <title>Defining an Enum 정의 - rust_kr</title>
 
 
         <!-- Custom HTML head -->
@@ -12,21 +12,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/chrome.css">
-        <link rel="stylesheet" href="../css/print.css" media="print">
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -35,11 +35,11 @@
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "../";
+            var path_to_root = "../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc.js"></script>
+        <script src="../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -125,7 +125,7 @@
                     <h1 class="menu-title">rust_kr</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/YoungHaKim7/rust_kr" title="Git repository" aria-label="Git repository">
@@ -157,17 +157,71 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="rust-고급-기술"><a class="header" href="#rust-고급-기술">Rust 고급 기술</a></h1>
+                        <h1 id="defining-an-enum-정의"><a class="header" href="#defining-an-enum-정의">Defining an Enum 정의</a></h1>
+<ul>
+<li>
+<p>Where structs give you a way of grouping together related fields and data, like a Rectangle with its width and height, enums give you a way of saying a value is one of a possible set of values. For example, we may want to say that Rectangle is one of a set of possible shapes that also includes Circle and Triangle. To do this, Rust allows us to encode these possibilities as an enum.</p>
+<ul>
+<li>구조가 너비와 높이를 가진 직사각형과 같이 관련 필드와 데이터를 그룹화하는 방법을 제공하는 경우, 열거형은 값이 가능한 값 집합 중 하나라고 말할 수 있는 방법을 제공합니다. 예를 들어 직사각형은 원과 삼각형을 포함하는 가능한 도형 집합 중 하나라고 말할 수 있습니다. 이를 위해 Rust를 사용하면 이러한 가능성을 열거형으로 인코딩할 수 있습니다.</li>
+</ul>
+</li>
+<li>
+<p>Let’s look at a situation we might want to express in code and see why enums are useful and more appropriate than structs in this case. Say we need to work with IP addresses. Currently, two major standards are used for IP addresses: version four and version six. Because these are the only possibilities for an IP address that our program will come across, we can enumerate all possible variants, which is where enumeration gets its name.</p>
+<ul>
+<li>코드로 표현할 수 있는 상황을 살펴보고 이 경우 에넘이 구조보다 유용하고 더 적절한 이유를 알아보겠습니다. IP 주소로 작업해야 한다고 가정해 보겠습니다. 현재 IP 주소에는 버전 4와 버전 6이라는 두 가지 주요 표준이 사용되고 있습니다. 이는 우리 프로그램이 접할 수 있는 IP 주소의 유일한 가능성이기 때문에 가능한 모든 변형을 열거할 수 있으며, 여기서 열거라는 이름이 붙습니다.</li>
+</ul>
+</li>
+<li>
+<p>Any IP address can be either a version four or a version six address, but not both at the same time. That property of IP addresses makes the enum data structure appropriate because an enum value can only be one of its variants. Both version four and version six addresses are still fundamentally IP addresses, so they should be treated as the same type when the code is handling situations that apply to any kind of IP address.</p>
+<ul>
+<li>모든 IP 주소는 버전 4 또는 버전 6 주소가 될 수 있지만 동시에 둘 다 될 수는 없습니다. 이러한 IP 주소의 속성은 열거형 값이 변형 중 하나만 될 수 있기 때문에 열거형 데이터 구조를 적절하게 만듭니다. 버전 4 및 버전 6 주소는 모두 여전히 기본적으로 IP 주소이므로 코드가 모든 종류의 IP 주소에 적용되는 상황을 처리할 때 동일한 유형으로 취급되어야 합니다.</li>
+</ul>
+</li>
+<li>
+<p>We can express this concept in code by defining an IpAddrKind enumeration and listing the possible kinds an IP address can be, V4 and V6. These are the variants of the enum:</p>
+<ul>
+<li>IpAddrKind 열거형을 정의하고 IP 주소가 될 수 있는 가능한 종류를 나열하여 이 개념을 코드로 표현할 수 있습니다(V4 및 V6). 다음은 열거형의 변형입니다:</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="위-문장은-러스트-공식-사이트에-있는-내용입니다"><a class="header" href="#위-문장은-러스트-공식-사이트에-있는-내용입니다">위 문장은 러스트 공식 사이트에 있는 내용입니다.</a></h1>
+<ul>
+<li>제가 이해한 enum을 설명 드리겠습니다.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">enum KeyboardArrowKey {
+    ArrowUp,
+    ArrowDown,
+    ArrowLeft,
+    ArrowRight,
+}
+
+fn input_arrow(x: KeyboardArrowKey) -&gt; String {
+    match x {
+        KeyboardArrowKey::ArrowUp =&gt; "Up".to_string(),
+        KeyboardArrowKey::ArrowDown =&gt; "Down".to_string(),
+        KeyboardArrowKey::ArrowLeft =&gt; "Left".to_string(),
+        KeyboardArrowKey::ArrowRight =&gt; "Right".to_string(),
+    }
+}
+
+fn main() {
+    let rightkey = KeyboardArrowKey::ArrowRight;
+    dbg!(input_arrow(rightkey));
+}</code></pre></pre>
+<ul>
+<li>보통 enum은 match와 쓰는 경우가 많습니다.</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../Rust_syntax/enum/enum_defining.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../Rust_syntax/enum/enum_variant.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../Advanced/traits.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../Advanced/advanced.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -177,11 +231,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../Rust_syntax/enum/enum_defining.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../Rust_syntax/enum/enum_variant.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../Advanced/traits.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../Advanced/advanced.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -196,13 +250,13 @@
         </script>
 
 
-        <script src="../elasticlunr.min.js"></script>
-        <script src="../mark.min.js"></script>
-        <script src="../searcher.js"></script>
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
 
-        <script src="../clipboard.min.js"></script>
-        <script src="../highlight.js"></script>
-        <script src="../book.js"></script>
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
 
         <!-- Custom JS scripts -->
 

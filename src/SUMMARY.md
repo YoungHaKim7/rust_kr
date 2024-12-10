@@ -30,6 +30,8 @@
   - [OwnerShip오너쉽_borrowing](./Rust_syntax/Ownership_borrowing/Ownership_borrowing.md)
   - [Struct를 이용한 구조화](./Rust_syntax/struct/structs.md)
     - [Struct 정의 및 인스턴스화(Instantiating)](./Rust_syntax/struct/defining_structs.md)
+  - [Enums and Pattern Matching](./Rust_syntax/enum/enum_variant.md)
+    - [Defining an Enum 정의](./Rust_syntax/enum/enum_defining.md)
 
 -----------
 # Rust 고급 기술

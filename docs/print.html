@@ -597,8 +597,8 @@ int bis(int x, int m) {
 <li>2d, 3d matrix만들때 쓰는 아주 아주 재주가 많은 친구</li>
 </ul>
 <pre><code class="language-rs">let my_2d_array = [
-    [1, 2]
-    [3, 4]
+    [1, 2], //
+    [3, 4]  //
 ];
 
 my_2d_array[0][1] = 2;
@@ -1578,6 +1578,69 @@ fn main() {
   println!("Black Color : {:?}", black);
 }
 </code></pre></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="enums-and-pattern-matching"><a class="header" href="#enums-and-pattern-matching">Enums and Pattern Matching</a></h1>
+<ul>
+<li>In this chapter, we’ll look at enumerations, also referred to as enums. Enums allow you to define a type by enumerating its possible variants. First we’ll define and use an enum to show how an enum can encode meaning along with data. Next, we’ll explore a particularly useful enum, called Option, which expresses that a value can be either something or nothing. Then we’ll look at how pattern matching in the match expression makes it easy to run different code for different values of an enum. Finally, we’ll cover how the if let construct is another convenient and concise idiom available to handle enums in your code.
+<ul>
+<li>이 장에서는 열거형(enum)이라고도 함)을 살펴봅니다. 열거형은 가능한 변형을 열거하여 유형을 정의할 수 있습니다. 먼저 열거형을 정의하고 사용하여 데이터와 함께 의미를 인코딩하는 방법을 보여드리겠습니다. 다음으로 값이 무언가가 될 수도 있고 아무것도 아닐 수도 있음을 표현하는 옵션이라는 특히 유용한 열거형을 살펴봅니다. 그런 다음 일치 표현식의 패턴 매칭을 통해 열거형의 다른 값에 대해 다른 코드를 쉽게 실행할 수 있는 방법을 살펴봅니다. 마지막으로, 코드에서 열거형을 처리할 수 있는 또 다른 편리하고 간결한 관용구가 어떻게 구성되는지 살펴봅니다.</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="defining-an-enum-정의"><a class="header" href="#defining-an-enum-정의">Defining an Enum 정의</a></h1>
+<ul>
+<li>
+<p>Where structs give you a way of grouping together related fields and data, like a Rectangle with its width and height, enums give you a way of saying a value is one of a possible set of values. For example, we may want to say that Rectangle is one of a set of possible shapes that also includes Circle and Triangle. To do this, Rust allows us to encode these possibilities as an enum.</p>
+<ul>
+<li>구조가 너비와 높이를 가진 직사각형과 같이 관련 필드와 데이터를 그룹화하는 방법을 제공하는 경우, 열거형은 값이 가능한 값 집합 중 하나라고 말할 수 있는 방법을 제공합니다. 예를 들어 직사각형은 원과 삼각형을 포함하는 가능한 도형 집합 중 하나라고 말할 수 있습니다. 이를 위해 Rust를 사용하면 이러한 가능성을 열거형으로 인코딩할 수 있습니다.</li>
+</ul>
+</li>
+<li>
+<p>Let’s look at a situation we might want to express in code and see why enums are useful and more appropriate than structs in this case. Say we need to work with IP addresses. Currently, two major standards are used for IP addresses: version four and version six. Because these are the only possibilities for an IP address that our program will come across, we can enumerate all possible variants, which is where enumeration gets its name.</p>
+<ul>
+<li>코드로 표현할 수 있는 상황을 살펴보고 이 경우 에넘이 구조보다 유용하고 더 적절한 이유를 알아보겠습니다. IP 주소로 작업해야 한다고 가정해 보겠습니다. 현재 IP 주소에는 버전 4와 버전 6이라는 두 가지 주요 표준이 사용되고 있습니다. 이는 우리 프로그램이 접할 수 있는 IP 주소의 유일한 가능성이기 때문에 가능한 모든 변형을 열거할 수 있으며, 여기서 열거라는 이름이 붙습니다.</li>
+</ul>
+</li>
+<li>
+<p>Any IP address can be either a version four or a version six address, but not both at the same time. That property of IP addresses makes the enum data structure appropriate because an enum value can only be one of its variants. Both version four and version six addresses are still fundamentally IP addresses, so they should be treated as the same type when the code is handling situations that apply to any kind of IP address.</p>
+<ul>
+<li>모든 IP 주소는 버전 4 또는 버전 6 주소가 될 수 있지만 동시에 둘 다 될 수는 없습니다. 이러한 IP 주소의 속성은 열거형 값이 변형 중 하나만 될 수 있기 때문에 열거형 데이터 구조를 적절하게 만듭니다. 버전 4 및 버전 6 주소는 모두 여전히 기본적으로 IP 주소이므로 코드가 모든 종류의 IP 주소에 적용되는 상황을 처리할 때 동일한 유형으로 취급되어야 합니다.</li>
+</ul>
+</li>
+<li>
+<p>We can express this concept in code by defining an IpAddrKind enumeration and listing the possible kinds an IP address can be, V4 and V6. These are the variants of the enum:</p>
+<ul>
+<li>IpAddrKind 열거형을 정의하고 IP 주소가 될 수 있는 가능한 종류를 나열하여 이 개념을 코드로 표현할 수 있습니다(V4 및 V6). 다음은 열거형의 변형입니다:</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="위-문장은-러스트-공식-사이트에-있는-내용입니다"><a class="header" href="#위-문장은-러스트-공식-사이트에-있는-내용입니다">위 문장은 러스트 공식 사이트에 있는 내용입니다.</a></h1>
+<ul>
+<li>제가 이해한 enum을 설명 드리겠습니다.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">enum KeyboardArrowKey {
+    ArrowUp,
+    ArrowDown,
+    ArrowLeft,
+    ArrowRight,
+}
+
+fn input_arrow(x: KeyboardArrowKey) -&gt; String {
+    match x {
+        KeyboardArrowKey::ArrowUp =&gt; "Up".to_string(),
+        KeyboardArrowKey::ArrowDown =&gt; "Down".to_string(),
+        KeyboardArrowKey::ArrowLeft =&gt; "Left".to_string(),
+        KeyboardArrowKey::ArrowRight =&gt; "Right".to_string(),
+    }
+}
+
+fn main() {
+    let rightkey = KeyboardArrowKey::ArrowRight;
+    dbg!(input_arrow(rightkey));
+}</code></pre></pre>
+<ul>
+<li>보통 enum은 match와 쓰는 경우가 많습니다.</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-고급-기술"><a class="header" href="#rust-고급-기술">Rust 고급 기술</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="traits"><a class="header" href="#traits">traits</a></h1>
 <h1 id="link-12"><a class="header" href="#link-12">link</a></h1>
