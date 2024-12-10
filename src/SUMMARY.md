@@ -113,6 +113,10 @@
   - [rust_rfcs_nightly](./Advanced/rust_release/rust_rfcs.md)
 
 -----------
+# Rust(Parallelism&Concurrency) 
+- [Rust Parallelism&Concurrency](./Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.md)
+
+-----------
 # Optimization최적화
 - [Rust Optimization최적화](./Advanced/Optimization/optimization.md)
   - [모든 언어별 공통적인 최적화 개념](./Advanced/Optimization/common.md)
@@ -130,3 +134,25 @@
     - [x^3계산](./Problem_Solving/Calculation/x_x_xCalculation_Problem_Solving.md)
     - [짝수만 계산&받은 데이터롤 모두 더하기(+)](./Problem_Solving/Calculation/all_sum_even_sumCalculation_Problem_Solving.md)
 
+
+-----------
+# Rust 화이트 해커(Hacking)
+- [BlackHatRust유료(영어원서)](./HackingRust/BlackHat_Rust.md)
+
+-----------
+# Rust OS(Operating System)
+- [Rust OS](./RustOS/RustOS_intro.md)
+
+
+-----------
+# Rust Embedded 
+- [Rust Embedded](./RustEmbedded/RustEmbedded_intro.md)
+
+
+-----------
+# Rust Assembly(x86_64)
+
+
+
+-----------
+# Rust Assembly(Arm)

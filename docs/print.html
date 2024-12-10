@@ -480,7 +480,7 @@ gi:
 <p>코드는 바이트 덩어리 이다.  요즘 컴퓨터는 64bits로 처리하기 때문에 64bits를 한덩어리로 봐야한다</p>
 </li>
 <li>
-<p>컴퓨터의 최적화 &amp; 코드 만드는 원리의 기초는 CS 와 OS다.  기초 공부를 튼튼히 해야 고급에서도 무너지지 않는다.</p>
+<p>컴퓨터의 최적화 &amp; 코드 만드는 원리의 기초는 <a href="Chapter001/../Advanced/CS_ComputerSystem/CS_index.html">CS(ComputerSystem)</a> 와 <a href="Chapter001/../RustOS/RustOS_intro.html">OS(OperatingSystem)</a>다.  기초 공부를 튼튼히 해야 고급에서도 무너지지 않는다.</p>
 <ul>
 <li>어차피 사람이 만든거다.  어려운건 없다.  천천히 하면 된다.</li>
 <li>안된다 생각하면 진짜 안된다.  나는 할수 있다.  100번씩 외치면서 기본부터 차근차근하자.</li>
@@ -7897,9 +7897,380 @@ really <em>to</em> 2015. As such, there's not much else to say about it!</p>
 <ul>
 <li><a href="https://github.com/rust-lang/rfcs">https://github.com/rust-lang/rfcs</a></li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rust-parallelismconcurrency"><a class="header" href="#rust-parallelismconcurrency">Rust Parallelism&amp;Concurrency</a></h1>
+<ul>
+<li><a href="https://www.amazon.com/Rust-Atomics-Locks-Low-Level-Concurrency/dp/1098119444">아마존영어원서Rust Atomics and Locks: Low-Level Concurrency in Practice</a>
+<ul>
+<li><a href="https://m.yes24.com/Goods/Detail/124894563">Rust Atomics and Locks 러스트 동시성 프로그래밍 : Atomic과 Lock으로 안전하고 효율적인 동시성 코드 작성하기(PDF)  마라 보스 저 / 윤인도 역 | 한빛미디어 | 2024년 02월 05일</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="link-28"><a class="header" href="#link-28">link</a></h1>
+<ul>
+<li><a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#green-thread%EA%B7%B8%EB%A6%B0%EC%93%B0%EB%A0%88%EB%93%9C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0">green-thread그린쓰레드-이해하기</a></li>
+</ul>
+<hr />
+<ul>
+<li>
+<p>기초 상식</p>
+<ul>
+<li><a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#concurrency%EC%99%80-parallelism%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0">concurrency와-parallelism이해하기</a>
+<ul>
+<li><a href="https://youtu.be/_Im4_3Z1NxQ?si=vL0dtHzr8BOPMV0s">1분20초_그림으로 concurrency와 parallelism차이점 이해하기 Node.js is a serious thing now… (2023) |Code With Ryan</a></li>
+<li><a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#multithreading-for-beginners--freecodecamporg">multithreading-for-beginners--freecodecamporg</a></li>
+</ul>
+</li>
+<li><a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#1-hour-dive-into-asynchronous-rust--ardan-labs">1-hour-dive-into-asynchronous-rust--ardan-labs</a></li>
+<li><a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#what-is-pinning">what-is-pinning</a></li>
+</ul>
+</li>
+<li>
+<p>러스트에 바로 쓸 기초 개념</p>
+<ul>
+<li><a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#send--mutex--%C3%B6zg%C3%BCn-%C3%B6zerk">send--mutex--özgün-özerk</a></li>
+<li><a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#rust--memory-container">rust--memory-container</a></li>
+<li><a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#ownership-concept-diagram">ownership-concept-diagram</a></li>
+<li><a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#async-rust%EC%97%AC%EA%B8%B0%EC%97%90-%EC%A0%95%EB%A6%AC%EC%A4%91">Async-Rust여기에-정리중</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<ul>
+<li>
+<p><a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#rc-arc-%EA%B7%B8%EB%A6%BC-%ED%91%9C%EB%A1%9C-%EC%9E%98-%EC%A0%95%EB%A6%AC%EB%90%A8">rc-arc-그림-표로-잘-정리됨</a></p>
+</li>
+<li>
+<p><a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#tokio-console--its-like-htop-for-async">tokio-console--its-like-htop-for-async</a></p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>std보다 빠른거
+<ul>
+<li><a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#compact-and-efficient-synchronization-primitives-for-rust-also-provides-an-api-for-creating-custom-synchronization-primitives">compact-and-efficient-synchronization-primitives-for-rust-also-provides-an-api-for-creating-custom-synchronization-primitives</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<ul>
+<li>test
+<ul>
+<li><a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#opentelemetry">opentelemetry</a></li>
+<li><a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#opentelemetryrust">opentelemetryrust</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<ul>
+<li>C언어로 러스트 이해하기
+<ul>
+<li><a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#async-engine-in-c--tsoding-daily">Async Engine in C | Tsoding Daily</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="외부-자료"><a class="header" href="#외부-자료">외부 자료</a></h1>
+<ul>
+<li>
+<p>Concurrency &amp; Parallelism</p>
+<ul>
+<li><a href="https://github.com/LukeMathWalker/zero-to-production">https://github.com/LukeMathWalker/zero-to-production</a></li>
+<li>Concurrency
+<ul>
+<li><a href="https://rust-lang.github.io/async-book/">https://rust-lang.github.io/async-book/</a></li>
+<li><a href="https://github.com/tokio-rs/tokio">https://github.com/tokio-rs/tokio</a>
+<ul>
+<li>Channels(MPSC)
+<ul>
+<li>MPSC(multi-producer, single-consumer channel.)
+<ul>
+<li><a href="https://tokio.rs/tokio/tutorial/channels">https://tokio.rs/tokio/tutorial/channels</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/hyperium/hyper">https://github.com/hyperium/hyper</a></li>
+</ul>
+</li>
+<li>Parallelism
+<ul>
+<li><a href="https://github.com/rayon-rs/rayon">https://github.com/rayon-rs/rayon</a></li>
+<li>Channels(MPMC)
+<ul>
+<li>MPMC(A blazingly fast multi-producer, multi-consumer channel.)
+<ul>
+<li><a href="https://github.com/zesterer/flume">https://github.com/zesterer/flume</a></li>
+</ul>
+</li>
+<li>MPMC초장기 모델
+<ul>
+<li><a href="https://github.com/crossbeam-rs/crossbeam">https://github.com/crossbeam-rs/crossbeam</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Async Book(Rust)</p>
+<ul>
+<li>
+<p><a href="https://rust-lang.github.io/async-book/">https://rust-lang.github.io/async-book/</a></p>
+</li>
+<li>
+<p>tokio-async</p>
+<ul>
+<li><a href="https://docs.rs/tokio-async-std/latest/async_std/">https://docs.rs/tokio-async-std/latest/async_std/</a></li>
+<li><a href="https://book.async.rs/">https://book.async.rs/</a></li>
+</ul>
+</li>
+<li>
+<p>Async Rust한국분이 설명 잘 해 놨음.</p>
+<ul>
+<li><a href="https://blog.cro.sh/slides/async-rust-programming-20220801-redistributable.pdf">https://blog.cro.sh/slides/async-rust-programming-20220801-redistributable.pdf</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<hr>
+<h1 id="async-rust여기에-정리중"><a class="header" href="#async-rust여기에-정리중">Async Rust여기에 정리중<a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#link">|🔝|</a></a></h1>
+<ul>
+<li><a href="https://github.com/YoungHaKim7/Async_Rust_Training">https://github.com/YoungHaKim7/Async_Rust_Training</a></li>
+</ul>
+<h1 id="green-thread그린쓰레드-이해하기"><a class="header" href="#green-thread그린쓰레드-이해하기">Green Thread그린쓰레드 이해하기<a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#link">|🔝|</a></a></h1>
+<ul>
+<li><a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/4_Threads.html">https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/4_Threads.html</a></li>
+</ul>
+<hr>
+<h1 id="rc-arc-그림-표로-잘-정리됨"><a class="header" href="#rc-arc-그림-표로-잘-정리됨">Rc, Arc 그림, 표로 잘 정리됨.<a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#link">|🔝|</a></a></h1>
+<ul>
+<li><a href="https://github.com/usagi/rust-memory-container-cs">https://github.com/usagi/rust-memory-container-cs</a></li>
+</ul>
+<hr>
+<h1 id="1-hour-dive-into-asynchronous-rust--ardan-labs"><a class="header" href="#1-hour-dive-into-asynchronous-rust--ardan-labs">1 Hour Dive into Asynchronous Rust | Ardan Labs<a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#link">|🔝|</a></a></h1>
+<ul>
+<li><a href="https://www.youtube.com/live/0HwrZp9CBD4?si=FLcUShZwx5pjOfmC">https://www.youtube.com/live/0HwrZp9CBD4?si=FLcUShZwx5pjOfmC</a></li>
+</ul>
+<hr>
+<h1 id="opentelemetryrust"><a class="header" href="#opentelemetryrust">OpenTeleMetry(Rust)<a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#link">|🔝|</a></a></h1>
+<p><a href="https://opentelemetry.io/docs/languages/rust/getting-started/">https://opentelemetry.io/docs/languages/rust/getting-started/</a></p>
+<ul>
+<li><a href="https://youtu.be/JNZoo_8XeaE?si=hV2TZK2Ec9-Y8K39">OpenTelemetry for Rust Developers | Dynatrace</a></li>
+</ul>
+<hr>
+<h1 id="tokio-console--its-like-htop-for-async"><a class="header" href="#tokio-console--its-like-htop-for-async">Tokio-Console : It's like "htop" for async<a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#link">|🔝|</a></a></h1>
+<pre><code class="language-bash">cargo install tokio-console
+
+</code></pre>
+<ul>
+<li>
+<p><a href="https://github.com/tokio-rs/console">https://github.com/tokio-rs/console</a></p>
+</li>
+<li>
+<p>Tokio-console 데모 영상</p>
+<ul>
+<li><a href="https://youtu.be/JGCewPUvF70?si=rJKmAlxwPNDgkEeD">tokio-console demo 2021 07 22 | Felix K</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="what-is-pinning"><a class="header" href="#what-is-pinning">What is Pinning?<a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#link">|🔝|</a></a></h1>
+<ul>
+<li>Rust's memory model strictly ensures that references must still exist, won't move, and won't be bropped while still in use.
+<ul>
+<li>러스트의 메모리 모델은 참조가 여전히 존재해야 하고, 움직이지 않아야 하며, 사용 중에도 끊어지지 않도록 엄격하게 보장합니다.</li>
+</ul>
+</li>
+<li>That's great for avoiding common memory bugs.
+<ul>
+<li>일반적인 메모리 버그를 방지하는 데 좋습니다.</li>
+</ul>
+</li>
+<li>It's tricky in a highly asynchronous environment, tasks may depend upon other tasks - which typically move around quite a bit.
+<ul>
+<li>매우 비동기적인 환경에서는 작업이 까다롭기 때문에 작업은 다른 작업에 따라 달라질 수 있습니다. 이 작업은 일반적으로 상당히 많이 움직입니다.</li>
+</ul>
+</li>
+<li>Pinning lets you tell Rust that a variable needs to stick around - in the same place - untile you unpin it.
+<ul>
+<li>Pinning피닝을 사용하면 Rust에게 변수를 풀 때까지 같은 위치에 있어야 한다는 것을 알 수 있습니다.
+<ul>
+<li>A stream that relies upon another stream will typically pin its access to the previous stream.
+<ul>
+<li>다른 스트림에 의존하는 스트림은 일반적으로 이전 스트림에 대한 액세스를 고정합니다.</li>
+</ul>
+</li>
+<li>A select operation may need to pin entries for the same reason.
+<ul>
+<li>선택 작업에서 동일한 이유로 항목을 고정해야 할 수도 있습니다.</li>
+</ul>
+</li>
+<li>Asynchronously calling yourself-recursion - requires pinning the iterations.
+<ul>
+<li>비동기적으로 자신을 호출하려면 반복을 고정해야 합니다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>출처 : <a href="https://www.youtube.com/live/0HwrZp9CBD4?si=ayajRAELEgDOl9FY">59min30sec__1 Hour Dive into Asynchronous Rust</a></p>
+<hr>
+<h1 id="opentelemetry"><a class="header" href="#opentelemetry">OpenTelemetry<a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#link">|🔝|</a></a></h1>
+<ul>
+<li><a href="https://crates.io/crates/opentelemetry">https://crates.io/crates/opentelemetry</a>
+<ul>
+<li><a href="https://github.com/open-telemetry/opentelemetry-rust">https://github.com/open-telemetry/opentelemetry-rust</a></li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-toml"># Cargo.toml
+[dependencies]
+opentelemetry = "0.22"
+opentelemetry_sdk = "0.22"
+opentelemetry-stdout = { version = "0.3", features = ["trace"] }
+</code></pre>
+<pre><code class="language-rs">use opentelemetry::{
+    global,
+    sdk::trace::TracerProvider,
+    trace::{Tracer, TracerProvider as _},
+};
+
+fn main() {
+    // Create a new trace pipeline that prints to stdout
+    let provider = TracerProvider::builder()
+        .with_simple_exporter(opentelemetry_stdout::SpanExporter::default())
+        .build();
+    let tracer = provider.tracer("readme_example");
+
+    tracer.in_span("doing_work", |cx| {
+        // Traced app logic here...
+    });
+
+    // Shutdown trace pipeline
+    global::shutdown_tracer_provider();
+}
+</code></pre>
+<ul>
+<li><a href="https://opentelemetry.io/">https://opentelemetry.io/</a></li>
+</ul>
+<hr>
+<pre><code class="language-rs">use std::{thread, time::Duration};
+
+use opentelemetry::{
+    global,
+    trace::{TraceContextExt, Tracer},
+    Key, KeyValue,
+};
+use uptrace::UptraceBuilder;
+
+#[tokio::main]
+async fn main() {
+    UptraceBuilder::new()
+        //.with_dsn("")
+        .with_service_name("myservice")
+        .with_service_version("1.0.0")
+        .with_deployment_environment("testing")
+        .configure_opentelemetry()
+        .unwrap();
+
+    let tracer = global::tracer("app_or_crate_name");
+
+    tracer.in_span("root-span", |cx| {
+        thread::sleep(Duration::from_millis(5));
+
+        tracer.in_span("GET /posts/:id", |cx| {
+            thread::sleep(Duration::from_millis(10));
+
+            let span = cx.span();
+            span.set_attribute(Key::new("http.method").string("GET"));
+            span.set_attribute(Key::new("http.route").string("/posts/:id"));
+            span.set_attribute(Key::new("http.url").string("http://localhost:8080/posts/123"));
+            span.set_attribute(Key::new("http.status_code").i64(200));
+        });
+
+        tracer.in_span("SELECT", |cx| {
+            thread::sleep(Duration::from_millis(20));
+
+            let span = cx.span();
+            span.set_attribute(KeyValue::new("db.system", "mysql"));
+            span.set_attribute(KeyValue::new(
+                "db.statement",
+                "SELECT * FROM table LIMIT 100",
+            ));
+        });
+
+        let span = cx.span();
+        println!(
+            "https://app.uptrace.dev/traces/{}",
+            span.span_context().trace_id().to_string()
+        );
+    });
+
+    global::shutdown_tracer_provider();
+}
+</code></pre>
+<ul>
+<li><a href="https://crates.io/crates/uptrace">https://crates.io/crates/uptrace</a></li>
+</ul>
+<hr>
+<h1 id="concurrency와-parallelism이해하기"><a class="header" href="#concurrency와-parallelism이해하기">Concurrency와 Parallelism이해하기<a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#link">|🔝|</a></a></h1>
+<p><a href="https://spacebike.tistory.com/22">https://spacebike.tistory.com/22</a></p>
+<h1 id="multithreading-for-beginners--freecodecamporg"><a class="header" href="#multithreading-for-beginners--freecodecamporg">Multithreading for Beginners | freeCodeCamp.org<a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#link">|🔝|</a></a></h1>
+<ul>
+<li><a href="https://youtu.be/gvQGKRlgop4?si=xCu3nVYXD8geHu4_">https://youtu.be/gvQGKRlgop4?si=xCu3nVYXD8geHu4_</a></li>
+</ul>
+<h1 id="rust--memory-container"><a class="header" href="#rust--memory-container">rust -memory-container<a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#link">|🔝|</a></a></h1>
+<p><a href="https://github.com/usagi/rust-memory-container-cs">https://github.com/usagi/rust-memory-container-cs</a></p>
+<br>
+<ul>
+<li>small size ver.</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/67513038/220503296-bbc31e6b-93d1-4e25-ac93-052aa2e89ab5.png" alt="rust-memory-container-cs-small-dark-back-high-contrast" /></p>
+<br>
+<h1 id="ownership-concept-diagram"><a class="header" href="#ownership-concept-diagram">Ownership Concept Diagram<a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#link">|🔝|</a></a></h1>
+<p><img src="https://i.redd.it/nhhxzcwqd6q61.png" alt="rust-ownvership" /></p>
+<h2 id="출처"><a class="header" href="#출처">출처:</a></h2>
+<p><a href="https://www.reddit.com/r/rust/comments/mgh9n9/ownership_concept_diagram/?utm_source=share&amp;utm_medium=ios_app&amp;utm_name=iossmf">https://www.reddit.com/r/rust/comments/mgh9n9/ownership_concept_diagram/?utm_source=share&amp;utm_medium=ios_app&amp;utm_name=iossmf</a></p>
+<br>
+<p><img src="https://user-images.githubusercontent.com/67513038/213838895-8194e55a-abe4-472e-8ed4-f34e7770425a.png" alt="Screenshot 2023-01-21 at 10 56 20 AM" />
+<br><a href="https://youtu.be/__7cMs4gqSU">220607자바(Java)<em>vs</em>러스트<em>비교하면서 러스트오너쉽개념이해</em>기본syntax연습하기part3_#java #rust #ownership</a><br></p>
+<br>
+<p>출처</p>
+<p><a href="https://youtu.be/Vg1LGHuAPP8">Rust for Java Developers 3/3 - Understanding Ownership</a></p>
+<p><a href="https://economiceco.tistory.com/12591">Rust소유권 규칙Ownership Rules &amp; Borrowing rules</a></p>
+<p><a href="https://youtu.be/Bfqx_V2gp1Y">Rust) shared reference ❤️ unique reference</a></p>
+<br>
+<hr>
+<h1 id="send--mutex--Özgün-Özerk"><a class="header" href="#send--mutex--Özgün-Özerk">Send &amp; Mutex | Özgün Özerk<a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#link">|🔝|</a></a></h1>
+<ul>
+<li>27 May 2024
+<ul>
+<li><a href="https://cryptical.xyz/rust/send-mutex">https://cryptical.xyz/rust/send-mutex</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="compact-and-efficient-synchronization-primitives-for-rust-also-provides-an-api-for-creating-custom-synchronization-primitives"><a class="header" href="#compact-and-efficient-synchronization-primitives-for-rust-also-provides-an-api-for-creating-custom-synchronization-primitives">Compact and efficient synchronization primitives for Rust. Also provides an API for creating custom synchronization primitives.<a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#link">|🔝|</a></a></h1>
+<ul>
+<li><a href="https://github.com/Amanieu/parking_lot">https://github.com/Amanieu/parking_lot</a></li>
+</ul>
+<hr>
+<h1 id="c언어-러스트-이해하기"><a class="header" href="#c언어-러스트-이해하기">C언어 러스트 이해하기</a></h1>
+<h1 id="async-engine-in-c--tsoding-daily"><a class="header" href="#async-engine-in-c--tsoding-daily">Async Engine in C | Tsoding Daily<a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#link">|🔝|</a></a></h1>
+<ul>
+<li><a href="https://youtu.be/Q65zhKkynDk?si=PwBb8vxXZwZDIQEl">https://youtu.be/Q65zhKkynDk?si=PwBb8vxXZwZDIQEl</a></li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-optimization최적화"><a class="header" href="#rust-optimization최적화">Rust Optimization최적화</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="모든-언어별-공통적인-최적화-개념"><a class="header" href="#모든-언어별-공통적인-최적화-개념">모든 언어별 공통적인 최적화 개념</a></h1>
-<h1 id="link-28"><a class="header" href="#link-28">link</a></h1>
+<h1 id="link-29"><a class="header" href="#link-29">link</a></h1>
 <ul>
 <li>
 <p><a href="Advanced/Optimization/common.html#temporal-locality-in-memory-mountain">Temporal locality in memory mountain</a></p>
@@ -8506,7 +8877,7 @@ Visual comparison chart: http://i.imgur.com/k0t1e.png
     theme="github-light" crossorigin="anonymous" async>
 </script>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-optimization"><a class="header" href="#rust-optimization">Rust Optimization</a></h1>
-<h1 id="link-29"><a class="header" href="#link-29">link</a></h1>
+<h1 id="link-30"><a class="header" href="#link-30">link</a></h1>
 <ul>
 <li><a href="Advanced/Optimization/rust_optimization.html#rust-benchmarking">Rust Benchmarking(criterion)</a></li>
 <li><a href="Advanced/Optimization/rust_optimization.html#rust-optimization-1">Rust Optimization</a></li>
@@ -8873,6 +9244,57 @@ fn main() {
 <pre><code class="language-bash">Total Sum: 55
 Even Numbers Sum: 30
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="blackhatrust유료영어원서"><a class="header" href="#blackhatrust유료영어원서">BlackHatRust유료(영어원서)</a></h1>
+<h1 id="link-31"><a class="header" href="#link-31">link</a></h1>
+<ul>
+<li><a href="https://economiceco.tistory.com/19572">eBook) The book Black Hat Rust is out 🏴‍☠️🍾</a>
+<ul>
+<li><a href="https://www.reddit.com/r/rust/comments/rb36or/the_book_black_hat_rust_is_out/?rdt=59281">Reddit에서 소개해서 보게 됨.</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="black-hat-rust로-공부하는-중-최고"><a class="header" href="#black-hat-rust로-공부하는-중-최고">Black Hat Rust로 공부하는 중 최고</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rust-os"><a class="header" href="#rust-os">Rust OS</a></h1>
+<h1 id="link-32"><a class="header" href="#link-32">link</a></h1>
+<ul>
+<li>OS들어가기 전에 컴파일 만들기 책 보고 들어가야 좀 편하다.유명한 컴파일러 만들기 책
+<ul>
+<li><a href="https://www.amazon.com/dp/B09BCCVLCL">아마존 영어원서Crafting Interpreters by Kindle Edition  Robert Nystrom (Author)</a> </li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="rust-os-프로젝트-1"><a class="header" href="#rust-os-프로젝트-1">Rust OS 프로젝트</a></h1>
+<ul>
+<li><a href="https://github.com/redox-os">Redux</a></li>
+<li><a href="https://github.com/maestro-os/maestro">Mastro</a></li>
+</ul>
+<h1 id="rust-로-os만들고-있는-대표적인-프로젝트-2개-redux--mastro-1"><a class="header" href="#rust-로-os만들고-있는-대표적인-프로젝트-2개-redux--mastro-1">Rust 로 OS만들고 있는 대표적인 프로젝트 2개 (Redux &amp; Mastro)</a></h1>
+<h1 id="redux-1"><a class="header" href="#redux-1">Redux</a></h1>
+<ul>
+<li><a href="https://github.com/redox-os">https://github.com/redox-os</a></li>
+<li><a href="https://www.redox-os.org/">https://www.redox-os.org/</a></li>
+</ul>
+<h1 id="mastro--unix-like-kernel-written-in-rust-bloglenotre-1"><a class="header" href="#mastro--unix-like-kernel-written-in-rust-bloglenotre-1">Mastro ( Unix-like kernel written in Rust) blog.lenot.re</a></h1>
+<ul>
+<li><a href="https://github.com/maestro-os/maestro">https://github.com/maestro-os/maestro</a>
+<ul>
+<li><a href="https://blog.lenot.re/">https://blog.lenot.re/</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rust-embedded"><a class="header" href="#rust-embedded">Rust Embedded</a></h1>
+<h1 id="link-33"><a class="header" href="#link-33">link</a></h1>
+<ul>
+<li>Rust Embedded는 2개가 거의 유일하다.
+<ul>
+<li><a href="https://www.amazon.com/dp/B0CW1L8BYS/ref=pe_47689220_607410480_TE_M1DP">Omar Hiari Simplified Embedded Rust: ESP Core Library Edition Kindle 에디션</a></li>
+<li><a href="https://www.amazon.com/dp/B0D1GQQ39Y/ref=pe_47689220_607410480_TE_M1DP">Simplified Embedded Rust: ESP Standard Library Edition</a></li>
+</ul>
+</li>
+</ul>
 
                     </main>
 

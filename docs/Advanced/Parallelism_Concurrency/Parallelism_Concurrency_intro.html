@@ -1,0 +1,582 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Rust Parallelism&amp;Concurrency - rust_kr</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">rust_kr</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/YoungHaKim7/rust_kr" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="rust-parallelismconcurrency"><a class="header" href="#rust-parallelismconcurrency">Rust Parallelism&amp;Concurrency</a></h1>
+<ul>
+<li><a href="https://www.amazon.com/Rust-Atomics-Locks-Low-Level-Concurrency/dp/1098119444">아마존영어원서Rust Atomics and Locks: Low-Level Concurrency in Practice</a>
+<ul>
+<li><a href="https://m.yes24.com/Goods/Detail/124894563">Rust Atomics and Locks 러스트 동시성 프로그래밍 : Atomic과 Lock으로 안전하고 효율적인 동시성 코드 작성하기(PDF)  마라 보스 저 / 윤인도 역 | 한빛미디어 | 2024년 02월 05일</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="link"><a class="header" href="#link">link</a></h1>
+<ul>
+<li><a href="#green-thread%EA%B7%B8%EB%A6%B0%EC%93%B0%EB%A0%88%EB%93%9C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0">green-thread그린쓰레드-이해하기</a></li>
+</ul>
+<hr />
+<ul>
+<li>
+<p>기초 상식</p>
+<ul>
+<li><a href="#concurrency%EC%99%80-parallelism%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0">concurrency와-parallelism이해하기</a>
+<ul>
+<li><a href="https://youtu.be/_Im4_3Z1NxQ?si=vL0dtHzr8BOPMV0s">1분20초_그림으로 concurrency와 parallelism차이점 이해하기 Node.js is a serious thing now… (2023) |Code With Ryan</a></li>
+<li><a href="#multithreading-for-beginners--freecodecamporg">multithreading-for-beginners--freecodecamporg</a></li>
+</ul>
+</li>
+<li><a href="#1-hour-dive-into-asynchronous-rust--ardan-labs">1-hour-dive-into-asynchronous-rust--ardan-labs</a></li>
+<li><a href="#what-is-pinning">what-is-pinning</a></li>
+</ul>
+</li>
+<li>
+<p>러스트에 바로 쓸 기초 개념</p>
+<ul>
+<li><a href="#send--mutex--%C3%B6zg%C3%BCn-%C3%B6zerk">send--mutex--özgün-özerk</a></li>
+<li><a href="#rust--memory-container">rust--memory-container</a></li>
+<li><a href="#ownership-concept-diagram">ownership-concept-diagram</a></li>
+<li><a href="#async-rust%EC%97%AC%EA%B8%B0%EC%97%90-%EC%A0%95%EB%A6%AC%EC%A4%91">Async-Rust여기에-정리중</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<ul>
+<li>
+<p><a href="#rc-arc-%EA%B7%B8%EB%A6%BC-%ED%91%9C%EB%A1%9C-%EC%9E%98-%EC%A0%95%EB%A6%AC%EB%90%A8">rc-arc-그림-표로-잘-정리됨</a></p>
+</li>
+<li>
+<p><a href="#tokio-console--its-like-htop-for-async">tokio-console--its-like-htop-for-async</a></p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>std보다 빠른거
+<ul>
+<li><a href="#compact-and-efficient-synchronization-primitives-for-rust-also-provides-an-api-for-creating-custom-synchronization-primitives">compact-and-efficient-synchronization-primitives-for-rust-also-provides-an-api-for-creating-custom-synchronization-primitives</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<ul>
+<li>test
+<ul>
+<li><a href="#opentelemetry">opentelemetry</a></li>
+<li><a href="#opentelemetryrust">opentelemetryrust</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<ul>
+<li>C언어로 러스트 이해하기
+<ul>
+<li><a href="#async-engine-in-c--tsoding-daily">Async Engine in C | Tsoding Daily</a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="외부-자료"><a class="header" href="#외부-자료">외부 자료</a></h1>
+<ul>
+<li>
+<p>Concurrency &amp; Parallelism</p>
+<ul>
+<li><a href="https://github.com/LukeMathWalker/zero-to-production">https://github.com/LukeMathWalker/zero-to-production</a></li>
+<li>Concurrency
+<ul>
+<li><a href="https://rust-lang.github.io/async-book/">https://rust-lang.github.io/async-book/</a></li>
+<li><a href="https://github.com/tokio-rs/tokio">https://github.com/tokio-rs/tokio</a>
+<ul>
+<li>Channels(MPSC)
+<ul>
+<li>MPSC(multi-producer, single-consumer channel.)
+<ul>
+<li><a href="https://tokio.rs/tokio/tutorial/channels">https://tokio.rs/tokio/tutorial/channels</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/hyperium/hyper">https://github.com/hyperium/hyper</a></li>
+</ul>
+</li>
+<li>Parallelism
+<ul>
+<li><a href="https://github.com/rayon-rs/rayon">https://github.com/rayon-rs/rayon</a></li>
+<li>Channels(MPMC)
+<ul>
+<li>MPMC(A blazingly fast multi-producer, multi-consumer channel.)
+<ul>
+<li><a href="https://github.com/zesterer/flume">https://github.com/zesterer/flume</a></li>
+</ul>
+</li>
+<li>MPMC초장기 모델
+<ul>
+<li><a href="https://github.com/crossbeam-rs/crossbeam">https://github.com/crossbeam-rs/crossbeam</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Async Book(Rust)</p>
+<ul>
+<li>
+<p><a href="https://rust-lang.github.io/async-book/">https://rust-lang.github.io/async-book/</a></p>
+</li>
+<li>
+<p>tokio-async</p>
+<ul>
+<li><a href="https://docs.rs/tokio-async-std/latest/async_std/">https://docs.rs/tokio-async-std/latest/async_std/</a></li>
+<li><a href="https://book.async.rs/">https://book.async.rs/</a></li>
+</ul>
+</li>
+<li>
+<p>Async Rust한국분이 설명 잘 해 놨음.</p>
+<ul>
+<li><a href="https://blog.cro.sh/slides/async-rust-programming-20220801-redistributable.pdf">https://blog.cro.sh/slides/async-rust-programming-20220801-redistributable.pdf</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<hr>
+<h1 id="async-rust여기에-정리중"><a class="header" href="#async-rust여기에-정리중">Async Rust여기에 정리중<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li><a href="https://github.com/YoungHaKim7/Async_Rust_Training">https://github.com/YoungHaKim7/Async_Rust_Training</a></li>
+</ul>
+<h1 id="green-thread그린쓰레드-이해하기"><a class="header" href="#green-thread그린쓰레드-이해하기">Green Thread그린쓰레드 이해하기<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li><a href="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/4_Threads.html">https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/4_Threads.html</a></li>
+</ul>
+<hr>
+<h1 id="rc-arc-그림-표로-잘-정리됨"><a class="header" href="#rc-arc-그림-표로-잘-정리됨">Rc, Arc 그림, 표로 잘 정리됨.<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li><a href="https://github.com/usagi/rust-memory-container-cs">https://github.com/usagi/rust-memory-container-cs</a></li>
+</ul>
+<hr>
+<h1 id="1-hour-dive-into-asynchronous-rust--ardan-labs"><a class="header" href="#1-hour-dive-into-asynchronous-rust--ardan-labs">1 Hour Dive into Asynchronous Rust | Ardan Labs<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li><a href="https://www.youtube.com/live/0HwrZp9CBD4?si=FLcUShZwx5pjOfmC">https://www.youtube.com/live/0HwrZp9CBD4?si=FLcUShZwx5pjOfmC</a></li>
+</ul>
+<hr>
+<h1 id="opentelemetryrust"><a class="header" href="#opentelemetryrust">OpenTeleMetry(Rust)<a href="#link">|🔝|</a></a></h1>
+<p><a href="https://opentelemetry.io/docs/languages/rust/getting-started/">https://opentelemetry.io/docs/languages/rust/getting-started/</a></p>
+<ul>
+<li><a href="https://youtu.be/JNZoo_8XeaE?si=hV2TZK2Ec9-Y8K39">OpenTelemetry for Rust Developers | Dynatrace</a></li>
+</ul>
+<hr>
+<h1 id="tokio-console--its-like-htop-for-async"><a class="header" href="#tokio-console--its-like-htop-for-async">Tokio-Console : It's like "htop" for async<a href="#link">|🔝|</a></a></h1>
+<pre><code class="language-bash">cargo install tokio-console
+
+</code></pre>
+<ul>
+<li>
+<p><a href="https://github.com/tokio-rs/console">https://github.com/tokio-rs/console</a></p>
+</li>
+<li>
+<p>Tokio-console 데모 영상</p>
+<ul>
+<li><a href="https://youtu.be/JGCewPUvF70?si=rJKmAlxwPNDgkEeD">tokio-console demo 2021 07 22 | Felix K</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="what-is-pinning"><a class="header" href="#what-is-pinning">What is Pinning?<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li>Rust's memory model strictly ensures that references must still exist, won't move, and won't be bropped while still in use.
+<ul>
+<li>러스트의 메모리 모델은 참조가 여전히 존재해야 하고, 움직이지 않아야 하며, 사용 중에도 끊어지지 않도록 엄격하게 보장합니다.</li>
+</ul>
+</li>
+<li>That's great for avoiding common memory bugs.
+<ul>
+<li>일반적인 메모리 버그를 방지하는 데 좋습니다.</li>
+</ul>
+</li>
+<li>It's tricky in a highly asynchronous environment, tasks may depend upon other tasks - which typically move around quite a bit.
+<ul>
+<li>매우 비동기적인 환경에서는 작업이 까다롭기 때문에 작업은 다른 작업에 따라 달라질 수 있습니다. 이 작업은 일반적으로 상당히 많이 움직입니다.</li>
+</ul>
+</li>
+<li>Pinning lets you tell Rust that a variable needs to stick around - in the same place - untile you unpin it.
+<ul>
+<li>Pinning피닝을 사용하면 Rust에게 변수를 풀 때까지 같은 위치에 있어야 한다는 것을 알 수 있습니다.
+<ul>
+<li>A stream that relies upon another stream will typically pin its access to the previous stream.
+<ul>
+<li>다른 스트림에 의존하는 스트림은 일반적으로 이전 스트림에 대한 액세스를 고정합니다.</li>
+</ul>
+</li>
+<li>A select operation may need to pin entries for the same reason.
+<ul>
+<li>선택 작업에서 동일한 이유로 항목을 고정해야 할 수도 있습니다.</li>
+</ul>
+</li>
+<li>Asynchronously calling yourself-recursion - requires pinning the iterations.
+<ul>
+<li>비동기적으로 자신을 호출하려면 반복을 고정해야 합니다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>출처 : <a href="https://www.youtube.com/live/0HwrZp9CBD4?si=ayajRAELEgDOl9FY">59min30sec__1 Hour Dive into Asynchronous Rust</a></p>
+<hr>
+<h1 id="opentelemetry"><a class="header" href="#opentelemetry">OpenTelemetry<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li><a href="https://crates.io/crates/opentelemetry">https://crates.io/crates/opentelemetry</a>
+<ul>
+<li><a href="https://github.com/open-telemetry/opentelemetry-rust">https://github.com/open-telemetry/opentelemetry-rust</a></li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-toml"># Cargo.toml
+[dependencies]
+opentelemetry = "0.22"
+opentelemetry_sdk = "0.22"
+opentelemetry-stdout = { version = "0.3", features = ["trace"] }
+</code></pre>
+<pre><code class="language-rs">use opentelemetry::{
+    global,
+    sdk::trace::TracerProvider,
+    trace::{Tracer, TracerProvider as _},
+};
+
+fn main() {
+    // Create a new trace pipeline that prints to stdout
+    let provider = TracerProvider::builder()
+        .with_simple_exporter(opentelemetry_stdout::SpanExporter::default())
+        .build();
+    let tracer = provider.tracer("readme_example");
+
+    tracer.in_span("doing_work", |cx| {
+        // Traced app logic here...
+    });
+
+    // Shutdown trace pipeline
+    global::shutdown_tracer_provider();
+}
+</code></pre>
+<ul>
+<li><a href="https://opentelemetry.io/">https://opentelemetry.io/</a></li>
+</ul>
+<hr>
+<pre><code class="language-rs">use std::{thread, time::Duration};
+
+use opentelemetry::{
+    global,
+    trace::{TraceContextExt, Tracer},
+    Key, KeyValue,
+};
+use uptrace::UptraceBuilder;
+
+#[tokio::main]
+async fn main() {
+    UptraceBuilder::new()
+        //.with_dsn("")
+        .with_service_name("myservice")
+        .with_service_version("1.0.0")
+        .with_deployment_environment("testing")
+        .configure_opentelemetry()
+        .unwrap();
+
+    let tracer = global::tracer("app_or_crate_name");
+
+    tracer.in_span("root-span", |cx| {
+        thread::sleep(Duration::from_millis(5));
+
+        tracer.in_span("GET /posts/:id", |cx| {
+            thread::sleep(Duration::from_millis(10));
+
+            let span = cx.span();
+            span.set_attribute(Key::new("http.method").string("GET"));
+            span.set_attribute(Key::new("http.route").string("/posts/:id"));
+            span.set_attribute(Key::new("http.url").string("http://localhost:8080/posts/123"));
+            span.set_attribute(Key::new("http.status_code").i64(200));
+        });
+
+        tracer.in_span("SELECT", |cx| {
+            thread::sleep(Duration::from_millis(20));
+
+            let span = cx.span();
+            span.set_attribute(KeyValue::new("db.system", "mysql"));
+            span.set_attribute(KeyValue::new(
+                "db.statement",
+                "SELECT * FROM table LIMIT 100",
+            ));
+        });
+
+        let span = cx.span();
+        println!(
+            "https://app.uptrace.dev/traces/{}",
+            span.span_context().trace_id().to_string()
+        );
+    });
+
+    global::shutdown_tracer_provider();
+}
+</code></pre>
+<ul>
+<li><a href="https://crates.io/crates/uptrace">https://crates.io/crates/uptrace</a></li>
+</ul>
+<hr>
+<h1 id="concurrency와-parallelism이해하기"><a class="header" href="#concurrency와-parallelism이해하기">Concurrency와 Parallelism이해하기<a href="#link">|🔝|</a></a></h1>
+<p><a href="https://spacebike.tistory.com/22">https://spacebike.tistory.com/22</a></p>
+<h1 id="multithreading-for-beginners--freecodecamporg"><a class="header" href="#multithreading-for-beginners--freecodecamporg">Multithreading for Beginners | freeCodeCamp.org<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li><a href="https://youtu.be/gvQGKRlgop4?si=xCu3nVYXD8geHu4_">https://youtu.be/gvQGKRlgop4?si=xCu3nVYXD8geHu4_</a></li>
+</ul>
+<h1 id="rust--memory-container"><a class="header" href="#rust--memory-container">rust -memory-container<a href="#link">|🔝|</a></a></h1>
+<p><a href="https://github.com/usagi/rust-memory-container-cs">https://github.com/usagi/rust-memory-container-cs</a></p>
+<br>
+<ul>
+<li>small size ver.</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/67513038/220503296-bbc31e6b-93d1-4e25-ac93-052aa2e89ab5.png" alt="rust-memory-container-cs-small-dark-back-high-contrast" /></p>
+<br>
+<h1 id="ownership-concept-diagram"><a class="header" href="#ownership-concept-diagram">Ownership Concept Diagram<a href="#link">|🔝|</a></a></h1>
+<p><img src="https://i.redd.it/nhhxzcwqd6q61.png" alt="rust-ownvership" /></p>
+<h2 id="출처"><a class="header" href="#출처">출처:</a></h2>
+<p><a href="https://www.reddit.com/r/rust/comments/mgh9n9/ownership_concept_diagram/?utm_source=share&amp;utm_medium=ios_app&amp;utm_name=iossmf">https://www.reddit.com/r/rust/comments/mgh9n9/ownership_concept_diagram/?utm_source=share&amp;utm_medium=ios_app&amp;utm_name=iossmf</a></p>
+<br>
+<p><img src="https://user-images.githubusercontent.com/67513038/213838895-8194e55a-abe4-472e-8ed4-f34e7770425a.png" alt="Screenshot 2023-01-21 at 10 56 20 AM" />
+<br><a href="https://youtu.be/__7cMs4gqSU">220607자바(Java)<em>vs</em>러스트<em>비교하면서 러스트오너쉽개념이해</em>기본syntax연습하기part3_#java #rust #ownership</a><br></p>
+<br>
+<p>출처</p>
+<p><a href="https://youtu.be/Vg1LGHuAPP8">Rust for Java Developers 3/3 - Understanding Ownership</a></p>
+<p><a href="https://economiceco.tistory.com/12591">Rust소유권 규칙Ownership Rules &amp; Borrowing rules</a></p>
+<p><a href="https://youtu.be/Bfqx_V2gp1Y">Rust) shared reference ❤️ unique reference</a></p>
+<br>
+<hr>
+<h1 id="send--mutex--Özgün-Özerk"><a class="header" href="#send--mutex--Özgün-Özerk">Send &amp; Mutex | Özgün Özerk<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li>27 May 2024
+<ul>
+<li><a href="https://cryptical.xyz/rust/send-mutex">https://cryptical.xyz/rust/send-mutex</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="compact-and-efficient-synchronization-primitives-for-rust-also-provides-an-api-for-creating-custom-synchronization-primitives"><a class="header" href="#compact-and-efficient-synchronization-primitives-for-rust-also-provides-an-api-for-creating-custom-synchronization-primitives">Compact and efficient synchronization primitives for Rust. Also provides an API for creating custom synchronization primitives.<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li><a href="https://github.com/Amanieu/parking_lot">https://github.com/Amanieu/parking_lot</a></li>
+</ul>
+<hr>
+<h1 id="c언어-러스트-이해하기"><a class="header" href="#c언어-러스트-이해하기">C언어 러스트 이해하기</a></h1>
+<h1 id="async-engine-in-c--tsoding-daily"><a class="header" href="#async-engine-in-c--tsoding-daily">Async Engine in C | Tsoding Daily<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li><a href="https://youtu.be/Q65zhKkynDk?si=PwBb8vxXZwZDIQEl">https://youtu.be/Q65zhKkynDk?si=PwBb8vxXZwZDIQEl</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../Advanced/rust_release/rust_rfcs.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../Advanced/Optimization/optimization.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../Advanced/rust_release/rust_rfcs.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../Advanced/Optimization/optimization.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
