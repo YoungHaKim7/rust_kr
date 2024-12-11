@@ -9073,6 +9073,30 @@ Visual comparison chart: http://i.imgur.com/k0t1e.png
 <script src="https://utteranc.es/client.js" repo="YoungHaKim7/blog_comments_bot" issue-term="url"
     theme="github-light" crossorigin="anonymous" async>
 </script>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="vector를-array로-변환"><a class="header" href="#vector를-array로-변환">Vector를 array로 변환</a></h1>
+<h1 id="link-32"><a class="header" href="#link-32">link</a></h1>
+<hr />
+<h1 id="vector를-array로-변환-1"><a class="header" href="#vector를-array로-변환-1">Vector를 array로 변환</a></h1>
+<pre><pre class="playground"><code class="language-rust">fn iter_to_array&lt;Element, const N: usize&gt;(mut iter: impl Iterator&lt;Item = Element&gt;) -&gt; [Element; N] {
+    // Here I use `()` to make array zero-sized -&gt; no real use in runtime.
+    // `map` creates new array, which we fill by values of iterator.
+    let res: [_; N] = std::array::from_fn(|_| iter.next().unwrap());
+    // Ensure that iterator finished
+    // assert!(matches!(iter.next(), None));
+    assert!(iter.next().is_none());
+    res
+}
+
+fn main() {
+    let my_vec = vec![1, 2, 3, 4, 5, 7];
+    let my_array: [&amp;i32; 6] = iter_to_array(my_vec.iter());
+    println!("my array : {:?}", my_array);
+}</code></pre></pre>
+<ul>
+<li>result</li>
+</ul>
+<pre><code class="language-bash">my array : [1, 2, 3, 4, 5, 7]
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="문제해결rust코드로-해결"><a class="header" href="#문제해결rust코드로-해결">문제해결Rust코드로 해결</a></h1>
 <ul>
 <li><a href="Problem_Solving/./Sort/Sort_Problem_Solving.html">정렬(Sort)</a></li>
@@ -9389,7 +9413,7 @@ fn main() {
 Even Numbers Sum: 30
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="blackhatrust유료영어원서"><a class="header" href="#blackhatrust유료영어원서">BlackHatRust유료(영어원서)</a></h1>
-<h1 id="link-32"><a class="header" href="#link-32">link</a></h1>
+<h1 id="link-33"><a class="header" href="#link-33">link</a></h1>
 <ul>
 <li><a href="https://economiceco.tistory.com/19572">eBook) The book Black Hat Rust is out 🏴‍☠️🍾</a>
 <ul>
@@ -9400,7 +9424,7 @@ Even Numbers Sum: 30
 <hr />
 <h1 id="black-hat-rust로-공부하는-중-최고"><a class="header" href="#black-hat-rust로-공부하는-중-최고">Black Hat Rust로 공부하는 중 최고</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-os"><a class="header" href="#rust-os">Rust OS</a></h1>
-<h1 id="link-33"><a class="header" href="#link-33">link</a></h1>
+<h1 id="link-34"><a class="header" href="#link-34">link</a></h1>
 <ul>
 <li>OS들어가기 전에 컴파일 만들기 책 보고 들어가야 좀 편하다.유명한 컴파일러 만들기 책
 <ul>
@@ -9430,7 +9454,7 @@ Even Numbers Sum: 30
 </ul>
 <hr />
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-embedded"><a class="header" href="#rust-embedded">Rust Embedded</a></h1>
-<h1 id="link-34"><a class="header" href="#link-34">link</a></h1>
+<h1 id="link-35"><a class="header" href="#link-35">link</a></h1>
 <ul>
 <li>Rust Embedded는 2개가 거의 유일하다.
 <ul>

@@ -124,6 +124,7 @@
 - [Rust Optimization최적화](./Advanced/Optimization/optimization.md)
   - [모든 언어별 공통적인 최적화 개념](./Advanced/Optimization/common.md)
   - [Rust Optimization](./Advanced/Optimization/rust_optimization.md)
+    - [Vector를 array로 변환](./Advanced/Optimization/vector_array_convert.md)
 
 
 -----------
