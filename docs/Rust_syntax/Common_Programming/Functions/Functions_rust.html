@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>OwnerShip오너쉽_borrowing - rust_kr</title>
+        <title>Functions기능만들기fn - rust_kr</title>
 
 
         <!-- Custom HTML head -->
@@ -12,21 +12,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../../favicon.svg">
-        <link rel="shortcut icon" href="../../favicon.png">
-        <link rel="stylesheet" href="../../css/variables.css">
-        <link rel="stylesheet" href="../../css/general.css">
-        <link rel="stylesheet" href="../../css/chrome.css">
-        <link rel="stylesheet" href="../../css/print.css" media="print">
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../../fonts/fonts.css">
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../../highlight.css">
-        <link rel="stylesheet" href="../../tomorrow-night.css">
-        <link rel="stylesheet" href="../../ayu-highlight.css">
+        <link rel="stylesheet" href="../../../highlight.css">
+        <link rel="stylesheet" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -35,11 +35,11 @@
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "../../";
+            var path_to_root = "../../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../toc.js"></script>
+        <script src="../../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -125,7 +125,7 @@
                     <h1 class="menu-title">rust_kr</h1>
 
                     <div class="right-buttons">
-                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/YoungHaKim7/rust_kr" title="Git repository" aria-label="Git repository">
@@ -157,132 +157,17 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="ownership오너쉽_borrowing"><a class="header" href="#ownership오너쉽_borrowing">OwnerShip오너쉽_borrowing</a></h1>
-<h1 id="link"><a class="header" href="#link">link</a></h1>
-<ul>
-<li><a href="#%EB%9F%AC%EC%8A%A4%ED%8A%B8-%EB%B3%80%EC%88%98value%EC%9D%98-3%EA%B0%80%EC%A7%80-%EC%83%81%ED%83%9C">러스트 변수value의 3가지 상태</a></li>
-<li><a href="#ownership-rules">Ownership Rules</a></li>
-<li><a href="#borrowing-rules">Borrowing rules</a></li>
-</ul>
-<hr />
-<h1 id="러스트-변수value의-3가지-상태"><a class="header" href="#러스트-변수value의-3가지-상태">러스트 변수value의 3가지 상태<a href="#link">|🔝|</a></a></h1>
-<ul>
-<li>
-<p>① . consume상태(오너쉽을 가지고 있다.)</p>
-<ul>
-<li>읽기,  쓰기 ,  오너쉽을 넘겨주는 상태(사장님이다.  다 가능)</li>
-</ul>
-</li>
-<li>
-<p>② . borrowing(<code>&amp;</code> Reference)(빌린 상태라 빚쟁이 같은거다.  사장님이 죽으면 그때 라이프 타임이 끝나다.)</p>
-<ul>
-<li>읽기 전용이라 생각하면 된다.</li>
-</ul>
-</li>
-<li>
-<p>③ . 변수를 바꿀수 있다.(&amp;mut) 변수를 빌려서 코인 1개의 바꿀수 있는 권리가 있다.</p>
-<ul>
-<li>바꿀수 있는 기회는 딱 1번뿐..
-<ul>
-<li>변수가 바뀐 다음부터는 읽기 전용상태(&amp;)만 가능하다.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>예시를 보면 이해해 보자.</p>
-</li>
-</ul>
-<pre><code class="language-rs">// consume상태-&gt; 오너쉽을 이동했다.
-fn owner_consume(x: String) -&gt; String {
-    x
-}
-
-// borrowing &amp; 읽기 전용
-fn owner_reference_pattern(x: &amp;str) -&gt; &amp;str {
-    x
-}
-
-// &amp;mut 바꾼 다음 읽기전용만 가능
-fn mut_str(x: &amp;mut String) -&gt; &amp;mut String {
-    x.push_str(" + mutant String");
-    x
-}
-
-fn main() {
-    let x_consume = "consume string".to_string();
-    dbg!(owner_consume(x_consume));
-    // owner_consume(x_consume.clone()));
-
-    // use of value error
-    // dbg!(x_consume);
-    // println!("{}", x_consume);
-
-    let x_ref_str = "Reference String";
-    dbg!(owner_reference_pattern(x_ref_str));
-    dbg!(x_ref_str);
-
-    let mut x_mut_str = "Add String".to_string();
-    dbg!(mut_str(&amp;mut x_mut_str));
-
-    let int_x = 40;
-    let y = int_x;
-    // int는 copy type이라 오너쉽 생각안해도 됨. stack copy됨
-    dbg!(int_x);
-}
-</code></pre>
-<ul>
-<li>Result</li>
-</ul>
-<pre><code class="language-bash">[src/main.rs:16:5] owner_consume(x_consume) = "consume string"
-[src/main.rs:24:5] owner01(x_ref_str) = "Reference String"
-[src/main.rs:25:5] x_ref_str = "Reference String"
-[src/main.rs:28:5] mut_str(&amp;mut x_mut_str) = "Add String + mutant String"
-[src/main.rs:32:5] int_x = 40
-</code></pre>
-<h1 id="ownership-rules"><a class="header" href="#ownership-rules">Ownership Rules<a href="#link">|🔝|</a></a></h1>
-<ul>
-<li>
-<p>First, let's take a look at the ownership rules. Keep these rules in mind as we work through the examples that illustrate them"</p>
-<ul>
-<li>Each value in Rust has a variable that's called its owner.</li>
-<li>There can only be one owner at a time.</li>
-<li>When the owner goes out of scope, the value will be dropped.</li>
-</ul>
-</li>
-<li>
-<p>소유권 규칙</p>
-<ul>
-<li>먼저, 소유권에 적용되는 규칙부터 살펴보자. 앞으로 살펴볼 예제들은 이 규칙들을 설명하기 위한 것이므로 잘 기억하도록 하자.
-<ul>
-<li>러스트가 다루는 각각의 값은 소유자(owner)라고 부르는 변수를 가지고 있다.</li>
-<li>특정 시점에 값의 소유자는 단 하나뿐이다.</li>
-<li>소유자가 범위를 벗어나면 그 값은 제거된다.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr />
-<h1 id="borrowing-rules"><a class="header" href="#borrowing-rules">Borrowing rules<a href="#link">|🔝|</a></a></h1>
-<ul>
-<li>
-<p>At any given time, you can have either one mutable reference or any number of immutable references.</p>
-</li>
-<li>
-<p>References must always be valid.</p>
-</li>
-</ul>
+                        <h1 id="functions"><a class="header" href="#functions">Functions</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../Rust_syntax/Common_Programming/Control_Flow/Control_Flow_if.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../Rust_syntax/Common_Programming/Data_Types/data_types.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../Rust_syntax/struct/structs.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../Rust_syntax/Common_Programming/Comments/Comments.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -292,11 +177,11 @@ fn main() {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../Rust_syntax/Common_Programming/Control_Flow/Control_Flow_if.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../Rust_syntax/Common_Programming/Data_Types/data_types.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../Rust_syntax/struct/structs.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../Rust_syntax/Common_Programming/Comments/Comments.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -311,13 +196,13 @@ fn main() {
         </script>
 
 
-        <script src="../../elasticlunr.min.js"></script>
-        <script src="../../mark.min.js"></script>
-        <script src="../../searcher.js"></script>
+        <script src="../../../elasticlunr.min.js"></script>
+        <script src="../../../mark.min.js"></script>
+        <script src="../../../searcher.js"></script>
 
-        <script src="../../clipboard.min.js"></script>
-        <script src="../../highlight.js"></script>
-        <script src="../../book.js"></script>
+        <script src="../../../clipboard.min.js"></script>
+        <script src="../../../highlight.js"></script>
+        <script src="../../../book.js"></script>
 
         <!-- Custom JS scripts -->
 

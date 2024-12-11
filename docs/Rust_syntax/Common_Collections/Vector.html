@@ -159,8 +159,26 @@
                     <main>
                         <h1 id="vectors데이터-저장"><a class="header" href="#vectors데이터-저장">Vectors데이터 저장</a></h1>
 <h1 id="link"><a class="header" href="#link">link</a></h1>
+<ul>
+<li>
+<p><a href="#%EB%B2%A1%ED%84%B0-%EB%A7%8C%EB%93%A4%EA%B8%B0">벡터 만들기</a></p>
+</li>
+<li>
+<p><a href="#%EB%B2%A1%ED%84%B0%EC%97%90-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B6%94%EA%B0%80%ED%95%98%EA%B8%B0">벡터에 데이터 추가하기</a></p>
+</li>
+<li>
+<p><a href="#%EB%B2%A1%ED%84%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%9D%BD%EA%B8%B0">벡터 데이터 읽기</a></p>
+</li>
+<li>
+<p>matrix구현</p>
+<ul>
+<li><a href="#2%EC%B0%A8%EC%9B%90-%EB%A7%A4%ED%8A%B8%EB%A6%AD%EC%8A%A42d-matrix">2차원 매트릭스(2d matrix)</a></li>
+<li><a href="#3%EC%B0%A8%EC%9B%90-%EB%A7%A4%ED%8A%B8%EB%A6%AD%EC%8A%A43d-matrix">3차원 매트릭스(3d matrix)</a></li>
+</ul>
+</li>
+</ul>
 <hr />
-<h1 id="벡터-만들기"><a class="header" href="#벡터-만들기">벡터 만들기</a></h1>
+<h1 id="벡터-만들기"><a class="header" href="#벡터-만들기">벡터 만들기<a href="#link">|🔝|</a></a></h1>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let my_vector : Vec&lt;i32&gt; = Vec::new();
@@ -170,7 +188,7 @@
 let my_vector_macro = vec![];
 
 <span class="boring">}</span></code></pre></pre>
-<h1 id="벡터에-데이터-추가하기"><a class="header" href="#벡터에-데이터-추가하기">벡터에 데이터 추가하기</a></h1>
+<h1 id="벡터에-데이터-추가하기"><a class="header" href="#벡터에-데이터-추가하기">벡터에 데이터 추가하기<a href="#link">|🔝|</a></a></h1>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let mut my_vector = Vec::new();
@@ -181,7 +199,7 @@ my_vector.push(12);
 my_vector.push(13);
 my_vector.push(14);
 <span class="boring">}</span></code></pre></pre>
-<h1 id="벡터-데이터-읽기"><a class="header" href="#벡터-데이터-읽기">벡터 데이터 읽기</a></h1>
+<h1 id="벡터-데이터-읽기"><a class="header" href="#벡터-데이터-읽기">벡터 데이터 읽기<a href="#link">|🔝|</a></a></h1>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let my_vector = vec![1, 2, 3, 4, 5];
@@ -190,6 +208,118 @@ let read_my_vector02 = my_vector[1];
 
 assert_eq![2, read_my_vector02];
 <span class="boring">}</span></code></pre></pre>
+<hr />
+<h1 id="matrix로-다차원-구조-만들기"><a class="header" href="#matrix로-다차원-구조-만들기">Matrix로 다차원 구조 만들기<a href="#link">|🔝|</a></a></h1>
+<h1 id="2차원-매트릭스2d-matrix"><a class="header" href="#2차원-매트릭스2d-matrix">2차원 매트릭스(2d matrix)<a href="#link">|🔝|</a></a></h1>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    // 딱딱한 array버젼 변형하기 쉽지 않다.
+    let mut state = [[0u8; 4]; 6];
+    state[0][1] = 42;
+    println!("two dimention : ");
+    for matrix_2d in state {
+        println!("{matrix_2d:?}");
+    }
+
+    // Vector를 활용해서 다양한 데이터를 유연하게 받기 위해 만듬
+    println!("\nvector style (two dimention) : ");    
+    let mut vector_state = vec![vec![0;4];4];
+    vector_state[1][0] = 99;
+    for matrix_2d in vector_state {
+        println!("{matrix_2d:?}");
+    }
+} </code></pre></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">
+two dimention : 
+[0, 42, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+
+vector style (two dimention) : 
+[0, 0, 0, 0]
+[99, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+</code></pre>
+<h1 id="3차원-매트릭스3d-matrix"><a class="header" href="#3차원-매트릭스3d-matrix">3차원 매트릭스(3d matrix)<a href="#link">|🔝|</a></a></h1>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut state = [[[0u8; 4]; 6];3];
+    state[0][1][1] = 42;
+    println!("3d dimention : ");
+    for matrix_3d in state {
+        for matrix_2d in matrix_3d {
+        println!("{matrix_2d:?}");    
+        }
+        println!("~~~dimention line~~~");    
+    }
+
+    println!("\n\n~~~\nvector style (3d dimention) : ");    
+    let mut vector_state = vec![vec![vec![0;4];6];3];
+    vector_state[1][0][0] = 99;
+    for matrix_3d in vector_state {
+        for matrix_2d in matrix_3d {
+        println!("{matrix_2d:?}");    
+        }
+        println!("~~~dimention line~~~");    
+    }
+}</code></pre></pre>
+<ul>
+<li>result</li>
+</ul>
+<pre><code class="language-bash">3d dimention : 
+[0, 0, 0, 0]
+[0, 42, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+~~~dimention line~~~
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+~~~dimention line~~~
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+~~~dimention line~~~
+
+
+~~~
+vector style (3d dimention) : 
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+~~~dimention line~~~
+[99, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+~~~dimention line~~~
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+[0, 0, 0, 0]
+~~~dimention line~~~
+
+</code></pre>
 
                     </main>
 
