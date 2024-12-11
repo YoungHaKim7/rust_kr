@@ -158,6 +158,83 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="control-flowif-else-if-loop-while등등"><a class="header" href="#control-flowif-else-if-loop-while등등">Control Flow(if, else if, loop, while등등)</a></h1>
+<h1 id="link"><a class="header" href="#link">link</a></h1>
+<ul>
+<li><a href="#if">if</a></li>
+<li><a href="#if--else">if &amp; else</a></li>
+<li><a href="#while">while</a></li>
+</ul>
+<hr />
+<h1 id="if"><a class="header" href="#if">if<a href="#link">|🔝|</a></a></h1>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    // default i32
+    let int_a = 10;
+    // true or false /   bool
+    if int_a &gt; 20 {
+        println!("20보다 같거나 작다.")
+    } else if int_a &gt; 10 {
+    } else {
+        println!("10보다 같거나 작다.")
+    }
+}</code></pre></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">10보다 같거나 작다.
+</code></pre>
+<hr />
+<h1 id="if--else"><a class="header" href="#if--else">if &amp; else<a href="#link">|🔝|</a></a></h1>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let n = 5;
+    let check_even_odd = if n % 2 == 0 {
+        "짝수even"
+    } else {
+        "홀수odd"
+    };
+
+    println!("홀수인지 짝수인지 확인해 봅시다. : {}", check_even_odd);
+}
+</code></pre></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">홀수인지 짝수인지 확인해 봅시다. : 홀수odd
+</code></pre>
+<hr />
+<h1 id="while"><a class="header" href="#while">while<a href="#link">|🔝|</a></a></h1>
+<pre><pre class="playground"><code class="language-rust">use std::{thread, time::Duration};
+
+fn main() {
+    println!("로켓트 카운드 타운 시작: ");
+
+    let mut while_x = 10;
+    while while_x != 1 {
+        // You can add your logic here
+        while_x -= 1; // Decrement the variable to exit the loop
+                      // let mut while_x = 10; // Initialize a variable to control the while loop
+                      // println!("Inside the while loop");
+        thread::sleep(Duration::from_secs(1));
+        println!("{} 초", while_x);
+    }
+    thread::sleep(Duration::from_secs(1));
+    println!("0 초 ~~~ 발사 ~~~~")
+}</code></pre></pre>
+<ul>
+<li>Result</li>
+</ul>
+<pre><code class="language-bash">로켓트 카운드 타운 시작:
+9 초
+8 초
+7 초
+6 초
+5 초
+4 초
+3 초
+2 초
+1 초
+0 초 ~~~ 발사 ~~~~
+</code></pre>
+<hr />
 
                     </main>
 
