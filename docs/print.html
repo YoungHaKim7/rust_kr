@@ -9077,7 +9077,9 @@ Visual comparison chart: http://i.imgur.com/k0t1e.png
 <h1 id="link-32"><a class="header" href="#link-32">link</a></h1>
 <hr />
 <h1 id="vector를-array로-변환-1"><a class="header" href="#vector를-array로-변환-1">Vector를 array로 변환</a></h1>
-<pre><pre class="playground"><code class="language-rust">fn iter_to_array&lt;Element, const N: usize&gt;(mut iter: impl Iterator&lt;Item = Element&gt;) -&gt; [Element; N] {
+<pre><pre class="playground"><code class="language-rust">// rust
+
+fn iter_to_array&lt;Element, const N: usize&gt;(mut iter: impl Iterator&lt;Item = Element&gt;) -&gt; [Element; N] {
     // Here I use `()` to make array zero-sized -&gt; no real use in runtime.
     // `map` creates new array, which we fill by values of iterator.
     let res: [_; N] = std::array::from_fn(|_| iter.next().unwrap());

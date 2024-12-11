@@ -9,6 +9,8 @@
 
 
 ```rust
+// rust
+
 fn iter_to_array<Element, const N: usize>(mut iter: impl Iterator<Item = Element>) -> [Element; N] {
     // Here I use `()` to make array zero-sized -> no real use in runtime.
     // `map` creates new array, which we fill by values of iterator.
