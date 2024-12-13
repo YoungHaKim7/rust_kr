@@ -2,6 +2,7 @@
 
 - [Rust와 LLVM의 관계(241206)2024 LLVM Developers' Meeting - Rust ❤️ LLVM](https://youtu.be/Kqz-umsAnk8?si=y92zruNzeSrhq8CN)
   - [2024 LLVM Developers' Meeting](https://llvm.org/devmtg/2024-10/)
+    - [강연자료pdf](https://llvm.org/devmtg/2024-10/slides/keynote/Popov-Rust_Heart_LLVM.pdf)
 
 # link
 
