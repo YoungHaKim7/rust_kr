@@ -9097,8 +9097,68 @@ Visual comparison chart: http://i.imgur.com/k0t1e.png
 <script src="https://utteranc.es/client.js" repo="YoungHaKim7/blog_comments_bot" issue-term="url"
     theme="github-light" crossorigin="anonymous" async>
 </script>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="rust-optimization"><a class="header" href="#rust-optimization">Rust Optimization</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rust-compiler이해llvm_컴파일과정"><a class="header" href="#rust-compiler이해llvm_컴파일과정">Rust Compiler이해LLVM_컴파일과정</a></h1>
+<ul>
+<li><a href="https://youtu.be/Kqz-umsAnk8?si=y92zruNzeSrhq8CN">Rust와 LLVM의 관계(241206)2024 LLVM Developers' Meeting - Rust ❤️ LLVM</a>
+<ul>
+<li><a href="https://llvm.org/devmtg/2024-10/">2024 LLVM Developers' Meeting</a></li>
+</ul>
+</li>
+</ul>
 <h1 id="link-32"><a class="header" href="#link-32">link</a></h1>
+<ul>
+<li><a href="Advanced/Optimization/">Rust컴파일 되는 과정</a></li>
+<li>[LLVM이 느려서 그 한계를 극복하기 위해 연구 중인 방안들 ]
+<ul>
+<li><a href="https://github.com/rust-lang/rustc_codegen_cranelift">Rust코드로 만든 러스트 컴파일러Cranelift based backend for rustc </a></li>
+<li><a href="https://news.hada.io/topic?id=17681&amp;utm_source=discord&amp;utm_medium=bot&amp;utm_campaign=1480">gccrs는 GCC 프로젝트의 일환으로 개발 중인 대체 Rust 컴파일러입니다</a>
+<ul>
+<li><a href="https://github.com/rust-gcc/gccrs">github  https://github.com/rust-gcc/gccrs</a>
+<ul>
+<li><a href="https://blog.rust-lang.org/2024/11/07/gccrs-an-alternative-compiler-for-rust.html">241107Rust Blog에 소개</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="rust컴파일-되는-과정"><a class="header" href="#rust컴파일-되는-과정">Rust컴파일 되는 과정<a href="Advanced/Optimization/Rust_LLVM_Compiler.html#link">|🔝|</a></a></h1>
+<p align="center">
+  <img src="https://github.com/YoungHaKim7/Cpp_Training/assets/67513038/e5308776-06b2-4687-99f2-0e5d6c3af8b2" />
+</p>
+<ul>
+<li>출처 : <a href="https://blog.rust-lang.org/2016/04/19/MIR.html">https://blog.rust-lang.org/2016/04/19/MIR.html</a></li>
+</ul>
+<hr />
+<p><img src="https://github.com/YoungHaKim7/Cpp_Training/assets/67513038/871b7ae5-106f-49cf-9c98-ea9e41da32c7" alt="Screenshot 2023-12-30 at 1 41 01 AM" />
+<img src="https://github.com/YoungHaKim7/Cpp_Training/assets/67513038/1c352795-bd1c-41b6-ab4e-aeb69973da7d" alt="Screenshot 2023-12-30 at 1 40 22 AM" /></p>
+<ul>
+<li><a href="https://youtu.be/MOzuShpnUm8?si=GArUM-7CqH6TVbeD">Rust 1.74.0: All 45 changes in 19 minutes! | Nathan Stocks(6min 36sec)</a></li>
+</ul>
+<br />
+<h1 id="llvm이-느려서-그-한계를-극복하기-위해-연구-중인-방안들"><a class="header" href="#llvm이-느려서-그-한계를-극복하기-위해-연구-중인-방안들">LLVM이 느려서 그 한계를 극복하기 위해 연구 중인 방안들<a href="Advanced/Optimization/Rust_LLVM_Compiler.html#link">|🔝|</a></a></h1>
+<ul>
+<li>
+<p><a href="https://github.com/rust-lang/rustc_codegen_cranelift">Rust코드로 만든 러스트 컴파일러Cranelift based backend for rustc </a></p>
+</li>
+<li>
+<p><strong><a href="https://news.hada.io/topic?id=17681&amp;utm_source=discord&amp;utm_medium=bot&amp;utm_campaign=1480">gccrs: Rust를 위한 대체 컴파일러</a></strong></p>
+<ul>
+<li><code>gccrs</code>는 GCC 프로젝트의 일환으로 개발 중인 대체 Rust 컴파일러입니다.</li>
+<li>이 프로젝트는 GNU 컴파일러 컬렉션 내에서 Rust를 지원하는 것을 목표로 하며, <code>rustc</code>와 동일한 동작을 목표로 합니다.</li>
+<li>주요 목표는 특히 LLVM이 지원하지 않는 플랫폼에서 Rust를 컴파일할 수 있는 대안을 제공하는 것입니다.<br />
+...</li>
+</ul>
+</li>
+</ul>
+<img src="https://github.com/user-attachments/assets/0776adbd-bbc2-455e-bd9e-18ff09be78f0" />
+<ul>
+<li><a href="https://youtu.be/Kqz-umsAnk8?si=y92zruNzeSrhq8CN">7분50초에 나옴(241206)2024 LLVM Developers' Meeting - Rust ❤️ LLVM</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rust-optimization"><a class="header" href="#rust-optimization">Rust Optimization</a></h1>
+<h1 id="link-33"><a class="header" href="#link-33">link</a></h1>
 <ul>
 <li><a href="Advanced/Optimization/rust_optimization.html#rust-benchmarking">Rust Benchmarking(criterion)</a></li>
 <li><a href="Advanced/Optimization/rust_optimization.html#rust-optimization-1">Rust Optimization</a></li>
@@ -9151,7 +9211,7 @@ Visual comparison chart: http://i.imgur.com/k0t1e.png
     theme="github-light" crossorigin="anonymous" async>
 </script>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="vector를-array로-변환"><a class="header" href="#vector를-array로-변환">Vector를 array로 변환</a></h1>
-<h1 id="link-33"><a class="header" href="#link-33">link</a></h1>
+<h1 id="link-34"><a class="header" href="#link-34">link</a></h1>
 <hr />
 <h1 id="vector를-array로-변환-1"><a class="header" href="#vector를-array로-변환-1">Vector를 array로 변환</a></h1>
 <pre><pre class="playground"><code class="language-rust">// rust
@@ -9492,7 +9552,7 @@ fn main() {
 Even Numbers Sum: 30
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="blackhatrust유료영어원서"><a class="header" href="#blackhatrust유료영어원서">BlackHatRust유료(영어원서)</a></h1>
-<h1 id="link-34"><a class="header" href="#link-34">link</a></h1>
+<h1 id="link-35"><a class="header" href="#link-35">link</a></h1>
 <ul>
 <li><a href="https://economiceco.tistory.com/19572">eBook) The book Black Hat Rust is out 🏴‍☠️🍾</a>
 <ul>
@@ -9503,7 +9563,7 @@ Even Numbers Sum: 30
 <hr />
 <h1 id="black-hat-rust로-공부하는-중-최고"><a class="header" href="#black-hat-rust로-공부하는-중-최고">Black Hat Rust로 공부하는 중 최고</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-os"><a class="header" href="#rust-os">Rust OS</a></h1>
-<h1 id="link-35"><a class="header" href="#link-35">link</a></h1>
+<h1 id="link-36"><a class="header" href="#link-36">link</a></h1>
 <ul>
 <li>OS들어가기 전에 컴파일 만들기 책 보고 들어가야 좀 편하다.유명한 컴파일러 만들기 책
 <ul>
@@ -9533,7 +9593,7 @@ Even Numbers Sum: 30
 </ul>
 <hr />
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-embedded"><a class="header" href="#rust-embedded">Rust Embedded</a></h1>
-<h1 id="link-36"><a class="header" href="#link-36">link</a></h1>
+<h1 id="link-37"><a class="header" href="#link-37">link</a></h1>
 <ul>
 <li>Rust Embedded는 2개가 거의 유일하다.
 <ul>

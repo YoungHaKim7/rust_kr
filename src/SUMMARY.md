@@ -123,6 +123,7 @@
 # Optimization최적화
 - [Rust Optimization최적화](./Advanced/Optimization/optimization.md)
   - [모든 언어별 공통적인 최적화 개념](./Advanced/Optimization/common.md)
+  - [Rust Compiler이해LLVM_컴파일과정](./Advanced/Optimization/Rust_LLVM_Compiler.md)
   - [Rust Optimization](./Advanced/Optimization/rust_optimization.md)
     - [Vector를 array로 변환](./Advanced/Optimization/vector_array_convert.md)
 
