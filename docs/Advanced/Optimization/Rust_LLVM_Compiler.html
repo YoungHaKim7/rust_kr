@@ -171,8 +171,11 @@
 </ul>
 <h1 id="link"><a class="header" href="#link">link</a></h1>
 <ul>
-<li><a href="">Rust컴파일 되는 과정</a></li>
-<li>[LLVM이 느려서 그 한계를 극복하기 위해 연구 중인 방안들 ]
+<li>
+<p><a href="#rust%EC%BB%B4%ED%8C%8C%EC%9D%BC-%EB%90%98%EB%8A%94-%EA%B3%BC%EC%A0%95">Rust컴파일 되는 과정</a></p>
+</li>
+<li>
+<p><a href="#llvm%EC%9D%B4-%EB%8A%90%EB%A0%A4%EC%84%9C-%EA%B7%B8-%ED%95%9C%EA%B3%84%EB%A5%BC-%EA%B7%B9%EB%B3%B5%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%B4-%EC%97%B0%EA%B5%AC-%EC%A4%91%EC%9D%B8-%EB%B0%A9%EC%95%88%EB%93%A4">LLVM이 느려서 그 한계를 극복하기 위해 연구 중인 방안들_(그림으로 이해)</a></p>
 <ul>
 <li><a href="https://github.com/rust-lang/rustc_codegen_cranelift">Rust코드로 만든 러스트 컴파일러Cranelift based backend for rustc </a></li>
 <li><a href="https://news.hada.io/topic?id=17681&amp;utm_source=discord&amp;utm_medium=bot&amp;utm_campaign=1480">gccrs는 GCC 프로젝트의 일환으로 개발 중인 대체 Rust 컴파일러입니다</a>
@@ -185,6 +188,17 @@
 </ul>
 </li>
 </ul>
+</li>
+<li>
+<p><a href="#llvm-ir-and-rustrust%EC%99%80-llvm%EC%9D%98-%EA%B4%80%EA%B3%84">LLVM IR and Rust(Rust와 LLVM의 관계)</a></p>
+<ul>
+<li><a href="#rust%EC%BD%94%EB%93%9C%EB%A5%BC-llvm%ED%8C%8C%EC%9D%BC%EB%A1%9C-%EB%B0%94%EA%BF%94%EC%84%9C-llvm%EC%9D%84-%EC%A7%81%EC%A0%91-%ED%99%95%EC%9D%B8%ED%95%B4-%EB%B3%B4%EC%9E%90">rust코드를 llvm파일로 바꿔서 llvm을 직접 확인해 보자</a></li>
+<li><a href="#rust%EC%BD%94%EB%93%9C%EB%A5%BC-hir%ED%8C%8C%EC%9D%BC%EB%A1%9C-%EB%B0%94%EA%BF%94%EC%84%9C-hir%EB%A5%BC-%EC%A7%81%EC%A0%91-%ED%99%95%EC%9D%B8%ED%95%B4-%EB%B3%B4%EC%9E%90">rust코드를 hir파일로 바꿔서 hir를 직접 확인해 보자</a></li>
+<li><a href="#rust%EC%BD%94%EB%93%9C%EB%A5%BC-mir%ED%8C%8C%EC%9D%BC%EB%A1%9C-%EB%B0%94%EA%BF%94%EC%84%9C-mir%EB%A5%BC-%EC%A7%81%EC%A0%91-%ED%99%95%EC%9D%B8%ED%95%B4-%EB%B3%B4%EC%9E%90">rust코드를 mir파일로 바꿔서 mir를 직접 확인해 보자</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%EB%AA%85%EB%A0%B9%EC%96%B4-%EB%AA%A8%EC%95%84%EB%B3%B4%EA%B8%B0hir-mir-miri%ED%8C%8C%EC%9D%BC-%EB%B3%80%ED%99%98">명령어 모아보기(hir, mir, miri파일 변환)</a></p>
 </li>
 </ul>
 <hr />
@@ -228,6 +242,422 @@
 <ul>
 <li><a href="https://youtu.be/Kqz-umsAnk8?si=y92zruNzeSrhq8CN">7분50초에 나옴(241206)2024 LLVM Developers' Meeting - Rust ❤️ LLVM</a></li>
 </ul>
+<h1 id="llvm-ir-and-rustrust와-llvm의-관계"><a class="header" href="#llvm-ir-and-rustrust와-llvm의-관계">LLVM IR and Rust(Rust와 LLVM의 관계)<a href="#link">|🔝|</a></a></h1>
+<pre><code>llvm -&gt; clang C언어 C++
+g++
+clangd -&gt; C언어의 LSP 지원 -&gt; 타입이 나온다.type
+
+c / c++ / zig  / rust 
+
+</code></pre>
+<li><strong><em>Front-end:</em></strong> compiles source language to IR.</li>
+<li><strong><em>Middle-end:</em></strong> optimizes IR.
+<li><strong><em>Back-end:</em></strong> compiles IR to machine code.
+<p><img src="https://user-images.githubusercontent.com/67513038/232618404-240ff4b0-a6af-473f-b968-19d7050939b7.png" alt="Screenshot 2023-04-18 at 6 48 33 AM" /></p>
+<hr />
+<ul>
+<li>src/main.rs</li>
+</ul>
+<pre><code class="language-rs">use ndarray::{Array, Array1, ShapeBuilder};
+
+fn main() {
+    let a = Array::from_shape_vec((3, 3), Array1::range(0., 9., 1.).to_vec());
+    let b = Array::from_shape_vec((2, 2).strides((1, 2)), vec![1., 2., 3., 4.]).unwrap();
+    println!("create array 01 bool : {:?}", a.is_ok());
+    println!("create array : {:?}", b);
+}
+
+</code></pre>
+<h1 id="rust코드를-hir파일로-바꿔서-hir를-직접-확인해-보자"><a class="header" href="#rust코드를-hir파일로-바꿔서-hir를-직접-확인해-보자">rust코드를 hir파일로 바꿔서 hir를 직접 확인해 보자<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li>cargo rustc -- -Zunpretty=hir</li>
+</ul>
+<pre><code class="language-bash">cargo rustc -- -Zunpretty=hir
+
+info: syncing channel updates for 'nightly-x86_64-pc-windows-msvc'
+info: latest update on 2024-01-09, rust version 1.77.0-nightly (ca663b06c 2024-01-08)
+info: installing component 'rustfmt'
+   Compiling autocfg v1.1.0
+   Compiling rawpointer v0.2.1
+   Compiling num-traits v0.2.17
+   Compiling num-integer v0.1.45
+   Compiling matrixmultiply v0.3.8
+   Compiling num-complex v0.4.4
+   Compiling ndarray v0.15.6
+   Compiling testrust01 v0.1.0 (D:\young_linux\11111\testrust01)
+#[prelude_import]
+use std::prelude::rust_2021::*;
+#[macro_use]
+extern crate std;
+use ndarray::{};
+use ndarray::Array;
+use ndarray::Array1;
+use ndarray::ShapeBuilder;
+
+fn main() {
+        let a =
+            Array::from_shape_vec((3, 3), Array1::range(0., 9., 1.).to_vec());
+        let b =
+            Array::from_shape_vec((2, 2).strides((1, 2)),
+                    &lt;[_]&gt;::into_vec(
+                        #[rustc_box]
+                        ::alloc::boxed::Box::new([1., 2., 3., 4.]))).unwrap();
+        {
+                ::std::io::_print(format_arguments::new_v1(&amp;["create array 01 bool : ",
+                                    "\n"], &amp;[format_argument::new_debug(&amp;a.is_ok())]));
+            };
+        {
+                ::std::io::_print(format_arguments::new_v1(&amp;["create array : ",
+                                    "\n"], &amp;[format_argument::new_debug(&amp;b)]));
+            };
+    }
+    Finished dev [unopt
+</code></pre>
+<h1 id="rust코드를-mir파일로-바꿔서-mir를-직접-확인해-보자"><a class="header" href="#rust코드를-mir파일로-바꿔서-mir를-직접-확인해-보자">rust코드를 mir파일로 바꿔서 mir를 직접 확인해 보자<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li>
+<p>cargo asm</p>
+<ul>
+<li>https://github.com/gnzlbg/cargo-asm</li>
+</ul>
+</li>
+<li>
+<p><code>cargo rustc -- -Zunpretty=mir</code></p>
+</li>
+</ul>
+<pre><code class="language-bash">cargo rustc -- -Zunpretty=mir
+   Compiling testrust01 v0.1.0 (D:\young_linux\11111\testrust01)
+// WARNING: This output format is intended for human consumers only
+// and is subject to change without notice. Knock yourself out.
+fn main() -&gt; () {
+    let mut _0: ();
+    let _1: std::result::Result&lt;ndarray::ArrayBase&lt;ndarray::OwnedRepr&lt;f64&gt;, ndarray::Di
+m&lt;[usize; 2]&gt;&gt;, ndarray::ShapeError&gt;;
+    let mut _2: (usize, usize);
+    let mut _3: std::vec::Vec&lt;f64&gt;;
+    let mut _4: &amp;ndarray::ArrayBase&lt;ndarray::OwnedRepr&lt;f64&gt;, ndarray::Dim&lt;[usize; 1]&gt;&gt;;
+    let _5: ndarray::ArrayBase&lt;ndarray::OwnedRepr&lt;f64&gt;, ndarray::Dim&lt;[usize; 1]&gt;&gt;;
+    let mut _7: std::result::Result&lt;ndarray::ArrayBase&lt;ndarray::OwnedRepr&lt;f64&gt;, ndarray
+::Dim&lt;[usize; 2]&gt;&gt;, ndarray::ShapeError&gt;;
+    let mut _8: ndarray::StrideShape&lt;ndarray::Dim&lt;[usize; 2]&gt;&gt;;
+    let mut _9: (usize, usize);
+    let mut _10: (usize, usize);
+    let mut _11: std::vec::Vec&lt;f64&gt;;
+    let mut _12: std::boxed::Box&lt;[f64]&gt;;
+    let mut _13: usize;
+    let mut _14: usize;
+    let mut _15: *mut u8;
+    let mut _16: std::boxed::Box&lt;[f64; 4]&gt;;
+    let _17: ();
+    let mut _18: std::fmt::Arguments&lt;'_&gt;;
+    let mut _19: &amp;[&amp;str];
+    let mut _20: &amp;[core::fmt::rt::Argument&lt;'_&gt;];
+    let _21: &amp;[core::fmt::rt::Argument&lt;'_&gt;; 1];
+    let _22: [core::fmt::rt::Argument&lt;'_&gt;; 1];
+    let mut _23: core::fmt::rt::Argument&lt;'_&gt;;
+    let _24: &amp;bool;
+    let _25: bool;
+    let mut _26: &amp;std::result::Result&lt;ndarray::ArrayBase&lt;ndarray::OwnedRepr&lt;f64&gt;, ndarr
+ay::Dim&lt;[usize; 2]&gt;&gt;, ndarray::ShapeError&gt;;
+    let _27: ();
+    let mut _28: std::fmt::Arguments&lt;'_&gt;;
+    let mut _29: &amp;[&amp;str];
+    let mut _30: &amp;[core::fmt::rt::Argument&lt;'_&gt;];
+    let _31: &amp;[core::fmt::rt::Argument&lt;'_&gt;; 1];
+    let _32: [core::fmt::rt::Argument&lt;'_&gt;; 1];
+    let mut _33: core::fmt::rt::Argument&lt;'_&gt;;
+    let _34: &amp;ndarray::ArrayBase&lt;ndarray::OwnedRepr&lt;f64&gt;, ndarray::Dim&lt;[usize; 2]&gt;&gt;;
+    let mut _37: *const [f64; 4];
+    scope 1 {
+        debug a =&gt; _1;
+        let _6: ndarray::ArrayBase&lt;ndarray::OwnedRepr&lt;f64&gt;, ndarray::Dim&lt;[usize; 2]&gt;&gt;;
+        let mut _38: *const ();
+        let mut _39: usize;
+        let mut _40: usize;
+        let mut _41: usize;
+        let mut _42: usize;
+        let mut _43: bool;
+        scope 2 {
+            debug b =&gt; _6;
+            let mut _35: &amp;[&amp;str; 2];
+            let mut _36: &amp;[&amp;str; 2];
+        }
+        scope 3 {
+        }
+    }
+
+    bb0: {
+        _2 = (const 3_usize, const 3_usize);
+        _5 = ndarray::impl_constructors::&lt;impl ArrayBase&lt;OwnedRepr&lt;f64&gt;, Dim&lt;[usize; 1]
+&gt;&gt;&gt;::range(const 0f64, const 9f64, const 1f64) -&gt; [return: bb1, unwind continue];
+    }
+
+    bb1: {
+        _4 = &amp;_5;
+        _3 = ndarray::impl_1d::&lt;impl ArrayBase&lt;OwnedRepr&lt;f64&gt;, Dim&lt;[usize; 1]&gt;&gt;&gt;::to_ve
+c(move _4) -&gt; [return: bb2, unwind: bb21];
+    }
+
+    bb2: {
+        _1 = ndarray::impl_constructors::&lt;impl ArrayBase&lt;OwnedRepr&lt;f64&gt;, Dim&lt;[usize; 2]
+&gt;&gt;&gt;::from_shape_vec::&lt;(usize, usize)&gt;(move _2, move _3) -&gt; [return: bb3, unwind: bb21];
+    }
+
+    bb3: {
+        drop(_5) -&gt; [return: bb4, unwind: bb20];
+    }
+
+    bb4: {
+        _9 = (const 2_usize, const 2_usize);
+        _10 = (const 1_usize, const 2_usize);
+        _8 = &lt;(usize, usize) as ShapeBuilder&gt;::strides(move _9, move _10) -&gt; [return: b
+b5, unwind: bb20];
+    }
+
+    bb5: {
+        _13 = SizeOf([f64; 4]);
+        _14 = AlignOf([f64; 4]);
+        _15 = alloc::alloc::exchange_malloc(move _13, move _14) -&gt; [return: bb6, unwind
+: bb20];
+    }
+
+    bb6: {
+        _16 = ShallowInitBox(move _15, [f64; 4]);
+        _37 = (((_16.0: std::ptr::Unique&lt;[f64; 4]&gt;).0: std::ptr::NonNull&lt;[f64; 4]&gt;).0:
+*const [f64; 4]);
+        _38 = _37 as *const () (PtrToPtr);
+        _39 = _38 as usize (Transmute);
+        _40 = AlignOf([f64; 4]);
+        _41 = Sub(_40, const 1_usize);
+        _42 = BitAnd(_39, _41);
+        _43 = Eq(_42, const 0_usize);
+        assert(_43, "misaligned pointer dereference: address must be a multiple of {} b
+ut is {}", _40, _39) -&gt; [success: bb23, unwind unreachable];
+    }
+
+    bb7: {
+        _7 = ndarray::impl_constructors::&lt;impl ArrayBase&lt;OwnedRepr&lt;f64&gt;, Dim&lt;[usize; 2]
+&gt;&gt;&gt;::from_shape_vec::&lt;StrideShape&lt;Dim&lt;[usize; 2]&gt;&gt;&gt;(move _8, move _11) -&gt; [return: bb8,
+ unwind: bb20];
+    }
+
+    bb8: {
+        _6 = Result::&lt;ArrayBase&lt;OwnedRepr&lt;f64&gt;, Dim&lt;[usize; 2]&gt;&gt;, ShapeError&gt;::unwrap(m
+ove _7) -&gt; [return: bb9, unwind: bb20];
+    }
+
+    bb9: {
+        _36 = const _;
+        _19 = _36 as &amp;[&amp;str] (PointerCoercion(Unsize));
+        _26 = &amp;_1;
+        _25 = Result::&lt;ArrayBase&lt;OwnedRepr&lt;f64&gt;, Dim&lt;[usize; 2]&gt;&gt;, ShapeError&gt;::is_ok(m
+ove _26) -&gt; [return: bb10, unwind: bb19];
+    }
+
+    bb10: {
+        _24 = &amp;_25;
+        _23 = core::fmt::rt::Argument::&lt;'_&gt;::new_debug::&lt;bool&gt;(_24) -&gt; [return: bb11, u
+nwind: bb19];
+    }
+
+    bb11: {
+        _22 = [move _23];
+        _21 = &amp;_22;
+        _20 = _21 as &amp;[core::fmt::rt::Argument&lt;'_&gt;] (PointerCoercion(Unsize));
+        _18 = Arguments::&lt;'_&gt;::new_v1(move _19, move _20) -&gt; [return: bb12, unwind: bb1
+9];
+    }
+
+    bb12: {
+        _17 = _print(move _18) -&gt; [return: bb13, unwind: bb19];
+    }
+
+    bb13: {
+        _35 = const _;
+        _29 = _35 as &amp;[&amp;str] (PointerCoercion(Unsize));
+        _34 = &amp;_6;
+        _33 = core::fmt::rt::Argument::&lt;'_&gt;::new_debug::&lt;ArrayBase&lt;OwnedRepr&lt;f64&gt;, Dim&lt;
+[usize; 2]&gt;&gt;&gt;(_34) -&gt; [return: bb14, unwind: bb19];
+    }
+
+    bb14: {
+        _32 = [move _33];
+        _31 = &amp;_32;
+        _30 = _31 as &amp;[core::fmt::rt::Argument&lt;'_&gt;] (PointerCoercion(Unsize));
+        _28 = Arguments::&lt;'_&gt;::new_v1(move _29, move _30) -&gt; [return: bb15, unwind: bb1
+9];
+    }
+
+    bb15: {
+        _27 = _print(move _28) -&gt; [return: bb16, unwind: bb19];
+    }
+
+    bb16: {
+        drop(_6) -&gt; [return: bb17, unwind: bb20];
+    }
+
+    bb17: {
+        drop(_1) -&gt; [return: bb18, unwind continue];
+    }
+
+    bb18: {
+        return;
+    }
+
+    bb19 (cleanup): {
+        drop(_6) -&gt; [return: bb20, unwind terminate(cleanup)];
+    }
+
+    bb20 (cleanup): {
+        drop(_1) -&gt; [return: bb22, unwind terminate(cleanup)];
+    }
+
+    bb21 (cleanup): {
+        drop(_5) -&gt; [return: bb22, unwind terminate(cleanup)];
+    }
+
+    bb22 (cleanup): {
+        resume;
+    }
+
+    bb23: {
+        (*_37) = [const 1f64, const 2f64, const 3f64, const 4f64];
+        _12 = move _16 as std::boxed::Box&lt;[f64]&gt; (PointerCoercion(Unsize));
+        _11 = slice::&lt;impl [f64]&gt;::into_vec::&lt;std::alloc::Global&gt;(move _12) -&gt; [return:
+ bb7, unwind: bb20];
+    }
+}
+
+promoted[0] in main: &amp;[&amp;str; 2] = {
+    let mut _0: &amp;[&amp;str; 2];
+    let mut _1: [&amp;str; 2];
+
+    bb0: {
+        _1 = [const "create array : ", const "\n"];
+        _0 = &amp;_1;
+        return;
+    }
+}
+
+promoted[1] in main: &amp;[&amp;str; 2] = {
+    let mut _0: &amp;[&amp;str; 2];
+    let mut _1: [&amp;str; 2];
+
+    bb0: {
+        _1 = [const "create array 01 bool : ", const "\n"];
+        _0 = &amp;_1;
+        return;
+    }
+}
+    Finished dev [unoptimized + debuginfo] target(s) in 0.67s
+</code></pre>
+<h1 id="rust코드를-llvm파일로-바꿔서-llvm을-직접-확인해-보자"><a class="header" href="#rust코드를-llvm파일로-바꿔서-llvm을-직접-확인해-보자">rust코드를 llvm파일로 바꿔서 llvm을 직접 확인해 보자<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li><code>cargo rustc -- --emit llvm-ir &amp;&amp; cat .\target\debug\deps\testrust01.ll</code></li>
+</ul>
+<pre><code class="language-bash">
+$ cargo rustc -- --emit llvm-ir &amp;&amp; cat .\target\debug\deps\testrust01.ll
+
+
+...
+...
+...
+
+코드가 겁나게 많다. 
+
+...
+!12775 = distinct !DISubprogram(name: "new&lt;ndarray::ArrayBase&lt;ndar
+ray::data_repr::OwnedRepr&lt;f64&gt;,ndarray::dimension::dim::Dim&lt;array$
+&lt;usize,2&gt; &gt; &gt; &gt;", linkageName: "_ZN4core3fmt2rt8Argument3new17h0fb
+bb2618fd00175E", scope: !3030, file: !3029, line: 83, type: !12776
+, scopeLine: 83, flags: DIFlagPrototyped, spFlags: DISPFlagLocalTo
+Unit | DISPFlagDefinition, unit: !330, templateParams: !3989, decl
+aration: !12779, retainedNodes: !12780)
+!12776 = !DISubroutineType(types: !12777)
+!12777 = !{!3030, !8337, !12778}
+!12778 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "enum2$&lt;co
+re::result::Result&lt;tuple$&lt;&gt;,core::fmt::Error&gt; &gt; (*)(ref$&lt;ndarray::
+ArrayBase&lt;ndarray::data_repr::OwnedRepr&lt;f64&gt;,ndarray::dimension::d
+im::Dim&lt;array$&lt;usize,2&gt; &gt; &gt; &gt;,ref_mut$&lt;core::fmt::Formatter&gt;)", ba
+seType: !8553, size: 64, align: 64, dwarfAddressSpace: 0)
+!12779 = !DISubprogram(name: "new&lt;ndarray::ArrayBase&lt;ndarray::data
+_repr::OwnedRepr&lt;f64&gt;,ndarray::dimension::dim::Dim&lt;array$&lt;usize,2&gt;
+ &gt; &gt; &gt;", linkageName: "_ZN4core3fmt2rt8Argument3new17h0fbbb2618fd0
+0175E", scope: !3030, file: !3029, line: 83, type: !12776, scopeLi
+ne: 83, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit, tem
+plateParams: !3989)
+!12780 = !{!12773, !12781}
+!12781 = !DILocalVariable(name: "f", arg: 2, scope: !12774, file:
+!3029, line: 83, type: !12778)
+!12782 = !DILocation(line: 83, scope: !12774, inlinedAt: !12783)
+!12783 = distinct !DILocation(line: 101, scope: !12766, inlinedAt:
+ !12772)
+!12784 = !DILocation(line: 101, scope: !12766, inlinedAt: !12772)
+!12785 = !DILocation(line: 92, scope: !12774, inlinedAt: !12783)
+!12786 = !DILocation(line: 102, scope: !12766, inlinedAt: !12772)
+!12787 = !DILocation(line: 7, scope: !12733)
+!12788 = !DILocation(line: 3, scope: !12727)
+
+</code></pre>
+<h1 id="명령어-모아보기hir-mir-miri파일-변환"><a class="header" href="#명령어-모아보기hir-mir-miri파일-변환">명령어 모아보기(hir, mir, miri파일 변환)<a href="#link">|🔝|</a></a></h1>
+<ul>
+<li>cargo hir
+<ul>
+<li>https://gist.github.com/niklasad1/b838695ef436a0a16d5cd80cf462905f</li>
+</ul>
+</li>
+</ul>
+<h1 id="expand-macros"><a class="header" href="#expand-macros">Expand macros</a></h1>
+<p><code>$ cargo rustc --profile=check -- -Zunpretty=expanded</code></p>
+<p><br><code>$ cargo expand</code></p>
+<ul>
+<li>https://github.com/dtolnay/cargo-expand</li>
+</ul>
+<h1 id="emit-asm"><a class="header" href="#emit-asm">Emit asm</a></h1>
+<p><code>$ cargo rustc -- --emit asm &amp;&amp; cat target/debug/deps/project_name-hash.s</code></p>
+<p><br><code>$ cargo rustc -- --emit asm=asssembly.s</code></p>
+<h1 id="emit-llvm-ir"><a class="header" href="#emit-llvm-ir">Emit llvm-ir</a></h1>
+<p><code>$ cargo rustc -- --emit llvm-ir &amp;&amp; cat target/debug/deps/project_name-hash.ll</code></p>
+<p><br><code>$ cargo rustc -- --emit llvm-ir=testrust.ll</code></p>
+<h1 id="emit-hir"><a class="header" href="#emit-hir">Emit HIR</a></h1>
+<p><code>$ cargo rustc -- -Zunpretty=hir</code></p>
+<h1 id="emit-mir"><a class="header" href="#emit-mir">Emit MIR</a></h1>
+<p><code>$ cargo rustc -- -Zunpretty=mir</code></p>
+<p><br><code>$ cargo rustc -- --emit mir=testrust.mir</code></p>
+<h1 id="cargo-rustc------emit-dep-infotestrustdepinfo"><a class="header" href="#cargo-rustc------emit-dep-infotestrustdepinfo">cargo rustc -- --emit dep-info=testrust.depinfo</a></h1>
+<pre><code>cargo rustc -- --emit dep-info=testrust.depinfo
+</code></pre>
+<h1 id="cargo-rustc------emit-help"><a class="header" href="#cargo-rustc------emit-help">cargo rustc -- --emit help</a></h1>
+<pre><code>cargo rustc -- --emit help
+   Compiling testrust01 v0.1.0 (D:\young_linux\11111\testrust01)
+error: unknown emission type: `help` - expected one of:
+
+`llvm-bc`,
+`asm`,
+`llvm-ir`,
+ `mir`,
+`obj`,
+`metadata`,
+`link`,
+`dep-info`
+</code></pre>
+<h1 id="pdb"><a class="header" href="#pdb">.pdb</a></h1>
+<ul>
+<li>Microsoft released the source code of their PDB formats, so other compiler developers like the LLVM team can implement the PDB format easier.
+<ul>
+<li>https://github.com/Microsoft/microsoft-pdb/
+<ul>
+<li>To actually dump the output of a file, just use this:
+<ul>
+<li>https://github.com/Microsoft/microsoft-pdb/blob/master/cvdump/cvdump.exe</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
 
                     </main>
 

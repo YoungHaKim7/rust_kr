@@ -14,6 +14,7 @@
     - [zig언어](./Chapter001/lang/zig.md)
     - [C++언어](./Chapter001/lang/cpp.md)
     - [C언어](./Chapter001/lang/c.md)
+      - [C언어 공식문서](./Chapter001/lang/C_Lang/c_details.md)
     - [Kotlin언어](./Chapter001/lang/kotlin.md)
     - [Swift언어](./Chapter001/lang/swift.md)
     - [C#언어](./Chapter001/lang/c_sharp.md)
