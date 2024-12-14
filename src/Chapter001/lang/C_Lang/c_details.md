@@ -1,6 +1,6 @@
 # C언어 공식문서
 
-- [https://www.iso-9899.info/wiki/The_Standard](https://www.iso-9899.info/wiki/The_Standard)
+- [https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf)
 
 # link
 
@@ -24,4 +24,5 @@ C89 ISO/IEC 9899:1990 Not available
 
 # ISO/IEC 9899:TC3(C89 & C99)고대 언어 느낌이네 ㅋㅋ
 
-- [https://www.iso-9899.info/wiki/The_Standard](https://www.iso-9899.info/wiki/The_Standard)
+- [https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf)
+
