@@ -15,9 +15,12 @@
 |Database systems| 11, 14, 15|
 |Networking| 4, 13, 14|
 |Operating systems| 11, 13, 14|
-|Parallel and distributed systems| 11, 13, 14, 15”|
+|Parallel and distributed systems| 11, 13, 14, 15|
 |-|-|
 |C Programming and<br>debugging references|2 , 3|
 
 - Dive into Systems: A Gentle Introduction to Computer Systems
 Suzanne J. Matthews
+
+# Learing the Shell
+- https://linuxcommand.org/lc3_learning_the_shell.php
