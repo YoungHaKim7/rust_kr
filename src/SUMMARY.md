@@ -61,6 +61,7 @@
     - [C언어_Rust_FFI](./Advanced/FFI/C_FFI.md)
   - [Rust(ComputerSystem,CS)](./Advanced/CS_ComputerSystem/CS_index.md)
     - [Dive into Systems Print Version, August 2022](./Advanced/CS_ComputerSystem/Dive_into_Systems_CS_index.md)
+      - [By the C, by the C, by the Beatutiful C](./Advanced/CS_ComputerSystem/by_the_C/By_the_C.md)
     - [IntegerDisplay정수표시(CS)](./Advanced/CS_ComputerSystem/Integer_Display/CS_integer.md)
   - [rust_release](./Advanced/rust_release/rust_release.md)
     - [rust_1_85_Rust Edition 2024](./Advanced/rust_release/rust_1_85.md)

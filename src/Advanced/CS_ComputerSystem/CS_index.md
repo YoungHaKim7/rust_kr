@@ -23,4 +23,4 @@
 Suzanne J. Matthews
 
 # Learing the Shell
-- https://linuxcommand.org/lc3_learning_the_shell.php
+- [https://linuxcommand.org/lc3_learning_the_shell.php](https://linuxcommand.org/lc3_learning_the_shell.php)
