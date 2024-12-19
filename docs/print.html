@@ -5321,6 +5321,7 @@ sqrt(4) is 2.000000
 <ul>
 <li><a href="Advanced/rust_release/rust_1_85.html#asynchrony--iteration--fallibilityasyncawait--genfor--trymatch">Asynchrony &amp; Iteration &amp; Fallibility(async(await) &amp; gen(for) &amp; try(match))</a></li>
 <li><a href="Advanced/rust_release/rust_1_85.html#rust-2024-%EC%A3%BC%EC%9A%94-3%EA%B0%80%EC%A7%80-%EB%AA%A9%ED%91%9C%EC%A4%91%EC%9A%94%ED%95%9C-3%EA%B0%80%EC%A7%80">Rust 2024 주요 3가지 목표(중요한 3가지) &amp; Rust 2024 목표(그외에 23가지 목표)</a></li>
+<li><a href="Advanced/rust_release/rust_1_85.html#async-rust-roadmap">Async Rust roadmap</a></li>
 </ul>
 <hr />
 <h1 id="241130기준현재는-nightly로-사용가능한듯-찾아보자"><a class="header" href="#241130기준현재는-nightly로-사용가능한듯-찾아보자">(241130기준)현재는 nightly로 사용가능한듯 찾아보자</a></h1>
@@ -5442,7 +5443,74 @@ sqrt(4) is 2.000000
 <tr><td>FORWARD</td><td>.await</td><td>yield from</td><td>?</td></tr>
 <tr><td>COMPLETE</td><td>spawn/block_on</td><td>for</td><td>match</td></tr>
 </tbody></table>
-</div><div style="break-before: page; page-break-before: always;"></div><h1 id="language-9"><a class="header" href="#language-9">Language</a></h1>
+</div>
+<h1 id="async-rust-roadmap"><a class="header" href="#async-rust-roadmap">Async Rust roadmap<a href="Advanced/rust_release/rust_1_85.html#link">|🔝|</a></a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Year</th><th>Language</th></tr></thead><tbody>
+<tr><td>2019</td><td>Async fns</td></tr>
+<tr><td>2019-2022</td><td>Ecosystem development</td></tr>
+<tr><td>2023</td><td>Async fn in traits</td></tr>
+<tr><td>2024</td><td>Async closures, generators....</td></tr>
+</tbody></table>
+</div>
+<ul>
+<li>
+<p>Standard way to write async Rust that...비동기 Rust를 작성하는 표준 방법은...</p>
+<ul>
+<li>lets you gracefully handle cancellation and streams
+<ul>
+<li>취소 및 스트림을 우아하게 처리할 수 있습니다</li>
+</ul>
+</li>
+<li>supports a rich, interopable ecosystem of middleware, logging,etc
+<ul>
+<li>미들웨어, 로깅 등의 풍부하고 상호 운용 가능한 에코시스템을 지원합니다</li>
+</ul>
+</li>
+<li>works everywhere, from embedded to servers
+<ul>
+<li>내장된 서버에서 서버까지 모든 곳에서 작동합니다</li>
+</ul>
+</li>
+<li>is easy to learn, well documented, and free of footguns
+<ul>
+<li>배우기 쉽고, 잘 문서화되어 있으며, 발총이 없습니다
+<ul>
+<li>C++은 코드를 잘못 만들면 내 발에 총을 쏜다는걸 이야기하는듯 그래서 코드가 터져버리는 ㅋㅋㅋ</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Stabilizing async fn in traits in 2023(async fn 안정화했다는 러스트 블로그 글)</p>
+<ul>
+<li>May 3, 2023 · Niko Matsakis and Tyler Mandry on behalf of The Rust Async Working Group</li>
+<li><a href="https://blog.rust-lang.org/inside-rust/2023/05/03/stabilizing-async-fn-in-trait.html">https://blog.rust-lang.org/inside-rust/2023/05/03/stabilizing-async-fn-in-trait.html</a></li>
+<li>관련 Reddit글
+<ul>
+<li><a href="https://www.reddit.com/r/rust/comments/136o73k/stabilizing_async_fn_in_traits_in_2023_inside/">https://www.reddit.com/r/rust/comments/136o73k/stabilizing_async_fn_in_traits_in_2023_inside/</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Rust Async GAT관련</p>
+<ul>
+<li>https://rust-lang.github.io/rfcs/3185-static-async-fn-in-trait.html
+<ul>
+<li>Try using GAT to improve Future's failed: How to declare the life cycle?
+<ul>
+<li><a href="https://stackoverflow.com/questions/74441311/try-using-gat-to-improve-futures-failed-how-to-declare-the-life-cycle">https://stackoverflow.com/questions/74441311/try-using-gat-to-improve-futures-failed-how-to-declare-the-life-cycle</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<div style="break-before: page; page-break-before: always;"></div><h1 id="language-9"><a class="header" href="#language-9">Language</a></h1>
 <p>The following chapters detail changes to the language in the 2024 Edition.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rpit-lifetime-capture-rules"><a class="header" href="#rpit-lifetime-capture-rules">RPIT lifetime capture rules</a></h1>
 <p>This chapter describes changes related to the <strong>Lifetime Capture Rules 2024</strong> introduced in <a href="https://github.com/rust-lang/rfcs/pull/3498">RFC 3498</a>, including how to use opaque type <em>precise capturing</em> (introduced in <a href="https://github.com/rust-lang/rfcs/pull/3617">RFC 3617</a>) to migrate your code.</p>

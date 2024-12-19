@@ -13,6 +13,7 @@
 
 - [Asynchrony & Iteration & Fallibility(async(await) & gen(for) & try(match))](#asynchrony--iteration--fallibilityasyncawait--genfor--trymatch)
 - [Rust 2024 주요 3가지 목표(중요한 3가지) & Rust 2024 목표(그외에 23가지 목표)](#rust-2024-주요-3가지-목표중요한-3가지)
+- [Async Rust roadmap](#async-rust-roadmap)
 
 <hr />
 
@@ -96,3 +97,37 @@
 |EFFECT ||yield  | throw|
 |FORWARD|.await  |yield from|?|
 |COMPLETE|spawn/block_on |for  | match|
+
+# Async Rust roadmap[|🔝|](#link)
+
+|Year|Language|
+|-|-|
+|2019| Async fns|
+|2019-2022| Ecosystem development|
+|2023| Async fn in traits|
+|2024| Async closures, generators....|
+
+
+- Standard way to write async Rust that...비동기 Rust를 작성하는 표준 방법은...
+  - lets you gracefully handle cancellation and streams
+    - 취소 및 스트림을 우아하게 처리할 수 있습니다
+  - supports a rich, interopable ecosystem of middleware, logging,etc
+    - 미들웨어, 로깅 등의 풍부하고 상호 운용 가능한 에코시스템을 지원합니다
+  - works everywhere, from embedded to servers
+    - 내장된 서버에서 서버까지 모든 곳에서 작동합니다
+  - is easy to learn, well documented, and free of footguns
+    - 배우기 쉽고, 잘 문서화되어 있으며, 발총이 없습니다 
+      - C++은 코드를 잘못 만들면 내 발에 총을 쏜다는걸 이야기하는듯 그래서 코드가 터져버리는 ㅋㅋㅋ
+
+- Stabilizing async fn in traits in 2023(async fn 안정화했다는 러스트 블로그 글)
+  - May 3, 2023 · Niko Matsakis and Tyler Mandry on behalf of The Rust Async Working Group
+  - [https://blog.rust-lang.org/inside-rust/2023/05/03/stabilizing-async-fn-in-trait.html](https://blog.rust-lang.org/inside-rust/2023/05/03/stabilizing-async-fn-in-trait.html)
+  - 관련 Reddit글
+    - [https://www.reddit.com/r/rust/comments/136o73k/stabilizing_async_fn_in_traits_in_2023_inside/](https://www.reddit.com/r/rust/comments/136o73k/stabilizing_async_fn_in_traits_in_2023_inside/)
+
+- Rust Async GAT관련
+  - https://rust-lang.github.io/rfcs/3185-static-async-fn-in-trait.html
+    - Try using GAT to improve Future's failed: How to declare the life cycle?
+      -  [https://stackoverflow.com/questions/74441311/try-using-gat-to-improve-futures-failed-how-to-declare-the-life-cycle](https://stackoverflow.com/questions/74441311/try-using-gat-to-improve-futures-failed-how-to-declare-the-life-cycle)
+
+<hr />
