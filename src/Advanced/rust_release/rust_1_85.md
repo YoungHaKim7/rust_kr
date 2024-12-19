@@ -9,6 +9,13 @@
 
 <hr />
 
+# link
+
+- [Asynchrony & Iteration & Fallibility(async(await) & gen(for) & try(match))](#asynchrony--iteration--fallibilityasyncawait--genfor--trymatch)
+- [Rust 2024 주요 3가지 목표(중요한 3가지) & Rust 2024 목표(그외에 23가지 목표)](#rust-2024-주요-3가지-목표중요한-3가지)
+
+<hr />
+
 # (241130기준)현재는 nightly로 사용가능한듯 찾아보자
 - [https://doc.rust-lang.org/nightly/edition-guide/rust-2024/index.html](https://doc.rust-lang.org/nightly/edition-guide/rust-2024/index.html)
 
@@ -78,3 +85,14 @@
 |21| Testing infra + contributors for a-mir-formality|
 |22| Use annotate-snippets for rustc diagnostic output|
 |23| User-wide build cache|
+
+# Asynchrony & Iteration & Fallibility(async(await) & gen(for) & try(match))[|🔝|](#link)
+- Patterns & Abstractions( March 14, 2023
+  - [https://without.boats/blog/patterns-and-abstractions/](https://without.boats/blog/patterns-and-abstractions/)
+
+|-|ASYNCHRONY|  ITERATION | FALLIBILITY|
+|-|-|-|-|
+|CONTEXT| async { }  |gen { } |try { }|
+|EFFECT ||yield  | throw|
+|FORWARD|.await  |yield from|?|
+|COMPLETE|spawn/block_on |for  | match|
