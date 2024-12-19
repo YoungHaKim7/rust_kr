@@ -49,3 +49,32 @@
 |3 | Rust 2024 Edition|
 
 - [https://rust-lang.github.io/rust-project-goals/2024h2/goals.html](https://rust-lang.github.io/rust-project-goals/2024h2/goals.html)
+
+# Rust 2024 목표(그외에 23가지 목표)
+- Goal 러스트 에디션 2024 핵심 목표외 23가지 목표
+
+|||
+|-|-|
+|1| "Stabilizable" prototype for expanded const generics|
+|2| Administrator-provided reasons for yanked crates|
+|3| Assemble project goal slate|
+|4| Associated type position impl trait|
+|5| Begin resolving cargo-semver-checks blockers for merging into cargo|
+|6| Const traits|
+|7| Ergonomic ref-counting|
+|8| Explore sandboxed build scripts|
+|9| Expose experimental LLVM features for automatic differentiation and GPU offloading|
+|10| Extend pubgrub to match cargo's dependency resolution|
+|11| Implement "merged doctests" to save doctest time|
+|12| Make Rustdoc Search easier to learn|
+|13| Next-generation trait solver|
+|14| Optimizing Clippy & linting|
+|15| Patterns of empty types|
+|16| Scalable Polonius support on nightly|
+|17| Stabilize cargo-script|
+|18| Stabilize doc_cfg|
+|19| Stabilize parallel front end|
+|20| Survey tools suitability for Std safety verification|
+|21| Testing infra + contributors for a-mir-formality|
+|22| Use annotate-snippets for rustc diagnostic output|
+|23| User-wide build cache|
