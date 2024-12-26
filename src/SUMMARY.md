@@ -38,6 +38,8 @@
     - [Defining an Enum 정의](./Rust_syntax/enum/enum_defining.md)
   - [데이터 저장Common Collections](./Rust_syntax/Common_Collections/common_collections.md)
     - [Vectors데이터 저장](./Rust_syntax/Common_Collections/Vector.md)
+    - [Matrix매트릭스 저장_다차원 구조로 저장](./Rust_syntax/Common_Collections/Matrix/matrix_intro.md)
+      - [C언어_Matrix매트릭스 저장_다차원 구조로 저장](./Rust_syntax/Common_Collections/Matrix/C_lang_matrix.md)
 
 
 -----------

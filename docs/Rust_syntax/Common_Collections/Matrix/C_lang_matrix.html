@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Rust 고급 기술 - rust_kr</title>
+        <title>C언어_Matrix매트릭스 저장_다차원 구조로 저장 - rust_kr</title>
 
 
         <!-- Custom HTML head -->
@@ -12,21 +12,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/chrome.css">
-        <link rel="stylesheet" href="../css/print.css" media="print">
+        <link rel="icon" href="../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" href="../../../highlight.css">
+        <link rel="stylesheet" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -35,11 +35,11 @@
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "../";
+            var path_to_root = "../../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc.js"></script>
+        <script src="../../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -91,7 +91,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -125,7 +125,7 @@
                     <h1 class="menu-title">rust_kr</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/YoungHaKim7/rust_kr" title="Git repository" aria-label="Git repository">
@@ -157,17 +157,67 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="rust-고급-기술"><a class="header" href="#rust-고급-기술">Rust 고급 기술</a></h1>
+                        <h1 id="matrix매트릭스-저장_다차원-구조로-저장"><a class="header" href="#matrix매트릭스-저장_다차원-구조로-저장">Matrix매트릭스 저장_다차원 구조로 저장</a></h1>
+<h1 id="link"><a class="header" href="#link">link</a></h1>
+<hr />
+<h1 id="c언어로-2차원-매트릭스matrix-만들기"><a class="header" href="#c언어로-2차원-매트릭스matrix-만들기">C언어로 2차원 매트릭스(matrix) 만들기</a></h1>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main(void) {
+    int arr[10];           // 1D array of size 10
+    int arr2d[10][10];     // 2D array (matrix) of size 10x10
+
+    // Example: Initializing the 2D array with values
+    for (int i = 0; i &lt; 10; i++) {
+        for (int j = 0; j &lt; 10; j++) {
+            arr2d[i][j] = i * 10 + j;  // Assigning some values (e.g., row-major order)
+        }
+    }
+
+    // 0 으로 초기화하기
+    // for (int i = 0; i &lt; 10; i++) {
+    //     for (int j = 0; j &lt; 10; j++) {
+    //         arr2d[i][j] = 0;
+    //     }
+    // }
+
+    // Example: Printing the 2D array
+    printf("2D Matrix:\n");
+    for (int i = 0; i &lt; 10; i++) {
+        for (int j = 0; j &lt; 10; j++) {
+            printf("%3d ", arr2d[i][j]);  // Printing each element
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+</code></pre>
+<ul>
+<li>result</li>
+</ul>
+<pre><code>2D Matrix:
+  0   1   2   3   4   5   6   7   8   9
+ 10  11  12  13  14  15  16  17  18  19
+ 20  21  22  23  24  25  26  27  28  29
+ 30  31  32  33  34  35  36  37  38  39
+ 40  41  42  43  44  45  46  47  48  49
+ 50  51  52  53  54  55  56  57  58  59
+ 60  61  62  63  64  65  66  67  68  69
+ 70  71  72  73  74  75  76  77  78  79
+ 80  81  82  83  84  85  86  87  88  89
+ 90  91  92  93  94  95  96  97  98  99
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../Rust_syntax/Common_Collections/Matrix/C_lang_matrix.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../../Rust_syntax/Common_Collections/Matrix/matrix_intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../Advanced/traits.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../../Advanced/advanced.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -177,11 +227,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../Rust_syntax/Common_Collections/Matrix/C_lang_matrix.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../../Rust_syntax/Common_Collections/Matrix/matrix_intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../Advanced/traits.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../../Advanced/advanced.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -196,13 +246,13 @@
         </script>
 
 
-        <script src="../elasticlunr.min.js"></script>
-        <script src="../mark.min.js"></script>
-        <script src="../searcher.js"></script>
+        <script src="../../../elasticlunr.min.js"></script>
+        <script src="../../../mark.min.js"></script>
+        <script src="../../../searcher.js"></script>
 
-        <script src="../clipboard.min.js"></script>
-        <script src="../highlight.js"></script>
-        <script src="../book.js"></script>
+        <script src="../../../clipboard.min.js"></script>
+        <script src="../../../highlight.js"></script>
+        <script src="../../../book.js"></script>
 
         <!-- Custom JS scripts -->
 

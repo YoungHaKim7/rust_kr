@@ -1766,6 +1766,10 @@ fn main() {
 <li>HashMap</li>
 </ul>
 <hr />
+<ul>
+<li><a href="Rust_syntax/Common_Collections/./Matrix/matrix_intro.html">로봇이나 딥러닝 3D게임에서 많이 쓰는 matrix</a></li>
+</ul>
+<hr />
 <h1 id="comment"><a class="header" href="#comment">물어보고 싶거나 하고 싶은말 써 주세요comment<a href="Rust_syntax/Common_Collections/common_collections.html#link">|🔝|</a></a></h1>
 <script src="https://utteranc.es/client.js" repo="YoungHaKim7/blog_comments_bot" issue-term="url"
     theme="github-light" crossorigin="anonymous" async>
@@ -1933,9 +1937,84 @@ vector style (3d dimention) :
 ~~~dimention line~~~
 
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="matrix매트릭스-저장_다차원-구조로-저장"><a class="header" href="#matrix매트릭스-저장_다차원-구조로-저장">Matrix매트릭스 저장_다차원 구조로 저장</a></h1>
+<ul>
+<li>
+<p><a href="https://youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&amp;si=eh9QTSmpf_ZJEhjj">매트릭스 이해를 위한 선형대수학 기본 익히기Essence of linear algebra | 3Blue1Brown(모아보기)</a></p>
+</li>
+<li>
+<p>다차원(tensor)을 이해하기 위해서는 선형대수학은 기본중에 기본 .</p>
+</li>
+</ul>
+<p align="center">
+  <img width=100px src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Components_stress_tensor.svg/300px-Components_stress_tensor.svg.png" />
+</p>
+<hr />
+<h1 id="row와-columns-개념은-익히자"><a class="header" href="#row와-columns-개념은-익히자">row와 columns 개념은 익히자</a></h1>
+<p><img src="https://github.com/user-attachments/assets/bddcac59-40e9-47a6-aaff-e123f5529a15" alt="image" />
+<img src="https://github.com/user-attachments/assets/59c0f8ce-e89f-4bb2-b181-a1ee976a784e" alt="row-major-3D" />
+<img src="https://github.com/user-attachments/assets/b30c4469-e9db-417c-9d44-387f1ef30ad3" alt="two_dimensional_arrays" /></p>
+<hr />
+<h1 id="link-16"><a class="header" href="#link-16">link</a></h1>
+<ul>
+<li><a href="Rust_syntax/Common_Collections/Matrix/./C_lang_matrix.html">C언어로 matrix저장</a></li>
+<li>[Rust언어로 matrix저장]</li>
+</ul>
+<hr />
+<div style="break-before: page; page-break-before: always;"></div><h1 id="matrix매트릭스-저장_다차원-구조로-저장-1"><a class="header" href="#matrix매트릭스-저장_다차원-구조로-저장-1">Matrix매트릭스 저장_다차원 구조로 저장</a></h1>
+<h1 id="link-17"><a class="header" href="#link-17">link</a></h1>
+<hr />
+<h1 id="c언어로-2차원-매트릭스matrix-만들기"><a class="header" href="#c언어로-2차원-매트릭스matrix-만들기">C언어로 2차원 매트릭스(matrix) 만들기</a></h1>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main(void) {
+    int arr[10];           // 1D array of size 10
+    int arr2d[10][10];     // 2D array (matrix) of size 10x10
+
+    // Example: Initializing the 2D array with values
+    for (int i = 0; i &lt; 10; i++) {
+        for (int j = 0; j &lt; 10; j++) {
+            arr2d[i][j] = i * 10 + j;  // Assigning some values (e.g., row-major order)
+        }
+    }
+
+    // 0 으로 초기화하기
+    // for (int i = 0; i &lt; 10; i++) {
+    //     for (int j = 0; j &lt; 10; j++) {
+    //         arr2d[i][j] = 0;
+    //     }
+    // }
+
+    // Example: Printing the 2D array
+    printf("2D Matrix:\n");
+    for (int i = 0; i &lt; 10; i++) {
+        for (int j = 0; j &lt; 10; j++) {
+            printf("%3d ", arr2d[i][j]);  // Printing each element
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+</code></pre>
+<ul>
+<li>result</li>
+</ul>
+<pre><code>2D Matrix:
+  0   1   2   3   4   5   6   7   8   9
+ 10  11  12  13  14  15  16  17  18  19
+ 20  21  22  23  24  25  26  27  28  29
+ 30  31  32  33  34  35  36  37  38  39
+ 40  41  42  43  44  45  46  47  48  49
+ 50  51  52  53  54  55  56  57  58  59
+ 60  61  62  63  64  65  66  67  68  69
+ 70  71  72  73  74  75  76  77  78  79
+ 80  81  82  83  84  85  86  87  88  89
+ 90  91  92  93  94  95  96  97  98  99
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-고급-기술"><a class="header" href="#rust-고급-기술">Rust 고급 기술</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="traits"><a class="header" href="#traits">traits</a></h1>
-<h1 id="link-16"><a class="header" href="#link-16">link</a></h1>
+<h1 id="link-18"><a class="header" href="#link-18">link</a></h1>
 <ul>
 <li><a href="Advanced/">todo</a></li>
 </ul>
@@ -2085,7 +2164,7 @@ fn main() {
 <ul>
 <li><em>22 July 2020 · #rust · #sizedness</em></li>
 </ul>
-<h1 id="link-17"><a class="header" href="#link-17">link</a></h1>
+<h1 id="link-19"><a class="header" href="#link-19">link</a></h1>
 <p><strong>Table of Contents</strong></p>
 <ul>
 <li><a href="Advanced/pretzelhammer_blog/Sizedness_in_rust.html#intro">Intro</a></li>
@@ -3228,7 +3307,7 @@ struct Struct {
 <li><a href="https://eli.thegreenplace.net/2011/12/15/understanding-lvalues-and-rvalues-in-c-and-c/">111215)Understanding lvalues and rvalues in C and C++</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ownership밴다이어그램으로-소유권-이해"><a class="header" href="#ownership밴다이어그램으로-소유권-이해">OwnerShip밴다이어그램으로 소유권 이해</a></h1>
-<h1 id="link-18"><a class="header" href="#link-18">link</a></h1>
+<h1 id="link-20"><a class="header" href="#link-20">link</a></h1>
 <hr />
 <h1 id="벤다이어그램-이해"><a class="header" href="#벤다이어그램-이해">벤다이어그램 이해</a></h1>
 <ul>
@@ -3261,12 +3340,12 @@ struct Struct {
 <li><a href="https://users.rust-lang.org/t/reference-and-mutable-reference-of-methods-on-disjoint-fields/83823">Reference and Mutable Reference of methods on disjoint fields</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="closures클로져deepdive"><a class="header" href="#closures클로져deepdive">Closures클로져DeepDive</a></h1>
-<h1 id="link-19"><a class="header" href="#link-19">link</a></h1>
+<h1 id="link-21"><a class="header" href="#link-21">link</a></h1>
 <hr />
 <h1 id="클로져closures-다이어그램으로-이해하기"><a class="header" href="#클로져closures-다이어그램으로-이해하기">클로져Closures 다이어그램으로 이해하기</a></h1>
 <p><img src="https://github.com/YoungHaKim7/Cpp_Training/assets/67513038/d27b93e6-9935-4367-9339-6d25e65b3a80" alt="fnrust" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="다른언어에서-러스트로-온-좋은-기능들"><a class="header" href="#다른언어에서-러스트로-온-좋은-기능들">다른언어에서 러스트로 온 좋은 기능들..</a></h1>
-<h1 id="link-20"><a class="header" href="#link-20">link</a></h1>
+<h1 id="link-22"><a class="header" href="#link-22">link</a></h1>
 <ul>
 <li><a href="Advanced/rust_release/Rfcs/./rust_const_fn.html"><code>const fn</code>(Rust)_C++에서 (C++)constexpr에서 가져옴</a></li>
 </ul>
@@ -3275,7 +3354,7 @@ struct Struct {
 <ul>
 <li><a href="https://www.reddit.com/r/rust/comments/omefkk/will_const_ever_be_close_to_cs_constexpr/?rdt=34372">https://www.reddit.com/r/rust/comments/omefkk/will_const_ever_be_close_to_cs_constexpr/?rdt=34372</a></li>
 </ul>
-<h1 id="link-21"><a class="header" href="#link-21">link</a></h1>
+<h1 id="link-23"><a class="header" href="#link-23">link</a></h1>
 <ul>
 <li><a href="Advanced/rust_release/Rfcs/rust_const_fn.html#c%EC%97%90%EC%84%9C-c11%EC%97%90%EC%84%9C-constexpr%EB%8F%84%EC%9E%85%EB%90%9C-%EC%8A%A4%ED%86%A0%EB%A6%AC">C++에서 C++11에서 constexpr도입된 스토리</a></li>
 <li><a href="Advanced/rust_release/Rfcs/rust_const_fn.html#rust-verion-const-fn-%EB%B0%9C%EC%A0%84-%EC%97%AD%EC%82%AC">Rust에 도입된 <code>const fn</code> Version별로 정리. 발전 역사</a></li>
@@ -3530,7 +3609,7 @@ a strict minimal subset of the [const fn RFC][RFC-911]. Refer to the
 [language reference][const-reference] for what exactly is available.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="operator"><a class="header" href="#operator">Operator</a></h1>
-<h1 id="link-22"><a class="header" href="#link-22">link</a></h1>
+<h1 id="link-24"><a class="header" href="#link-24">link</a></h1>
 <ul>
 <li><a href="Advanced/Operator/intro.html#operator-expressions">(Rust)Operator expressions</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Operators_in_C_and_C%2B%2B">Operators in C and C++</a></li>
@@ -4229,7 +4308,7 @@ See <a href="https://github.com/rust-lang/rust/blob/1.58.0/src/test/ui/expr/comp
 <ul>
 <li><a href="https://en.cppreference.com/w/c/language/operator_precedence">https://en.cppreference.com/w/c/language/operator_precedence</a></li>
 </ul>
-<h1 id="link-23"><a class="header" href="#link-23">link</a></h1>
+<h1 id="link-25"><a class="header" href="#link-25">link</a></h1>
 <hr />
 <h1 id="c-operator-precedence"><a class="header" href="#c-operator-precedence">C Operator Precedence</a></h1>
 <ul>
@@ -4595,7 +4674,7 @@ a <span class="sy4">?</span> b <span class="sy4">:</span> c<br>
 <li>https://en.cppreference.com/w/c/language/operator_precedence</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="logical_operators"><a class="header" href="#logical_operators">Logical_Operators</a></h1>
-<h1 id="link-24"><a class="header" href="#link-24">link</a></h1>
+<h1 id="link-26"><a class="header" href="#link-26">link</a></h1>
 <hr />
 <h1 id="rust-code"><a class="header" href="#rust-code">Rust Code</a></h1>
 <pre><code class="language-rs">fn main() {
@@ -4628,7 +4707,7 @@ true || !true = true
 !(true || true) == (!true &amp;&amp; !true) = true
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bitwise_operators"><a class="header" href="#bitwise_operators">Bitwise_Operators</a></h1>
-<h1 id="link-25"><a class="header" href="#link-25">link</a></h1>
+<h1 id="link-27"><a class="header" href="#link-27">link</a></h1>
 <ul>
 <li><a href="Advanced/Operator/bitwise_operators.html#a%EA%B0%80--86%EC%9C%BC%EB%A1%9C-%ED%8F%89%EA%B0%80-%EB%90%98%EB%8A%94-%EC%9D%B4%EC%9C%A0">~a가 -86으로 평가 되는 이유</a></li>
 </ul>
@@ -4850,7 +4929,7 @@ x02 &gt;&gt; y02 = 2  // right shift
 </li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="algorithm알고리즘"><a class="header" href="#algorithm알고리즘">Algorithm알고리즘</a></h1>
-<h1 id="link-26"><a class="header" href="#link-26">link</a></h1>
+<h1 id="link-28"><a class="header" href="#link-28">link</a></h1>
 <ul>
 <li>
 <p><a href="Advanced/Algorithm/summary_algo.html#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%EC%9D%98-4%EB%8B%A8%EA%B3%84">알고리즘의 4단계</a></p>
@@ -5133,7 +5212,7 @@ node -&gt; |1 |      |   |2 |
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust_ffi"><a class="header" href="#rust_ffi">Rust_FFI</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust_ffi_c언어"><a class="header" href="#rust_ffi_c언어">Rust_FFI_C언어</a></h1>
-<h1 id="link-27"><a class="header" href="#link-27">link</a></h1>
+<h1 id="link-29"><a class="header" href="#link-29">link</a></h1>
 <hr />
 <h1 id="hello-worldc_ffi_printfc"><a class="header" href="#hello-worldc_ffi_printfc">hello world(C_FFI)_printf(C)</a></h1>
 <p><a href="https://github.com/YoungHaKim7/rust_book_src_examples/tree/main/005_Rust_advanced_course/Rust_FFI/C_lang_Rust_FFI/c_ffi_printf">code ex코드예시</a></p>
@@ -5188,7 +5267,7 @@ Suzanne J. Matthews</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dive-into-systems-print-version-august-2022"><a class="header" href="#dive-into-systems-print-version-august-2022">Dive into Systems Print Version, August 2022</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="by-the-c-by-the-c-by-the-beatutiful-c"><a class="header" href="#by-the-c-by-the-c-by-the-beatutiful-c">By the C, by the C, by the Beatutiful C</a></h1>
-<h1 id="link-28"><a class="header" href="#link-28">link</a></h1>
+<h1 id="link-30"><a class="header" href="#link-30">link</a></h1>
 <hr />
 <h1 id="getting-started-programming-in-c"><a class="header" href="#getting-started-programming-in-c">Getting Started Programming in C</a></h1>
 <pre><code class="language-c">#include &lt;math.h&gt;
@@ -5204,7 +5283,7 @@ int main(void) {
 sqrt(4) is 2.000000
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="integerdisplay정수표시cs"><a class="header" href="#integerdisplay정수표시cs">IntegerDisplay정수표시(CS)</a></h1>
-<h1 id="link-29"><a class="header" href="#link-29">link</a></h1>
+<h1 id="link-31"><a class="header" href="#link-31">link</a></h1>
 <ul>
 <li><a href="Advanced/CS_ComputerSystem/Integer_Display/CS_integer.html#twos-complement-encoding2%EC%9D%98-%EB%B3%B4%EC%88%98">마이너스 구현을 위해 필요two's complement encoding(2의 보수)</a></li>
 </ul>
@@ -5230,7 +5309,7 @@ sqrt(4) is 2.000000
 </code></pre>
 <hr />
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust_release"><a class="header" href="#rust_release">rust_release</a></h1>
-<h1 id="link-30"><a class="header" href="#link-30">link</a></h1>
+<h1 id="link-32"><a class="header" href="#link-32">link</a></h1>
 <ul>
 <li>
 <p><a href="Advanced/rust_release/rust_release.html#rust-version2015%EB%85%84%EB%B6%80%ED%84%B0-%EB%9F%AC%EC%8A%A4%ED%8A%B8-%EC%97%AD%EC%82%AC-%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0">rust 1.0부터 최신버젼까지 역사 흐름 rust2015~rust2024</a></p>
@@ -5317,7 +5396,7 @@ sqrt(4) is 2.000000
 <tr><td>Release version</td><td>1.85.0</td></tr>
 </tbody></table>
 </div><hr />
-<h1 id="link-31"><a class="header" href="#link-31">link</a></h1>
+<h1 id="link-33"><a class="header" href="#link-33">link</a></h1>
 <ul>
 <li><a href="Advanced/rust_release/rust_1_85.html#asynchrony--iteration--fallibilityasyncawait--genfor--trymatch">Asynchrony &amp; Iteration &amp; Fallibility(async(await) &amp; gen(for) &amp; try(match))</a></li>
 <li><a href="Advanced/rust_release/rust_1_85.html#rust-2024-%EC%A3%BC%EC%9A%94-3%EA%B0%80%EC%A7%80-%EB%AA%A9%ED%91%9C%EC%A4%91%EC%9A%94%ED%95%9C-3%EA%B0%80%EC%A7%80">Rust 2024 주요 3가지 목표(중요한 3가지) &amp; Rust 2024 목표(그외에 23가지 목표)</a></li>
@@ -7918,7 +7997,7 @@ assert_eq!(cr"C:\foo", c"C:\\foo");
 <p>As part of the <a href="Advanced/rust_release/editions/rust-2021/reserved-syntax.html">syntax reservation</a> for the 2021 edition, any macro input which may run into this issue should issue a warning from the <code>rust_2021_prefixes_incompatible_syntax</code> migration lint.
 See that chapter for more detail.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust_1_31_rust-edition-2018"><a class="header" href="#rust_1_31_rust-edition-2018">rust_1_31_Rust Edition 2018</a></h1>
-<h1 id="link-32"><a class="header" href="#link-32">link</a></h1>
+<h1 id="link-34"><a class="header" href="#link-34">link</a></h1>
 <hr />
 <h1 id="rust-2018"><a class="header" href="#rust-2018">Rust 2018</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Info</th><th></th></tr></thead><tbody>
@@ -8329,7 +8408,7 @@ really <em>to</em> 2015. As such, there's not much else to say about it!</p>
 </ul>
 </li>
 </ul>
-<h1 id="link-33"><a class="header" href="#link-33">link</a></h1>
+<h1 id="link-35"><a class="header" href="#link-35">link</a></h1>
 <ul>
 <li><a href="Advanced/Parallelism_Concurrency/Parallelism_Concurrency_intro.html#green-thread%EA%B7%B8%EB%A6%B0%EC%93%B0%EB%A0%88%EB%93%9C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0">green-thread그린쓰레드-이해하기</a></li>
 </ul>
@@ -8694,7 +8773,7 @@ async fn main() {
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-optimization최적화"><a class="header" href="#rust-optimization최적화">Rust Optimization최적화</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="모든-언어별-공통적인-최적화-개념"><a class="header" href="#모든-언어별-공통적인-최적화-개념">모든 언어별 공통적인 최적화 개념</a></h1>
-<h1 id="link-34"><a class="header" href="#link-34">link</a></h1>
+<h1 id="link-36"><a class="header" href="#link-36">link</a></h1>
 <ul>
 <li>
 <p><a href="Advanced/Optimization/common.html#temporal-locality-in-memory-mountain">Temporal locality in memory mountain</a></p>
@@ -9312,7 +9391,7 @@ Visual comparison chart: http://i.imgur.com/k0t1e.png
 </ul>
 </li>
 </ul>
-<h1 id="link-35"><a class="header" href="#link-35">link</a></h1>
+<h1 id="link-37"><a class="header" href="#link-37">link</a></h1>
 <ul>
 <li>
 <p><a href="Advanced/Optimization/Rust_LLVM_Compiler.html#rust%EC%BB%B4%ED%8C%8C%EC%9D%BC-%EB%90%98%EB%8A%94-%EA%B3%BC%EC%A0%95">Rust컴파일 되는 과정</a></p>
@@ -9802,7 +9881,7 @@ error: unknown emission type: `help` - expected one of:
 </ul>
 <hr>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-optimization"><a class="header" href="#rust-optimization">Rust Optimization</a></h1>
-<h1 id="link-36"><a class="header" href="#link-36">link</a></h1>
+<h1 id="link-38"><a class="header" href="#link-38">link</a></h1>
 <ul>
 <li><a href="Advanced/Optimization/rust_optimization.html#rust-benchmarking">Rust Benchmarking(criterion)</a></li>
 <li><a href="Advanced/Optimization/rust_optimization.html#rust-optimization-1">Rust Optimization</a></li>
@@ -9855,7 +9934,7 @@ error: unknown emission type: `help` - expected one of:
     theme="github-light" crossorigin="anonymous" async>
 </script>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="vector를-array로-변환"><a class="header" href="#vector를-array로-변환">Vector를 array로 변환</a></h1>
-<h1 id="link-37"><a class="header" href="#link-37">link</a></h1>
+<h1 id="link-39"><a class="header" href="#link-39">link</a></h1>
 <hr />
 <h1 id="vector를-array로-변환-1"><a class="header" href="#vector를-array로-변환-1">Vector를 array로 변환</a></h1>
 <pre><pre class="playground"><code class="language-rust">// rust
@@ -10196,7 +10275,7 @@ fn main() {
 Even Numbers Sum: 30
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="blackhatrust유료영어원서"><a class="header" href="#blackhatrust유료영어원서">BlackHatRust유료(영어원서)</a></h1>
-<h1 id="link-38"><a class="header" href="#link-38">link</a></h1>
+<h1 id="link-40"><a class="header" href="#link-40">link</a></h1>
 <ul>
 <li><a href="https://economiceco.tistory.com/19572">eBook) The book Black Hat Rust is out 🏴‍☠️🍾</a>
 <ul>
@@ -10207,7 +10286,7 @@ Even Numbers Sum: 30
 <hr />
 <h1 id="black-hat-rust로-공부하는-중-최고"><a class="header" href="#black-hat-rust로-공부하는-중-최고">Black Hat Rust로 공부하는 중 최고</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-os"><a class="header" href="#rust-os">Rust OS</a></h1>
-<h1 id="link-39"><a class="header" href="#link-39">link</a></h1>
+<h1 id="link-41"><a class="header" href="#link-41">link</a></h1>
 <ul>
 <li>OS들어가기 전에 컴파일 만들기 책 보고 들어가야 좀 편하다.유명한 컴파일러 만들기 책
 <ul>
@@ -10237,7 +10316,7 @@ Even Numbers Sum: 30
 </ul>
 <hr />
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-embedded"><a class="header" href="#rust-embedded">Rust Embedded</a></h1>
-<h1 id="link-40"><a class="header" href="#link-40">link</a></h1>
+<h1 id="link-42"><a class="header" href="#link-42">link</a></h1>
 <ul>
 <li>Rust Embedded는 2개가 거의 유일하다.
 <ul>
